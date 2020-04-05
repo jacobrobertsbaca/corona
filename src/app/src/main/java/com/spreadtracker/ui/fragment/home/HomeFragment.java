@@ -105,7 +105,9 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
 
             @Override
             public void onPageSelected(int position) {
-
+//                // TODO: random values of infection, remove
+//                if (position == 1)
+//                    viewModel.getInfectedPercentage().setValue(Math.random());
             }
 
             @Override

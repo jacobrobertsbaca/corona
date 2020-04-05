@@ -1,6 +1,9 @@
 package com.spreadtracker.ui.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,9 +29,10 @@ public abstract class ViewModelFragment<TActivity extends FragmentActivity,
     @NonNull
     protected abstract Class<TViewModel> getViewModelClass ();
 
+    @Nullable
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(getViewModelClass());
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }
