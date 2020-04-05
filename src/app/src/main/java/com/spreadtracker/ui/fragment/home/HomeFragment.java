@@ -1,13 +1,15 @@
 package com.spreadtracker.ui.fragment.home;
 
+import android.animation.ArgbEvaluator;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,6 +32,10 @@ import com.spreadtracker.ui.pager.OverlayViewPager;
 public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentViewModel>
     implements OnMapReadyCallback {
 
+    public static HomeFragment create() {
+        return new HomeFragment();
+    }
+
     /**
      * The {@link GoogleMap} object presenting this fragment's map
      */
@@ -39,9 +45,33 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
      */
     private MapView mMapView;
 
+    private ImageView mInfoButton;
+    private ImageView mProfileButton;
+    private OverlayViewPager mViewPager;
+
+    private ArgbEvaluator mColorInterpolator;
+
     @Override
     protected void inOnCreateView(@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initializeMap(savedInstanceState);
+        mInfoButton = root.findViewById(R.id.fragment_home_infoButton);
+        mProfileButton = root.findViewById(R.id.fragment_home_profileButton);
+
+        mInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (activity != null) {
+                    int currentPage = mViewPager.getCurrentItem();
+                    if (currentPage == 0) {
+                        // We are on percentage screen, show percentage info
+                        activity.infoPage(R.layout.info_percentage);
+                    } else if (currentPage == 1) {
+                        // We are on the map page, show map info
+                        activity.infoPage(R.layout.info_map);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -91,19 +121,23 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
      * Creates the pager adapter needed to create the draggable
      */
     private void initializeViewPager () {
-        final int colorDark = ContextCompat.getColor(activity, R.color.grayDark);
-        final int colorLight = ContextCompat.getColor(activity, R.color.white);
+        final int mButtonColorLight = ContextCompat.getColor(activity, R.color.white);
+        final int mButtonColorDark = ContextCompat.getColor(activity, R.color.grayDark);
 
-        OverlayViewPager viewPager = root.findViewById(R.id.fragment_home_viewPager);
-        viewPager.setAdapter(new OverlayPagerAdapter(getChildFragmentManager()));
-        viewPager.setCurrentItem(1); // Set's to second page so that the overlay is hidden by default
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager = root.findViewById(R.id.fragment_home_viewPager);
+        mViewPager.setAdapter(new OverlayPagerAdapter(getChildFragmentManager()));
+        mViewPager.setCurrentItem(1); // Set's to second page so that the overlay is hidden by default
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 0) {
                     // As we drag the overlay down, the icons in the upper left and right hand corners of the screen
                     // should become white
-                    HomeFragment.this.activity.interpolateButtonColor(colorLight, colorDark, positionOffset);
+                    if (mInfoButton == null || mProfileButton == null) return;
+                    if (mColorInterpolator == null) mColorInterpolator = new ArgbEvaluator();
+                    int interp = (int) mColorInterpolator.evaluate(1 - positionOffset, mButtonColorDark, mButtonColorLight);
+                    mInfoButton.setColorFilter(interp);
+                    mProfileButton.setColorFilter(interp);
                 }
             }
             @Override public void onPageSelected(int position) { }

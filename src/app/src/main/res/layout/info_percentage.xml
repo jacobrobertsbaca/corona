@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--This is the info page for the overlay infected percentage screen-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/segoeui_light"
+        android:text="Your Percentage"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/segoeui"
+        android:text="Your percentage is calculated from a combination of many different factors, and represents the chance that you have contracted COVID-19."/>
+
+
+</LinearLayout>
