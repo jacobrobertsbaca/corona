@@ -1,4 +1,4 @@
-package com.spreadtracker.ui.viewpager;
+package com.spreadtracker.ui.pager;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,14 +7,27 @@ import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
 
-public class VerticalViewPager extends ViewPager {
+import com.spreadtracker.ui.adapter.OverlayPagerAdapter;
 
-    public VerticalViewPager(Context context) {
+/*
+ * Taken from StackOverflow: https://stackoverflow.com/questions/13477820/android-vertical-viewpager
+ * and modified to fit the purposes of the scrolling overlay on the home screen.
+ * - Jacob
+ */
+public class OverlayViewPager extends ViewPager {
+
+    /**
+     * A percentage that determines how far (in percentage of the total height of the screen) from the top
+     * of the screen that the user is allowed to scroll.
+     */
+    private final static double ALLOW_SCROLLING_THRESHOLD = 0.125;
+
+    public OverlayViewPager(Context context) {
         super(context);
         init();
     }
 
-    public VerticalViewPager(Context context, AttributeSet attrs) {
+    public OverlayViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -69,6 +82,11 @@ public class VerticalViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev){
+        // Only allow swiping on the map screen (when the overlay is hidden)
+        // when the user swipes from the very top of the page
+        if (getCurrentItem() == 1 && ((double) ev.getY() / getHeight()) >= ALLOW_SCROLLING_THRESHOLD)
+            return false;
+
         boolean intercepted = super.onInterceptTouchEvent(swapXY(ev));
         swapXY(ev); // return touch coordinates to original reference frame for any child views
         return intercepted;
@@ -76,7 +94,10 @@ public class VerticalViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        // Only allow swiping on the map screen (when the overlay is hidden)
+        // when the user swipes from the very top of the page
+        if (ev.getAction() == MotionEvent.ACTION_DOWN && getCurrentItem() == 1 && ((double) ev.getY() / getHeight()) >= ALLOW_SCROLLING_THRESHOLD)
+            return false;
         return super.onTouchEvent(swapXY(ev));
     }
-
 }
