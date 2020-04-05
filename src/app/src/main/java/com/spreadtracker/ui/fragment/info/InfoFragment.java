@@ -24,14 +24,7 @@ public class InfoFragment extends BaseFragment<MainActivity> {
         return new InfoFragment();
     }
 
-    private LayoutInflater mInflater;
-    private FrameLayout mContentHolder;
     private ImageView mCloseButton;
-
-    public void inflateInfo (@LayoutRes int layout) {
-        mContentHolder.removeAllViews();
-        mInflater.inflate(layout, mContentHolder, true);
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -40,8 +33,6 @@ public class InfoFragment extends BaseFragment<MainActivity> {
 
     @Override
     protected void inOnCreateView(@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mInflater = LayoutInflater.from(getContext());
-        mContentHolder = root.findViewById(R.id.fragment_info_contentHolder);
         mCloseButton = root.findViewById(R.id.fragment_info_closeButton);
         mCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override

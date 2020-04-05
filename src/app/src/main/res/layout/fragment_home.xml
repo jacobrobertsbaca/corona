@@ -5,11 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/fragment_home_mapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
     <com.spreadtracker.ui.pager.OverlayViewPager
         android:id="@+id/fragment_home_viewPager"
         android:layout_width="match_parent"

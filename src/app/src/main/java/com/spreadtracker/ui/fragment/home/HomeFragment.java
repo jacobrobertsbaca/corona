@@ -29,21 +29,11 @@ import com.spreadtracker.ui.pager.OverlayViewPager;
  * Represents the home fragment--the "home screen" page of the app.
  * Contains the heatmap and the draggable percentage overlay.
  */
-public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentViewModel>
-    implements OnMapReadyCallback {
+public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentViewModel> {
 
     public static HomeFragment create() {
         return new HomeFragment();
     }
-
-    /**
-     * The {@link GoogleMap} object presenting this fragment's map
-     */
-    private GoogleMap mMap;
-    /**
-     * The actual View that represents the {@link #mMap} object.
-     */
-    private MapView mMapView;
 
     private ImageView mInfoButton;
     private ImageView mProfileButton;
@@ -53,7 +43,6 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
 
     @Override
     protected void inOnCreateView(@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initializeMap(savedInstanceState);
         mInfoButton = root.findViewById(R.id.fragment_home_infoButton);
         mProfileButton = root.findViewById(R.id.fragment_home_profileButton);
 
@@ -69,43 +58,6 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initializeViewPager();
-    }
-
-    /**
-     * Initializes the Google Maps API and the map view in this fragment,
-     * and schedules an asynchronous callback, {@link #onMapReady(GoogleMap)}, to occur when the map has finished loading.
-     * @param savedInstanceState If non-null, represents the saved instance state when this fragment is reconstructed.
-     */
-    private void initializeMap (@Nullable Bundle savedInstanceState) {
-        mMapView = root.findViewById(R.id.fragment_home_mapView);
-
-        // Initialize maps API
-        try {
-            MapsInitializer.initialize(App.instance.getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        mMapView.onCreate(savedInstanceState);
-        mMapView.onResume();
-        mMapView.getMapAsync(this);
-    }
-
-    /**
-     * Called when the Google Map view, {@link #mMapView}, of this fragment has finished loading
-     * and is actually displaying the Google Map.
-     * @param googleMap A {@link GoogleMap} object that represents the map that just finished loading.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Disable the re-align north compass as it obstructs the info button
-        mMap.getUiSettings().setCompassEnabled(false);
-
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     /**
@@ -145,31 +97,4 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
 
     @Override
     protected int getLayout() { return R.layout.fragment_home; }
-
-    /*
-     * Overridden fragment lifecycle methods
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mMapView != null) mMapView.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mMapView != null) mMapView.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mMapView != null) mMapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        if (mMapView != null) mMapView.onLowMemory();
-    }
 }
