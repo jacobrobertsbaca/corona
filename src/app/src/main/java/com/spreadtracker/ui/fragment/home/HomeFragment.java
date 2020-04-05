@@ -78,6 +78,10 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        // Disable the re-align north compass as it obstructs the info button
+        mMap.getUiSettings().setCompassEnabled(false);
+
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -102,18 +106,8 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
                     HomeFragment.this.activity.interpolateButtonColor(colorLight, colorDark, positionOffset);
                 }
             }
-
-            @Override
-            public void onPageSelected(int position) {
-//                // TODO: random values of infection, remove
-//                if (position == 1)
-//                    viewModel.getInfectedPercentage().setValue(Math.random());
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+            @Override public void onPageSelected(int position) { }
+            @Override public void onPageScrollStateChanged(int state) {}
         });
     }
 
