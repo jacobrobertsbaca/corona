@@ -60,16 +60,7 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
         mInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activity != null) {
-                    int currentPage = mViewPager.getCurrentItem();
-                    if (currentPage == 0) {
-                        // We are on percentage screen, show percentage info
-                        activity.infoPage(R.layout.info_percentage);
-                    } else if (currentPage == 1) {
-                        // We are on the map page, show map info
-                        activity.infoPage(R.layout.info_map);
-                    }
-                }
+                if (activity != null) activity.getNav().navigate(R.id.action_homeFragment_to_infoFragment);
             }
         });
     }

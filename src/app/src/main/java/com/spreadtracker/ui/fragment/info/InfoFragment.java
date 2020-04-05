@@ -46,7 +46,7 @@ public class InfoFragment extends BaseFragment<MainActivity> {
         mCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activity != null) activity.homePage();
+                if (activity != null) activity.getNav().popBackStack();
             }
         });
     }
