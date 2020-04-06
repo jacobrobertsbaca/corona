@@ -1,5 +1,6 @@
 package com.spreadtracker.ui.activity.main;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -7,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -14,6 +17,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.spreadtracker.App;
 import com.spreadtracker.R;
 
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * The actual View that represents the {@link #mMap} object.
      */
     private MapView mMapView;
+
+    private FusedLocationProviderClient mLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +82,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Disable the re-align north compass as it obstructs the info button
         mMap.getUiSettings().setCompassEnabled(false);
 
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        zoomToCurrentLocation();
+    }
+
+    private void zoomToCurrentLocation () {
+        if (mLocationClient == null) mLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
+                }
+            }
+        });
     }
 
     /*
