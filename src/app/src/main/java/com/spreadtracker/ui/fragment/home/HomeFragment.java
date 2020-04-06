@@ -46,10 +46,19 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
         mInfoButton = root.findViewById(R.id.fragment_home_infoButton);
         mProfileButton = root.findViewById(R.id.fragment_home_profileButton);
 
+        // Open the info screen when the info button is clicked
         mInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (activity != null) activity.getNav().navigate(R.id.action_homeFragment_to_infoFragment);
+            }
+        });
+
+        // Open the profile screen when the info button is clicked
+        mProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (activity != null) activity.getNav().navigate(R.id.action_homeFragment_to_profileFragment);
             }
         });
     }
@@ -61,7 +70,7 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
     }
 
     /**
-     * Creates the pager adapter needed to create the draggable
+     * Creates the pager adapter needed to create the draggable percentage overlay.
      */
     private void initializeViewPager () {
         final int mButtonColorLight = ContextCompat.getColor(activity, R.color.white);
@@ -83,7 +92,9 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
                     mProfileButton.setColorFilter(interp);
                 }
             }
-            @Override public void onPageSelected(int position) { }
+            @Override public void onPageSelected(int position) {
+                //
+            }
             @Override public void onPageScrollStateChanged(int state) {}
         });
     }

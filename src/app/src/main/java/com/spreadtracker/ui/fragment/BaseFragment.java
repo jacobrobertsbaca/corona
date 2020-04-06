@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import java.util.List;
+
 /**
  * Base class that provides a layer of abstraction over common elements in the app.
  * @param <TActivity> The type of the activity that this fragment runs on. More specifically, the type of the activity returned by {@link #getActivity()}

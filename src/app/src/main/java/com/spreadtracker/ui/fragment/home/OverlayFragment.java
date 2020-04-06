@@ -51,6 +51,8 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
                 setOverlayColor(aDouble);
             }
         });
+
+        viewModel.getInfectedPercentage().setValue(.75);
     }
 
     /**
