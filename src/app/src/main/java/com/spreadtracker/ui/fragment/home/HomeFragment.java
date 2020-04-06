@@ -23,6 +23,7 @@ import com.spreadtracker.R;
 import com.spreadtracker.ui.activity.main.MainActivity;
 import com.spreadtracker.ui.adapter.OverlayPagerAdapter;
 import com.spreadtracker.ui.fragment.ViewModelFragment;
+import com.spreadtracker.ui.fragment.info.InfoFragment;
 import com.spreadtracker.ui.pager.OverlayViewPager;
 
 /**
@@ -50,7 +51,14 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
         mInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activity != null) activity.getNav().navigate(R.id.action_homeFragment_to_infoFragment);
+                if (mViewPager.getCurrentItem() == 0) {
+                    // When we open the info screen from the overlay percentage screen,
+                    // we want the info screen to have the same background color as the overlay percentage
+                    // to avoid confusion.
+                    Bundle args = new Bundle();
+                    args.putBoolean(InfoFragment.ARGS_USE_INFECTED_COLOR, true);
+                    activity.getNav().navigate(R.id.action_homeFragment_to_infoFragment, args);
+                } else activity.getNav().navigate(R.id.action_homeFragment_to_infoFragment);
             }
         });
 
@@ -58,7 +66,7 @@ public class HomeFragment extends ViewModelFragment<MainActivity, HomeFragmentVi
         mProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activity != null) activity.getNav().navigate(R.id.action_homeFragment_to_profileFragment);
+                activity.getNav().navigate(R.id.action_homeFragment_to_profileFragment);
             }
         });
     }

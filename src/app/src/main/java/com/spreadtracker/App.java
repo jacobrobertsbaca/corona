@@ -12,7 +12,10 @@ public class App extends Application {
     /**
      * A globally accessible instance of the {@link App} class.
      */
-    public static App instance;
+    private static App instance;
+    public static App getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {

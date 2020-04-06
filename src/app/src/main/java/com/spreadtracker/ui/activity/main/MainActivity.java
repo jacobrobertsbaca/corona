@@ -2,6 +2,8 @@ package com.spreadtracker.ui.activity.main;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Initialize maps API
         try {
-            MapsInitializer.initialize(App.instance.getApplicationContext());
+            MapsInitializer.initialize(App.getInstance().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Disable the re-align north compass as it obstructs the info button
         mMap.getUiSettings().setCompassEnabled(false);
+
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         zoomToCurrentLocation();
     }
