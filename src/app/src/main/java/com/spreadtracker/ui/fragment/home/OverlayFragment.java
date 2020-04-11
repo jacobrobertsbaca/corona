@@ -14,6 +14,9 @@ import com.spreadtracker.R;
 import com.spreadtracker.ui.activity.main.MainActivity;
 import com.spreadtracker.ui.fragment.ViewModelFragment;
 
+import com.spreadtracker.model.calculator;
+
+
 /**
  * Represents the percentage overlay screen that shows the user the percentage
  * chance that they have contracted the coronavirus.
@@ -45,7 +48,7 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
             }
         });
 
-        viewModel.getInfectedPercentage().setValue(.75);
+        viewModel.getInfectedPercentage().setValue(calculator.getBasePercentage());
     }
 
     /*
