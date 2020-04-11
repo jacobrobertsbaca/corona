@@ -17,7 +17,7 @@ import com.spreadtracker.ui.adapter.OverlayPagerAdapter;
 public class OverlayViewPager extends ViewPager {
 
     /**
-     * A percentage that determines how far (in percentage of the total height of the screen) from the top
+     * A percentage that determines how far (in percentage of the total height of the screen) from the bottom
      * of the screen that the user is allowed to scroll.
      */
     private final static double ALLOW_SCROLLING_THRESHOLD = 0.125;
@@ -84,7 +84,7 @@ public class OverlayViewPager extends ViewPager {
     public boolean onInterceptTouchEvent(MotionEvent ev){
         // Only allow swiping on the map screen (when the overlay is hidden)
         // when the user swipes from the very top of the page
-        if (getCurrentItem() == 1 && ((double) ev.getY() / getHeight()) >= ALLOW_SCROLLING_THRESHOLD)
+        if (getCurrentItem() == OverlayPagerAdapter.PAGE_MAP && ((double) ev.getY() / getHeight()) <= 1 - ALLOW_SCROLLING_THRESHOLD)
             return false;
 
         boolean intercepted = super.onInterceptTouchEvent(swapXY(ev));
@@ -96,7 +96,7 @@ public class OverlayViewPager extends ViewPager {
     public boolean onTouchEvent(MotionEvent ev) {
         // Only allow swiping on the map screen (when the overlay is hidden)
         // when the user swipes from the very top of the page
-        if (ev.getAction() == MotionEvent.ACTION_DOWN && getCurrentItem() == 1 && ((double) ev.getY() / getHeight()) >= ALLOW_SCROLLING_THRESHOLD)
+        if (ev.getAction() == MotionEvent.ACTION_DOWN && getCurrentItem() == OverlayPagerAdapter.PAGE_MAP && ((double) ev.getY() / getHeight()) <= 1 - ALLOW_SCROLLING_THRESHOLD)
             return false;
         return super.onTouchEvent(swapXY(ev));
     }
