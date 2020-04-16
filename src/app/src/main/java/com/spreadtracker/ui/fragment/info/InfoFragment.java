@@ -1,5 +1,6 @@
 package com.spreadtracker.ui.fragment.info;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +11,21 @@ import android.widget.ImageView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.spreadtracker.R;
 import com.spreadtracker.ui.activity.main.MainActivity;
 import com.spreadtracker.ui.fragment.BaseFragment;
+import com.spreadtracker.ui.fragment.NavigationBuilder;
+import com.spreadtracker.ui.fragment.NavigationFragment;
+import com.spreadtracker.ui.fragment.ViewModelLessNavigationFragment;
 import com.spreadtracker.ui.fragment.home.HomeFragmentViewModel;
 
 /**
  * The fragment that displays the info pages in the app.
  */
-public class InfoFragment extends BaseFragment<MainActivity> {
+public class InfoFragment extends ViewModelLessNavigationFragment<MainActivity> {
 
     public final static String ARGS_USE_INFECTED_COLOR = "useInfectedColor";
 
@@ -33,17 +38,6 @@ public class InfoFragment extends BaseFragment<MainActivity> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    protected void inOnCreateView(@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mCloseButton = root.findViewById(R.id.fragment_info_closeButton);
-        mCloseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (activity != null) activity.getNav().popBackStack();
-            }
-        });
     }
 
     @Override
@@ -66,5 +60,16 @@ public class InfoFragment extends BaseFragment<MainActivity> {
     @Override
     protected int getLayout() {
         return R.layout.fragment_info;
+    }
+
+    @Override
+    protected void inOnCreateView(@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @NonNull
+    @Override
+    protected NavigationBuilder buildNavigation(@NonNull Context context) {
+        return new NavigationBuilder(this, context);
     }
 }

@@ -22,6 +22,9 @@ public class OverlayPagerAdapter extends FragmentStatePagerAdapter {
      */
     private static final int ITEM_COUNT = 2;
 
+    public static final int PAGE_MAP = 1;
+    public static final int PAGE_OVERLAY = 0;
+
     public OverlayPagerAdapter(@NonNull FragmentManager fragmentManager) {
         super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }

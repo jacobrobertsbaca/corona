@@ -84,7 +84,7 @@ public class OverlayViewPager extends ViewPager {
     public boolean onInterceptTouchEvent(MotionEvent ev){
         // Only allow swiping on the map screen (when the overlay is hidden)
         // when the user swipes from the very top of the page
-        if (getCurrentItem() == OverlayPagerAdapter.PAGE_MAP && ((double) ev.getY() / getHeight()) <= 1 - ALLOW_SCROLLING_THRESHOLD)
+        if (getCurrentItem() == OverlayPagerAdapter.PAGE_MAP && ((double) ev.getY() / getHeight()) > ALLOW_SCROLLING_THRESHOLD)
             return false;
 
         boolean intercepted = super.onInterceptTouchEvent(swapXY(ev));
@@ -96,7 +96,7 @@ public class OverlayViewPager extends ViewPager {
     public boolean onTouchEvent(MotionEvent ev) {
         // Only allow swiping on the map screen (when the overlay is hidden)
         // when the user swipes from the very top of the page
-        if (ev.getAction() == MotionEvent.ACTION_DOWN && getCurrentItem() == OverlayPagerAdapter.PAGE_MAP && ((double) ev.getY() / getHeight()) <= 1 - ALLOW_SCROLLING_THRESHOLD)
+        if (ev.getAction() == MotionEvent.ACTION_DOWN && getCurrentItem() == OverlayPagerAdapter.PAGE_MAP && ((double) ev.getY() / getHeight()) >ALLOW_SCROLLING_THRESHOLD)
             return false;
         return super.onTouchEvent(swapXY(ev));
     }

@@ -26,13 +26,15 @@ public abstract class ViewModelFragment<TActivity extends FragmentActivity,
      * @return A class object representing the class of {@link TViewModel}
      */
     // Note to self: fuck java
-    @NonNull
+    @Nullable
     protected abstract Class<TViewModel> getViewModelClass ();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(requireActivity()).get(getViewModelClass());
+        Class<TViewModel> viewModelClass = getViewModelClass();
+        if (viewModelClass != null)
+            viewModel = new ViewModelProvider(requireActivity()).get(viewModelClass);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

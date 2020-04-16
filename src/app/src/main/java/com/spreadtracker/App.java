@@ -5,6 +5,8 @@ import android.content.ContentProvider;
 import android.content.Context;
 import android.os.Build;
 
+import java.lang.ref.WeakReference;
+
 /**
  * The application class for the spread tracker app.
  */
@@ -12,14 +14,18 @@ public class App extends Application {
     /**
      * A globally accessible instance of the {@link App} class.
      */
-    private static App instance;
+    private static WeakReference<App> instance;
     public static App getInstance() {
-        return instance;
+        return instance.get();
+    }
+
+    public static Context getContext () {
+        return instance.get();
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
+        instance = new WeakReference<>(this);
     }
 }
