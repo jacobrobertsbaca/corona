@@ -9,4 +9,6 @@
 
     <color name="overlayHealthy">#B002F170</color>
     <color name="overlayUnhealthy">#BCFA2053</color>
+
+    <color name="errorRed">#D86262</color>
 </resources>

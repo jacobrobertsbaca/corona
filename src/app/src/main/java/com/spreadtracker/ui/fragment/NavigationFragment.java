@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModel;
-import androidx.navigation.Navigation;
 
 import com.spreadtracker.R;
+import com.spreadtracker.ui.activity.main.MainActivity;
 
 public abstract class NavigationFragment<TActivity extends FragmentActivity, TViewModel extends ViewModel>
         extends ViewModelFragment<TActivity, TViewModel> {
@@ -35,7 +35,7 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
         parent.setOrientation(LinearLayout.VERTICAL);
 
         // Create toolbar
-        mToolbar = (ViewGroup) inflater.inflate(R.layout.navigation_toolbar, parent);
+        mToolbar = (ViewGroup) inflater.inflate(R.layout.view_navigation_toolbar, parent);
         mTitleView = mToolbar.findViewById(R.id.navigation_toolbar_title);
         mLeftButtonView = mToolbar.findViewById(R.id.navigation_toolbar_button_left);
         mRightButtonView = mToolbar.findViewById(R.id.navigation_toolbar_button_right);
@@ -46,11 +46,10 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
 
         // Set up navigation for the first time
         updateNavigation(buildNavigation(inflater.getContext()));
-
         return parent;
     }
 
-    protected void updateNavigation (@NonNull NavigationBuilder builder) {
+    public void updateNavigation (@NonNull NavigationBuilder builder) {
         mNavigationBuilder = builder;
 
         root.setBackgroundColor(builder.getBackgroundColor());
@@ -71,7 +70,7 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
     }
 
     @NonNull
-    protected NavigationBuilder getNavigation () { return mNavigationBuilder; }
+    public NavigationBuilder getNavigation () { return mNavigationBuilder; }
 
     @NonNull
     protected abstract NavigationBuilder buildNavigation(@NonNull Context context);
