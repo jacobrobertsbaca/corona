@@ -29,5 +29,28 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.spreadtracker.ui.fragment.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_generalSettingsFragment"
+            app:destination="@id/generalSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_profileFragment_to_medicalHistorySettingsFragment"
+            app:destination="@id/medicalHistorySettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/generalSettingsFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.GeneralSettingsFragment"
+        android:label="GeneralSettingsFragment" />
+    <fragment
+        android:id="@+id/medicalHistorySettingsFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.MedicalHistorySettingsFragment"
+        android:label="MedicalHistorySettingsFragment" />
 </navigation>

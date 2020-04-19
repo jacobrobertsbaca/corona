@@ -1,4 +1,4 @@
-package com.spreadtracker.ui.pager;
+package com.spreadtracker.ui.util;
 
 import android.content.Context;
 import android.util.AttributeSet;

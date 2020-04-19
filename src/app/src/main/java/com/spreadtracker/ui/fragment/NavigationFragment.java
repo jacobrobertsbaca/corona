@@ -46,6 +46,9 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
 
         // Set up navigation for the first time
         updateNavigation(buildNavigation(inflater.getContext()));
+
+        inOnCreateView(container, savedInstanceState);
+
         return parent;
     }
 

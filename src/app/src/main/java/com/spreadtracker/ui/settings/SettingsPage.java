@@ -49,6 +49,6 @@ public class SettingsPage extends SettingsNode {
         }
 
         mContainerView.addView(layout);
-        return mContainerView;
+        return layout;
     }
 }

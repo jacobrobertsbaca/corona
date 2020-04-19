@@ -24,7 +24,7 @@ import com.spreadtracker.ui.activity.main.MainActivity;
 import com.spreadtracker.ui.adapter.OverlayPagerAdapter;
 import com.spreadtracker.ui.fragment.ViewModelFragment;
 import com.spreadtracker.ui.fragment.info.InfoFragment;
-import com.spreadtracker.ui.pager.OverlayViewPager;
+import com.spreadtracker.ui.util.OverlayViewPager;
 
 /**
  * Represents the home fragment--the "home screen" page of the app.
