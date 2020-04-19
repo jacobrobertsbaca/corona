@@ -13,12 +13,15 @@ import com.spreadtracker.R;
 import com.spreadtracker.ui.activity.main.MainActivity;
 import com.spreadtracker.ui.fragment.NavigationBuilder;
 import com.spreadtracker.ui.fragment.NavigationFragment;
-import com.spreadtracker.ui.fragment.ViewModelFragment;
+import com.spreadtracker.ui.settings.NavigationSetting;
+import com.spreadtracker.ui.settings.NavigationSettingsPage;
 
 public class ProfileFragment extends NavigationFragment<MainActivity, ProfileFragmentViewModel> {
     @Override
     protected void inOnCreateView(@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        ViewGroup settingsRoot = root.findViewById(R.id.fragment_profile_settingsHolder);
+//        NavigationSettingsPage navSettings = new NavigationSettingsPage(this, settingsRoot,
+//                new NavigationSetting());
     }
 
     @NonNull @Override protected Class<ProfileFragmentViewModel> getViewModelClass() { return ProfileFragmentViewModel.class; }

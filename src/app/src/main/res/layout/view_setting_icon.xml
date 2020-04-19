@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:_android="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/overlayHealthy">
+
+    <view
+        android:id="@+id/view_setting_icon_divider_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"/>
+
+    <TextView
+        android:id="@+id/view_setting_icon_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical|start"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/grayDark"
+        android:textSize="22sp"
+        android:text="Title"/>
+
+    <TextView
+        android:id="@+id/view_setting_icon_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/view_setting_icon_image"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical|start"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:text="Text"/>
+
+    <ImageView
+        android:id="@+id/view_setting_icon_image"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_checkmark"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"/>
+
+    <view
+        android:id="@+id/view_setting_icon_divider_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"/>
+
+
+</RelativeLayout>
