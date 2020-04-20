@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModel;
 
 import com.spreadtracker.R;
-import com.spreadtracker.ui.activity.main.MainActivity;
 
 public abstract class NavigationFragment<TActivity extends FragmentActivity, TViewModel extends ViewModel>
         extends ViewModelFragment<TActivity, TViewModel> {

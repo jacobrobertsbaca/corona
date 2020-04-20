@@ -18,9 +18,8 @@ import java.util.ArrayList;
  * A setting that stores no state, but has a title, an icon, and some text
  * associated with it.
  */
-public class IconSetting extends SettingsNode {
+public class IconSetting extends DividerSetting {
 
-    private View mTopDivider, mBottomDivider;
     protected ImageView iconView;
     protected TextView titleView, textView;
 
@@ -29,20 +28,7 @@ public class IconSetting extends SettingsNode {
     public View inflateLayout(@NonNull LayoutInflater inflater) {
         View root = inflater.inflate(R.layout.view_setting_icon, getParentView(), false);
         setRootView(root);
-
-        mTopDivider = root.findViewById(R.id.view_setting_icon_divider_top);
-        mBottomDivider = root.findViewById(R.id.view_setting_icon_divider_bottom);
-
-        // Disable dividers selectively
-        ArrayList<SettingsNode> siblings = getParent().getChildren();
-        int myIndex = siblings.indexOf(this);
-        if (myIndex > 0) {
-            SettingsNode lastSibling = siblings.get(myIndex - 1);
-            if (lastSibling instanceof IconSetting) {
-                IconSetting lastIcon = (IconSetting) lastSibling;
-                lastIcon.mBottomDivider.setVisibility(View.GONE);
-            }
-        }
+        setDividers(root);
 
         iconView = root.findViewById(R.id.view_setting_icon_image);
         titleView = root.findViewById(R.id.view_setting_icon_title);
