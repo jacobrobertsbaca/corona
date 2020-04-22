@@ -30,7 +30,12 @@ public class NavigationSettingsPage extends SettingsPage {
             @Override
             public void onClick(View v) {
                 // Save children element's state
-                if (canSave()) saveState();
+                if (canSave()) {
+                    saveState();
+                    NavigationBuilder nav = mFragment.getNavigation();
+                    nav.setRightButtonVisibility(View.GONE);
+                    mFragment.updateNavigation(nav);
+                }
             }
         });
         mFragment.updateNavigation(newNav);

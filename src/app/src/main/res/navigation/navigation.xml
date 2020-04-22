@@ -51,6 +51,18 @@
         android:label="GeneralSettingsFragment" />
     <fragment
         android:id="@+id/medicalHistorySettingsFragment"
-        android:name="com.spreadtracker.ui.fragment.settings.MedicalHistorySettingsFragment"
-        android:label="MedicalHistorySettingsFragment" />
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistorySettingsFragment"
+        android:label="MedicalHistorySettingsFragment" >
+        <action
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_DiseasesSettingsFragment"
+            app:destination="@id/medicalHistory_DiseasesSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicalHistory_DiseasesSettingsFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_DiseasesSettingsFragment"
+        android:label="MedicalHistory_DiseasesSettingsFragment" />
 </navigation>

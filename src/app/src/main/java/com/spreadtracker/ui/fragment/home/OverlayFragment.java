@@ -1,13 +1,11 @@
 package com.spreadtracker.ui.fragment.home;
 
-import android.animation.ArgbEvaluator;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
 import com.spreadtracker.R;
@@ -43,7 +41,7 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
         viewModel.getInfectedPercentage().observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
-                OverlayFragment.this.mInfectedPercentage.setText(getString(R.string.fragment_overlay_percentage, (int) (aDouble * 100)));
+                OverlayFragment.this.mInfectedPercentage.setText(getString(R.string.overlay_percentage, (int) (aDouble * 100)));
                 root.setBackgroundColor(viewModel.getInfectedPercentageColor());
             }
         });

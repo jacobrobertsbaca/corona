@@ -7,7 +7,7 @@ import com.spreadtracker.R;
 public class GeneralSettingsFragment extends SettingsFragment {
     @Override
     protected int getTitle() {
-        return R.string.fragment_settings_general_title;
+        return R.string.settings_general_title;
     }
 
     @Override

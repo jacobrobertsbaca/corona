@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * A setting that stores no state, but has a title, an icon, and some text
  * associated with it.
  */
-public class IconSetting extends DividerSetting {
+public class IconSetting extends SettingsNode {
 
     protected ImageView iconView;
     protected TextView titleView, textView;
@@ -38,6 +38,18 @@ public class IconSetting extends DividerSetting {
         textView.setText("");
 
         return root;
+    }
+
+    private View mTopDivider, mBottomDivider;
+
+    protected final void setDividers (View root) {
+        mTopDivider = root.findViewById(R.id.view_settings_divider_top);
+        mBottomDivider = root.findViewById(R.id.view_settings_divider_bottom);
+
+        ArrayList<SettingsNode> siblings = getParent().getChildren();
+        int index = siblings.indexOf(this);
+        if (index < siblings.size() - 1 && siblings.get(index + 1) instanceof IconSetting)
+            mBottomDivider.setVisibility(View.GONE);
     }
 
     protected void setIcon (@DrawableRes int resId) {
