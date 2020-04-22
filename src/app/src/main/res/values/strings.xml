@@ -11,4 +11,6 @@
     <string name="settings_medicalhistory_diseases_heartdisease">Heart Disease</string>
     <string name="settings_general_birthday">Birthday</string>
     <string name="settings_general_birthday_error">Please select a valid birthday</string>
+    <string name="settings_general_physicalactivity_title">Physical Activity</string>
+    <string name="settings_general_physicalactivity">Active Hours per Day</string>
 </resources>

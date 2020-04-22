@@ -1,8 +1,9 @@
-package com.spreadtracker.ui.fragment.settings;
+package com.spreadtracker.ui.fragment.settings.general;
 
 import android.view.ViewGroup;
 
 import com.spreadtracker.R;
+import com.spreadtracker.ui.fragment.settings.SettingsFragment;
 import com.spreadtracker.ui.settings.NavigationSettingsPage;
 import com.spreadtracker.ui.settings.value.DatePickerSetting;
 

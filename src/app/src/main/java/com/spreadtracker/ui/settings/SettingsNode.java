@@ -115,10 +115,10 @@ public abstract class SettingsNode implements ISavable {
         for (SettingsNode child : mChildren) {
             if (child.isDirty()) {
                 childrenDirty = true;
-                return;
+                break;
             }
         }
-        notifyChildrenDirty(dirty);
+        notifyChildrenDirty(childrenDirty);
         if (mParent != null) mParent.notifyDirty(dirty);
     }
 

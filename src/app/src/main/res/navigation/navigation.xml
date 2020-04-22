@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/generalSettingsFragment"
-        android:name="com.spreadtracker.ui.fragment.settings.GeneralSettingsFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.general.GeneralSettingsFragment"
         android:label="GeneralSettingsFragment" />
     <fragment
         android:id="@+id/medicalHistorySettingsFragment"

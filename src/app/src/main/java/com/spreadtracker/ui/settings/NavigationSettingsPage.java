@@ -44,7 +44,7 @@ public class NavigationSettingsPage extends SettingsPage {
     public void notifyChildrenDirty(boolean dirty) {
         // When a child sets a dirty state, we will show or hide the save button
         NavigationBuilder newNav = mFragment.getNavigation();
-        newNav.setRightButtonVisibility(isDirty() ? View.VISIBLE : View.GONE); // I use isDirty() here because super.notifyDirty() will check if children are dirty
+        newNav.setRightButtonVisibility(dirty ? View.VISIBLE : View.GONE); // I use isDirty() here because super.notifyDirty() will check if children are dirty
         mFragment.updateNavigation(newNav);
     }
 
