@@ -111,12 +111,23 @@ public abstract class SettingsNode implements ISavable {
     @Override
     public void notifyDirty(boolean dirty) {
         mIsDirty = dirty;
-        for (SettingsNode child : mChildren)
+        boolean childrenDirty = false;
+        for (SettingsNode child : mChildren) {
             if (child.isDirty()) {
-                mIsDirty = true;
-                break;
-            } else mIsDirty = false;
+                childrenDirty = true;
+                return;
+            }
+        }
+        notifyChildrenDirty(dirty);
         if (mParent != null) mParent.notifyDirty(dirty);
+    }
+
+    /**
+     * Called when a parent's children are collectively dirty or undirty.
+     * @param childrenDirty True if any of the children are dirty, and false otherwise.
+     */
+    public void notifyChildrenDirty(boolean childrenDirty) {
+
     }
 
     @Nullable
