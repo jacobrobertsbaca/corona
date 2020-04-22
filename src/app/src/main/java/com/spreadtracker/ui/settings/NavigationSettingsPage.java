@@ -4,7 +4,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 
 import com.spreadtracker.R;
@@ -42,10 +41,11 @@ public class NavigationSettingsPage extends SettingsPage {
     }
 
     @Override
-    public void setDirty(boolean dirty) {
+    public void notifyDirty(boolean dirty) {
+        super.notifyDirty(dirty);
         // When a child sets a dirty state, we will show or hide the save button
         NavigationBuilder newNav = mFragment.getNavigation();
-        newNav.setRightButtonVisibility(dirty ? View.VISIBLE : View.GONE);
+        newNav.setRightButtonVisibility(isDirty() ? View.VISIBLE : View.GONE); // I use isDirty() here because super.notifyDirty() will check if children are dirty
         mFragment.updateNavigation(newNav);
     }
 

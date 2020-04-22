@@ -24,6 +24,8 @@ public abstract class SettingsNode implements ISavable {
     private Context mCtx;
     private View mRoot;
 
+    private boolean mIsDirty;
+
     public final SettingsNode getParent() { return mParent; }
     public final ArrayList<SettingsNode> getChildren () { return mChildren; }
 
@@ -104,9 +106,17 @@ public abstract class SettingsNode implements ISavable {
             child.restoreState();
     }
 
+    public boolean isDirty () {return mIsDirty;}
+
     @Override
-    public void setDirty(boolean dirty) {
-        if (mParent != null) mParent.setDirty(dirty);
+    public void notifyDirty(boolean dirty) {
+        mIsDirty = dirty;
+        for (SettingsNode child : mChildren)
+            if (child.isDirty()) {
+                mIsDirty = true;
+                break;
+            } else mIsDirty = false;
+        if (mParent != null) mParent.notifyDirty(dirty);
     }
 
     @Nullable

@@ -32,7 +32,7 @@ public class CheckmarkSetting extends ValueSetting<Boolean> {
             @Override
             public void onClick(View v) {
                 setState(!mCurrent);
-                setDirty(mCurrent != readValue());
+                notifyDirty(mCurrent != readValue());
             }
         });
 
