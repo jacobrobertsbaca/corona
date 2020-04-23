@@ -22,13 +22,12 @@ public abstract class ValueSetting<T> extends IconSetting {
 
     protected T readValue () { return SettingsStore.getInstance(getContext()).readValue(mStorageKey, mDefaultValue); }
     protected void writeValue (T value) { SettingsStore.getInstance(getContext()).writeValue(mStorageKey, value); }
-    public String getStorageKey () {return mStorageKey;}
 
     @NonNull
     @Override
     public View inflateLayout(@NonNull LayoutInflater inflater) {
         View root = super.inflateLayout(inflater);
-        setTitleText(mTitleResId);
+        titleView.setText(mTitleResId);
         return root;
     }
 }

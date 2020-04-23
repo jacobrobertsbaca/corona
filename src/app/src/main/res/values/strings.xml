@@ -12,5 +12,7 @@
     <string name="settings_general_birthday">Birthday</string>
     <string name="settings_general_birthday_error">Please select a valid birthday</string>
     <string name="settings_general_physicalactivity_title">Physical Activity</string>
-    <string name="settings_general_physicalactivity">Active Hours per Day</string>
+    <string name="settings_general_physicalactivity_active">Active</string>
+    <string name="settings_general_physicalactivity_moderate">Moderately Active</string>
+    <string name="settings_general_physicalactivity_inactive">Inactive</string>
 </resources>

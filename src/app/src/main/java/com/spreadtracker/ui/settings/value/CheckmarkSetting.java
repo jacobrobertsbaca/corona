@@ -27,16 +27,20 @@ public class CheckmarkSetting extends ValueSetting<Boolean> {
         iconView.setVisibility(View.GONE);
 
         // Set an on click listener for this view
-        // so that when we click the boolean setting, we change
+        // so that when we click the boolean setting, we change state
         getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setState(!mCurrent);
-                notifyDirty(mCurrent != readValue());
+                onSettingClicked();
             }
         });
 
         return root;
+    }
+
+    protected void onSettingClicked () {
+        setState(!mCurrent);
+        notifyDirty(mCurrent != readValue());
     }
 
     @Override
@@ -49,6 +53,7 @@ public class CheckmarkSetting extends ValueSetting<Boolean> {
     @Override
     public void saveState() {
         writeValue(mCurrent);
+        notifyDirty(false);
     }
 
     @Override

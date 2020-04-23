@@ -31,9 +31,9 @@ public class NavigationSetting extends IconSetting {
         View root = super.inflateLayout(inflater);
 
         // Set correct title and icon
-        setTitleText(mTitleResId);
-        setText("");
-        setIcon(R.drawable.ic_next);
+        titleView.setText(mTitleResId);
+        textView.setText("");
+        iconView.setImageResource(R.drawable.ic_next);
 
         // Set click listener to navigate to the destination page
         root.setOnClickListener(new View.OnClickListener() {

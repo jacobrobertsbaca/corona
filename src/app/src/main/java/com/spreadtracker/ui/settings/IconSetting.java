@@ -51,24 +51,4 @@ public class IconSetting extends SettingsNode {
         if (index < siblings.size() - 1 && siblings.get(index + 1) instanceof IconSetting)
             mBottomDivider.setVisibility(View.GONE);
     }
-
-    protected void setIcon (@DrawableRes int resId) {
-        iconView.setImageResource(resId);
-    }
-
-    protected void setTitleText (@StringRes int resId) {
-        titleView.setText(resId);
-    }
-
-    protected void setTitleText (String text) {
-        titleView.setText(text);
-    }
-
-    protected void setText (@StringRes int resId) {
-        textView.setText(resId);
-    }
-
-    protected void setText (String text) {
-        textView.setText(text);
-    }
 }

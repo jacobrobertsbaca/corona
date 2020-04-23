@@ -126,9 +126,7 @@ public abstract class SettingsNode implements ISavable {
      * Called when a parent's children are collectively dirty or undirty.
      * @param childrenDirty True if any of the children are dirty, and false otherwise.
      */
-    public void notifyChildrenDirty(boolean childrenDirty) {
-
-    }
+    public void notifyChildrenDirty(boolean childrenDirty) {}
 
     @Nullable
     protected ViewGroup getParentView () {
