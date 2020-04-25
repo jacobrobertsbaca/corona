@@ -1,20 +1,18 @@
 package com.spreadtracker.ui.fragment.home;
 
-import android.animation.ArgbEvaluator;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
 import com.spreadtracker.R;
 import com.spreadtracker.ui.activity.main.MainActivity;
 import com.spreadtracker.ui.fragment.ViewModelFragment;
 
-import com.spreadtracker.model.calculator;
+import com.spreadtracker.model.Calculator;
 
 
 /**
@@ -48,7 +46,7 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
             }
         });
 
-        viewModel.getInfectedPercentage().setValue(calculator.getBasePercentage());
+        viewModel.getInfectedPercentage().setValue(Calculator.getBasePercentage());
     }
 
     /*
