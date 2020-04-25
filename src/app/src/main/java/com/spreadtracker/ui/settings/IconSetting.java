@@ -20,7 +20,6 @@ import java.util.ArrayList;
  */
 public class IconSetting extends SettingsNode {
 
-    private View mTopDivider, mBottomDivider;
     protected ImageView iconView;
     protected TextView titleView, textView;
 
@@ -29,20 +28,7 @@ public class IconSetting extends SettingsNode {
     public View inflateLayout(@NonNull LayoutInflater inflater) {
         View root = inflater.inflate(R.layout.view_setting_icon, getParentView(), false);
         setRootView(root);
-
-        mTopDivider = root.findViewById(R.id.view_setting_icon_divider_top);
-        mBottomDivider = root.findViewById(R.id.view_setting_icon_divider_bottom);
-
-        // Disable dividers selectively
-        ArrayList<SettingsNode> siblings = getParent().getChildren();
-        int myIndex = siblings.indexOf(this);
-        if (myIndex > 0) {
-            SettingsNode lastSibling = siblings.get(myIndex - 1);
-            if (lastSibling instanceof IconSetting) {
-                IconSetting lastIcon = (IconSetting) lastSibling;
-                lastIcon.mBottomDivider.setVisibility(View.GONE);
-            }
-        }
+        setDividers(root);
 
         iconView = root.findViewById(R.id.view_setting_icon_image);
         titleView = root.findViewById(R.id.view_setting_icon_title);
@@ -54,23 +40,15 @@ public class IconSetting extends SettingsNode {
         return root;
     }
 
-    protected void setIcon (@DrawableRes int resId) {
-        iconView.setImageResource(resId);
-    }
+    private View mTopDivider, mBottomDivider;
 
-    protected void setTitleText (@StringRes int resId) {
-        titleView.setText(resId);
-    }
+    protected final void setDividers (View root) {
+        mTopDivider = root.findViewById(R.id.view_settings_divider_top);
+        mBottomDivider = root.findViewById(R.id.view_settings_divider_bottom);
 
-    protected void setTitleText (String text) {
-        titleView.setText(text);
-    }
-
-    protected void setText (@StringRes int resId) {
-        textView.setText(resId);
-    }
-
-    protected void setText (String text) {
-        textView.setText(text);
+        ArrayList<SettingsNode> siblings = getParent().getChildren();
+        int index = siblings.indexOf(this);
+        if (index < siblings.size() - 1 && siblings.get(index + 1) instanceof IconSetting)
+            mBottomDivider.setVisibility(View.GONE);
     }
 }

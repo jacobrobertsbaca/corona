@@ -5,6 +5,8 @@ import android.content.ContentProvider;
 import android.content.Context;
 import android.os.Build;
 
+import com.spreadtracker.ui.settings.SettingsStore;
+
 import java.lang.ref.WeakReference;
 
 /**

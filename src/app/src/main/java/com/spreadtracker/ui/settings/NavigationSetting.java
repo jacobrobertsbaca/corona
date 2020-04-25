@@ -3,6 +3,7 @@ package com.spreadtracker.ui.settings;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -19,10 +20,16 @@ public class NavigationSetting extends IconSetting {
 
     private @StringRes int mTitleResId;
     private @IdRes int mDestinationId;
+    private @DrawableRes int mIconDrawable = R.drawable.ic_next;
 
     public NavigationSetting(@StringRes int titleResId, @IdRes int destinationId) {
         mTitleResId = titleResId;
         mDestinationId = destinationId;
+    }
+
+    public NavigationSetting (@StringRes int titleResId, @IdRes int destinationId, @DrawableRes int iconResId) {
+        this(titleResId, destinationId);
+        mIconDrawable = iconResId;
     }
 
     @NonNull
@@ -31,9 +38,9 @@ public class NavigationSetting extends IconSetting {
         View root = super.inflateLayout(inflater);
 
         // Set correct title and icon
-        setTitleText(mTitleResId);
-        setText("");
-        setIcon(R.drawable.ic_next);
+        titleView.setText(mTitleResId);
+        textView.setText("");
+        iconView.setImageResource(mIconDrawable);
 
         // Set click listener to navigate to the destination page
         root.setOnClickListener(new View.OnClickListener() {

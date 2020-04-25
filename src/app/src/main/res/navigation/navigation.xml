@@ -44,13 +44,48 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_profileFragment_to_testDataFragment"
+            app:destination="@id/testDataFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/generalSettingsFragment"
-        android:name="com.spreadtracker.ui.fragment.settings.GeneralSettingsFragment"
-        android:label="GeneralSettingsFragment" />
+        android:name="com.spreadtracker.ui.fragment.settings.general.GeneralSettingsFragment"
+        android:label="GeneralSettingsFragment" >
+        <action
+            android:id="@+id/action_generalSettingsFragment_to_general_PhysicalActivitySettingsFragment"
+            app:destination="@id/general_PhysicalActivitySettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/medicalHistorySettingsFragment"
-        android:name="com.spreadtracker.ui.fragment.settings.MedicalHistorySettingsFragment"
-        android:label="MedicalHistorySettingsFragment" />
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistorySettingsFragment"
+        android:label="MedicalHistorySettingsFragment" >
+        <action
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_DiseasesSettingsFragment"
+            app:destination="@id/medicalHistory_DiseasesSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicalHistory_DiseasesSettingsFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_DiseasesSettingsFragment"
+        android:label="MedicalHistory_DiseasesSettingsFragment" />
+    <fragment
+        android:id="@+id/general_PhysicalActivitySettingsFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.general.General_PhysicalActivitySettingsFragment"
+        android:label="General_PhysicalActivitySettingsFragment" />
+    <fragment
+        android:id="@+id/testDataFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.TestDataFragment"
+        android:label="TestDataFragment" />
 </navigation>

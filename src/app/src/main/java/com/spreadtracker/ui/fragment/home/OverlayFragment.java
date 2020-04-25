@@ -41,7 +41,7 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
         viewModel.getInfectedPercentage().observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
-                OverlayFragment.this.mInfectedPercentage.setText(getString(R.string.fragment_overlay_percentage, (int) (aDouble * 100)));
+                OverlayFragment.this.mInfectedPercentage.setText(getString(R.string.overlay_percentage, (int) (aDouble * 100)));
                 root.setBackgroundColor(viewModel.getInfectedPercentageColor());
             }
         });

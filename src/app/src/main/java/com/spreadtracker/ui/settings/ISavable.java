@@ -30,5 +30,5 @@ public interface ISavable extends ILayoutFactory {
      * @param dirty If true, the state of this object has been modified and can be saved by a call to {@link ISavable#saveState()}.
      *              If false, signifies that this object's state has not been modified.
      */
-    void setDirty(boolean dirty);
+    void notifyDirty(boolean dirty);
 }

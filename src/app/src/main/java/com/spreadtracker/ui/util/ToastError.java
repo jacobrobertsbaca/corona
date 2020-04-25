@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
 import com.spreadtracker.R;
@@ -24,6 +25,10 @@ public class ToastError {
         text.setTextColor(ContextCompat.getColor(context, R.color.white));
 
         toast.show();
+    }
+
+    public static void error (Context context, @StringRes int resId, int duration) {
+        error(context, context.getString(resId), duration);
     }
 }
 

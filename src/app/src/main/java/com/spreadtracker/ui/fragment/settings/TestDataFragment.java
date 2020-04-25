@@ -4,10 +4,10 @@ import android.view.ViewGroup;
 
 import com.spreadtracker.R;
 
-public class GeneralSettingsFragment extends SettingsFragment {
+public class TestDataFragment extends SettingsFragment {
     @Override
     protected int getTitle() {
-        return R.string.fragment_settings_general_title;
+        return R.string.settings_testdata_title;
     }
 
     @Override

@@ -24,6 +24,8 @@ public abstract class SettingsNode implements ISavable {
     private Context mCtx;
     private View mRoot;
 
+    private boolean mIsDirty;
+
     public final SettingsNode getParent() { return mParent; }
     public final ArrayList<SettingsNode> getChildren () { return mChildren; }
 
@@ -104,10 +106,27 @@ public abstract class SettingsNode implements ISavable {
             child.restoreState();
     }
 
+    public boolean isDirty () {return mIsDirty;}
+
     @Override
-    public void setDirty(boolean dirty) {
-        if (mParent != null) mParent.setDirty(dirty);
+    public void notifyDirty(boolean dirty) {
+        mIsDirty = dirty;
+        boolean childrenDirty = false;
+        for (SettingsNode child : mChildren) {
+            if (child.isDirty()) {
+                childrenDirty = true;
+                break;
+            }
+        }
+        notifyChildrenDirty(childrenDirty);
+        if (mParent != null) mParent.notifyDirty(dirty);
     }
+
+    /**
+     * Called when a parent's children are collectively dirty or undirty.
+     * @param childrenDirty True if any of the children are dirty, and false otherwise.
+     */
+    public void notifyChildrenDirty(boolean childrenDirty) {}
 
     @Nullable
     protected ViewGroup getParentView () {
