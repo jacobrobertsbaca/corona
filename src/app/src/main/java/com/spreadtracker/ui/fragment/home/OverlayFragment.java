@@ -46,7 +46,7 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
             }
         });
 
-        //viewModel.getInfectedPercentage().setValue(Calculator.getBasePercentage());
+        viewModel.getInfectedPercentage().setValue(Calculator.getBasePercentage());
     }
 
     /*

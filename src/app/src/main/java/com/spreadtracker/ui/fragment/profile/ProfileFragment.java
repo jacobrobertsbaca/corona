@@ -16,8 +16,9 @@ public class ProfileFragment extends SettingsFragment {
     protected void createSettingsHierarchy(ViewGroup container) {
         NavigationSettingsPage navSettings = new NavigationSettingsPage(this, container,
                 new NavigationSetting(R.string.settings_general_title, R.id.action_profileFragment_to_generalSettingsFragment),
-                new NavigationSetting(R.string.settings_medicalhistory_title, R.id.action_profileFragment_to_medicalHistorySettingsFragment))
-                .build();
+                new NavigationSetting(R.string.settings_medicalhistory_title, R.id.action_profileFragment_to_medicalHistorySettingsFragment),
+                new NavigationSetting(R.string.settings_testdata_title, R.id.action_profileFragment_to_testDataFragment, R.drawable.ic_plus)
+        ).build();
     }
 
     @Override
