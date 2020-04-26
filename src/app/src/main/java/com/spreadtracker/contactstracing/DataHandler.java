@@ -3,11 +3,11 @@ package com.spreadtracker.contactstracing;
 import java.util.Date;
 
 public class DataHandler {
-    private final Database database;
-    private final Calculator calculator;
+    public final Database database;
+    public final Calculator calculator;
 
     public DataHandler(){
-        database = new Database("ContactsTracingDb");
+        database = new Database(this, "ContactsTracingDb");
         calculator = new Calculator(this);
     }
 

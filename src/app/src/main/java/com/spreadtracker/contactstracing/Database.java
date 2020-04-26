@@ -10,9 +10,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Database {
+    private final DataHandler delegate;
     private final SQLiteDatabase database;
 
-    public Database(String filename) {
+    public Database(DataHandler delegate, String filename) {
+        this.delegate = delegate;
         database = SQLiteDatabase.openOrCreateDatabase(filename, null);
 
         try (SQLiteStatement statement = database.compileStatement("select 1 from person")){
@@ -46,36 +48,89 @@ public class Database {
         }
     }
 
-    public List<Long> getEventIdsBeforeDate(long personId, Date date){
-//        returns the eventIds of all events that a person was member to before the given date.
-        List<Long> eventIds = new ArrayList<>();
-        String selectStatement = "SELECT e.ROWID From event e, personEvent pe, person p where " +
-                "pe.personRowid = p.ROWID " +
-                "and pe.eventRowid = e.ROWID " +
-                "and p.ROWID = ? " +
-                "and e.time < ? " +
-                "order by time Desc";
-        try (Cursor cursor = database.rawQuery(selectStatement, new String[]{Long.toString(personId), Long.toString(date.getTime())})) {
+    public void createPersonTest(Test test){
+        try (SQLiteStatement statement = database.compileStatement("insert into personTest values(?, ?, ?, ?)")) {
+            statement.bindLong(1, test.getPersonId());
+            statement.bindString(2, test.getDisease());
+            if (test.isPositive()){
+                statement.bindLong(3, 1);
+            } else {
+                statement.bindLong(3, 0);
+            }
+            statement.bindLong(4, test.getDate());
+        }
+    }
+
+    public List<Connection> getConnectionsBeforeDate(long personId, long date){
+//        returns Connections for every person that a person interacted with before the given date.
+//        Connections contain eventId, eventDate, personId
+//        returns in order of descending date
+        List<Connection> connections = new ArrayList<Connection>();
+        String selectStatement = "SELECT e.date, p.personId From event e, personEvent p, personEvent s where " +
+                "p.eventROWID = s.eventROWID " +
+                "and p.eventROWID = e.ROWID " +
+                "and s.personROWID = ? " +
+                "and e.date < ? " +
+                "order by date Desc";
+        try (Cursor cursor = database.rawQuery(selectStatement, new String[]{Long.toString(personId), Long.toString(date)})) {
             while (cursor.moveToNext()) {
-                eventIds.add(cursor.getLong(0));
+                Connection connection = new Connection(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2));
+                connections.add(connection);
             }
         }
-        return(eventIds);
+        return(connections);
+    }
+
+    public List<Test> getTestsBeforeDate(long personId, long date) {
+//        returns all the tests for a person before a given date
+        List<Test> tests = new ArrayList<Test>();
+        String selectStatement = "Select t.disease, t.result, t.date from personTest t where "+
+                "t.personId = ? "+
+                "and t.date < ? "+
+                "order by date Desc";
+        try (Cursor cursor = database.rawQuery(selectStatement, new String[]{Long.toString(personId), Long.toString(date)})){
+            while(cursor.moveToNext()) {
+                boolean result;
+                if(cursor.getLong(1) == 0) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+                Test test = new Test(personId, cursor.getString(0), result, cursor.getLong(2));
+                tests.add(test);
+            }
+        }
+        return(tests);
     }
 
     public static void createClasses(SQLiteDatabase db) {
         String[] ddlStatements = new String[] {
                 "CREATE TABLE event (id NUMBER PRIMARY KEY, date NUMBER, latitude NUMBER, longitude NUMBER)",
                 "CREATE TABLE person (id NUMBER PRIMARY KEY, firstName TEXT, lastName TEXT, dateOfBirth NUMBER)",
-                "CREATE TABLE personEvent (personId, eventId)",
+                "CREATE TABLE personEvent (personId NUMBER, eventId NUMBER)",
+                "CREATE TABLE personTest (personId NUMBER, disease TEXT, result NUMBER, date NUMBER)",
                 "CREATE INDEX event_date on event (date)",
                 "CREATE INDEX personEventEvent on personEvent(eventId)",
                 "CREATE INDEX personEventPerson on personEvent(personId)",
+                "CREATE INDEX personTestPerson on personTest(personId)",
+                "CREATE INDEX personTestDate on personTest(date)",
                 "CREATE INDEX person_lastName on person (lastName, firstName)"
         };
 
         for (String ddl : ddlStatements) {
             db.execSQL(ddl);
+        }
+    }
+
+    public static class Connection{
+        public long eventId;
+        public long eventDate;
+        public long personId;
+
+        public Connection(long eventId, long eventDate, long personId){
+            this.eventId = eventId;
+            this.eventDate = eventDate;
+            this.personId = personId;
         }
     }
 }
