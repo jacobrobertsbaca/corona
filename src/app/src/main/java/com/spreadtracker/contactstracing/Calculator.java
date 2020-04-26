@@ -5,15 +5,15 @@ import java.util.Date;
 import java.util.List;
 
 public class Calculator {
-    private final DataHandler delegate;
+    private final Database database;
 
-    public Calculator(DataHandler delegate){
-        this.delegate = delegate;
+    public Calculator(Database database) {
+        this.database = database;
     }
 
     public double getInfectedPercentage(Person person, Date date) {
 //        calculates the chance that a person is infected by propagating back through events
-        double percentage = 0;
+        double percentage = 5.0;
 
 
         return(percentage);
@@ -34,7 +34,7 @@ public class Calculator {
 //        parentIdChain is an array of eventIds that led to this connection.
 //        resultPaths is the master list of paths, which is directly altered in the method when a leaf node is found.
 
-        List<Database.Connection> connections = this.delegate.database.getConnectionsBeforeDate(rootPersonId, date);
+        List<Database.Connection> connections = this.database.getConnectionsBeforeDate(rootPersonId, date);
         CONNECTIONS: for(Database.Connection connection : connections){
             for(long parentId : parentIdChain){
                 if(parentId == connection.personId) {
@@ -62,7 +62,7 @@ public class Calculator {
     }
 
     private boolean isLeafNode(Database.Connection connection){
-        List<Test> tests = this.delegate.database.getTestsBeforeDate(connection.personId, connection.eventDate);
+        List<Test> tests = this.database.getTestsBeforeDate(connection.personId, connection.eventDate);
 //            get the tests for the person in this connection before the date of the connection.
         if (!tests.isEmpty()) {
             Test mostRecentTest = tests.get(0);

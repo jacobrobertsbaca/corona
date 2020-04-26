@@ -5,16 +5,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Database {
-    private final DataHandler delegate;
     private final SQLiteDatabase database;
 
-    public Database(DataHandler delegate, String filename) {
-        this.delegate = delegate;
+    public Database(File filename) {
         database = SQLiteDatabase.openOrCreateDatabase(filename, null);
 
         try (SQLiteStatement statement = database.compileStatement("select 1 from person")){

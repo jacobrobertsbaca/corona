@@ -2,8 +2,6 @@ package com.spreadtracker.ui.activity.main;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +16,13 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.spreadtracker.App;
 import com.spreadtracker.R;
+import com.spreadtracker.contactstracing.Calculator;
+import com.spreadtracker.contactstracing.Database;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Initialize maps API
         try {
             MapsInitializer.initialize(App.getInstance().getApplicationContext());
+            Database database = new Database(new File(App.getInstance().getApplicationContext().getFilesDir(), "tracker.sqlite"));
+            Calculator calculator = new Calculator(database);
         } catch (Exception e) {
             e.printStackTrace();
         }
