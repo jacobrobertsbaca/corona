@@ -15,6 +15,8 @@ public class Test {
     private static final String PREF_TESTS_ROOT = "testdata.";
     public static final String PREF_TESTS_SET = PREF_TESTS_ROOT +  "tests"; // Location of set of TestData objects in preferences
 
+    public static final String DISEASE_COVID19 = "covid19"; // Constant for COVID-19 disease name
+
     private int testId; // An integer id that uniquely identifies this test from other tests when reading/writing this test to the user's phone
     private long personId;
     private String disease;
@@ -26,11 +28,6 @@ public class Test {
         this.disease = disease;
         this.positive = positive;
         this.date = date;
-    }
-
-    public Test(int testId, long personId, String disease, boolean positive, long date) {
-        this(personId, disease, positive, date);
-        testId = testId;
     }
 
     // Needed for GSON serialization

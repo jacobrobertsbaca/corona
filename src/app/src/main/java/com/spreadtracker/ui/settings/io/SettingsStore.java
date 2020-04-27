@@ -8,8 +8,13 @@ import androidx.annotation.NonNull;
 
 import com.spreadtracker.App;
 import com.spreadtracker.contactstracing.Test;
+import com.spreadtracker.util.ArrayUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,10 +42,10 @@ public class SettingsStore {
     private SettingsStore (@NonNull Context ctx) {
         mCtx = ctx;
         mPreferences = mCtx.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
-        mTestDataMap = getTestDataMap();
+        mTestDataMap = readTestMap();
     }
 
-    private SparseArray<Test> getTestDataMap () {
+    private SparseArray<Test> readTestMap() {
         SparseArray<Test> testMap = new SparseArray<>();
         Set<String> testStrings = mPreferences.getStringSet(Test.PREF_TESTS_SET, new HashSet<String>());
         for (String s : testStrings) {
@@ -50,6 +55,78 @@ public class SettingsStore {
             testMap.append(test.getTestId(), test);
         }
         return testMap;
+    }
+
+    private void saveTestMap () {
+        List<Test> tests = ArrayUtils.getValues(mTestDataMap);
+        Set<String> testSet = new HashSet<>();
+        for (Test test : tests) {
+            testSet.add(test.toString());
+        }
+        mPreferences.getStringSet(Test.PREF_TESTS_SET, testSet);
+    }
+
+    /**
+     * Stores a test into the preferences.
+     */
+    public void createTest (Test test) {
+        int index = ArrayUtils.getFirstAvailableIndex(mTestDataMap);
+        mTestDataMap.append(index, test);
+        saveTestMap();
+    }
+
+    /**
+     * Returns a list of {@link Test} objects in reverse-chronological order
+     */
+    public ArrayList<Test> getTests () {
+        List<Test> tests = ArrayUtils.getValues(mTestDataMap);
+        Test[] testArray = new Test[tests.size()];
+        Arrays.sort(testArray, new Comparator<Test>() {
+            @Override
+            public int compare(Test o1, Test o2) {
+                return -Long.compare(o1.getDate(), o2.getDate());
+            }
+        });
+        for (int i = 0; i < testArray.length; i++) {
+            tests.set(i, testArray[i]);
+        }
+        return getTests();
+    }
+
+    /**
+     * Returns the most recent test stored in memory, or null if there are no stored tests.
+     */
+    public Test getLatestTest () {
+        List<Test> tests = ArrayUtils.getValues(mTestDataMap);
+
+        if (tests.size() == 0) return null;
+        if (tests.size() == 1) return tests.get(0);
+
+        Test latestTest = tests.get(0);
+        long maxTime = latestTest.getDate();
+        for (int i = 1; i < tests.size(); i++) {
+            Test test = tests.get(i);
+            if (test.getDate() > maxTime) {
+                maxTime = test.getDate();
+                latestTest = test;
+            }
+        }
+
+        return latestTest;
+    }
+
+    /**
+     * Saves the list of tests to memory.
+     */
+    public void saveTests () {
+        saveTestMap();
+    }
+
+    /**
+     * Removes any test objects
+     */
+    public void removeTest (Test test) {
+
     }
 
     /**
@@ -85,9 +162,10 @@ public class SettingsStore {
     public String readString (String key, String defaultValue) { return mPreferences.getString(key, defaultValue); }
     public Set<String> readStringSet (String key, Set<String> defaultValue) { return mPreferences.getStringSet(key, defaultValue); }
 
+    @SuppressWarnings("unchecked")
     public <T> T readValue (String key, T defaultValue) {
         Map<String, ?> pMap = mPreferences.getAll();
-        if (pMap.containsKey(key)) return (T) pMap.get(key);
+        if (pMap.containsKey(key)) return (T) pMap.get(key); // Will throw an exception if you ask for an invalid data type
         else return defaultValue;
     }
 }

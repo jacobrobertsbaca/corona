@@ -5,6 +5,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Setting that creates a RecyclerView containing the list of the user's settings
+ */
 public class TestDataListSetting extends SettingsNode {
     @NonNull
     @Override
