@@ -14,4 +14,6 @@ public class TestDataListSetting extends SettingsNode {
     public View inflateLayout(@NonNull LayoutInflater inflater) {
         return null;
     }
+
+
 }

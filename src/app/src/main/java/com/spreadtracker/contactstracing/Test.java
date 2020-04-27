@@ -17,7 +17,6 @@ public class Test {
 
     public static final String DISEASE_COVID19 = "covid19"; // Constant for COVID-19 disease name
 
-    private int testId; // An integer id that uniquely identifies this test from other tests when reading/writing this test to the user's phone
     private long personId;
     private String disease;
     private boolean positive;
@@ -32,14 +31,6 @@ public class Test {
 
     // Needed for GSON serialization
     public Test() {}
-
-    public int getTestId () {
-        return testId;
-    }
-
-    public void setTestId (int id) {
-        testId = id;
-    }
 
     public long getPersonId() {
         return personId;

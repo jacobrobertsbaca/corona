@@ -37,97 +37,15 @@ public class SettingsStore {
 
     private Context mCtx; // A context to be used wherever necessary
     private SharedPreferences mPreferences; // Shared preferences instance to be used when reading/writing keys
-    private SparseArray<Test> mTestDataMap; // Set of test data objects representing the test data stored in the user's preferences
+    private TestData mTestData; // Proxy class for getting test information
 
     private SettingsStore (@NonNull Context ctx) {
         mCtx = ctx;
         mPreferences = mCtx.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
-        mTestDataMap = readTestMap();
+        mTestData = new TestData(this);
     }
 
-    private SparseArray<Test> readTestMap() {
-        SparseArray<Test> testMap = new SparseArray<>();
-        Set<String> testStrings = mPreferences.getStringSet(Test.PREF_TESTS_SET, new HashSet<String>());
-        for (String s : testStrings) {
-            // Try to deserialize into test instance
-            Test test = Test.fromString(s);
-            if (test == null) continue; // If deserialization failed, skip
-            testMap.append(test.getTestId(), test);
-        }
-        return testMap;
-    }
-
-    private void saveTestMap () {
-        List<Test> tests = ArrayUtils.getValues(mTestDataMap);
-        Set<String> testSet = new HashSet<>();
-        for (Test test : tests) {
-            testSet.add(test.toString());
-        }
-        mPreferences.getStringSet(Test.PREF_TESTS_SET, testSet);
-    }
-
-    /**
-     * Stores a test into the preferences.
-     */
-    public void createTest (Test test) {
-        int index = ArrayUtils.getFirstAvailableIndex(mTestDataMap);
-        mTestDataMap.append(index, test);
-        saveTestMap();
-    }
-
-    /**
-     * Returns a list of {@link Test} objects in reverse-chronological order
-     */
-    public ArrayList<Test> getTests () {
-        List<Test> tests = ArrayUtils.getValues(mTestDataMap);
-        Test[] testArray = new Test[tests.size()];
-        Arrays.sort(testArray, new Comparator<Test>() {
-            @Override
-            public int compare(Test o1, Test o2) {
-                return -Long.compare(o1.getDate(), o2.getDate());
-            }
-        });
-        for (int i = 0; i < testArray.length; i++) {
-            tests.set(i, testArray[i]);
-        }
-        return getTests();
-    }
-
-    /**
-     * Returns the most recent test stored in memory, or null if there are no stored tests.
-     */
-    public Test getLatestTest () {
-        List<Test> tests = ArrayUtils.getValues(mTestDataMap);
-
-        if (tests.size() == 0) return null;
-        if (tests.size() == 1) return tests.get(0);
-
-        Test latestTest = tests.get(0);
-        long maxTime = latestTest.getDate();
-        for (int i = 1; i < tests.size(); i++) {
-            Test test = tests.get(i);
-            if (test.getDate() > maxTime) {
-                maxTime = test.getDate();
-                latestTest = test;
-            }
-        }
-
-        return latestTest;
-    }
-
-    /**
-     * Saves the list of tests to memory.
-     */
-    public void saveTests () {
-        saveTestMap();
-    }
-
-    /**
-     * Removes any test objects
-     */
-    public void removeTest (Test test) {
-
-    }
+    public TestData getTests () { return mTestData; }
 
     /**
      * Writes the given key-value pair to the preferences map.
