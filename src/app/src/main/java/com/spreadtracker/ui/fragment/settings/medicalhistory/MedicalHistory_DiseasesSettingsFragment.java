@@ -22,9 +22,9 @@ public class MedicalHistory_DiseasesSettingsFragment extends SettingsFragment {
     @Override
     protected void createSettingsHierarchy(ViewGroup container) {
         NavigationSettingsPage navSettings = new NavigationSettingsPage(this, container,
-                new CheckmarkSetting(SETTINGS_MEDICALHISTORY_DISEASES_DIABETES, R.string.settings_medicalhistory_diseases_diabetes),
-                new CheckmarkSetting(SETTINGS_MEDICALHISTORY_DISEASES_ASTHMA, R.string.settings_medicalhistory_diseases_asthma),
-                new CheckmarkSetting(SETTINGS_MEDICALHISTORY_DISEASES_HEARTDISEASE, R.string.settings_medicalhistory_diseases_heartdisease)
+                new CheckmarkSetting(R.string.settings_medicalhistory_diseases_diabetes, SETTINGS_MEDICALHISTORY_DISEASES_DIABETES),
+                new CheckmarkSetting(R.string.settings_medicalhistory_diseases_asthma, SETTINGS_MEDICALHISTORY_DISEASES_ASTHMA),
+                new CheckmarkSetting(R.string.settings_medicalhistory_diseases_heartdisease, SETTINGS_MEDICALHISTORY_DISEASES_HEARTDISEASE)
         ).build();
     }
 }

@@ -1,11 +1,15 @@
-package com.spreadtracker.ui.settings;
+package com.spreadtracker.ui.settings.io;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
-import java.util.HashMap;
+import com.spreadtracker.App;
+import com.spreadtracker.contactstracing.Test;
+
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,12 +26,30 @@ public class SettingsStore {
         return _instance;
     }
 
-    private Context mCtx;
-    private SharedPreferences mPreferences;
+    public static SettingsStore getInstance() {
+        return getInstance(App.getContext());
+    }
+
+    private Context mCtx; // A context to be used wherever necessary
+    private SharedPreferences mPreferences; // Shared preferences instance to be used when reading/writing keys
+    private SparseArray<Test> mTestDataMap; // Set of test data objects representing the test data stored in the user's preferences
 
     private SettingsStore (@NonNull Context ctx) {
         mCtx = ctx;
         mPreferences = mCtx.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
+        mTestDataMap = getTestDataMap();
+    }
+
+    private SparseArray<Test> getTestDataMap () {
+        SparseArray<Test> testMap = new SparseArray<>();
+        Set<String> testStrings = mPreferences.getStringSet(Test.PREF_TESTS_SET, new HashSet<String>());
+        for (String s : testStrings) {
+            // Try to deserialize into test instance
+            Test test = Test.fromString(s);
+            if (test == null) continue; // If deserialization failed, skip
+            testMap.append(test.getTestId(), test);
+        }
+        return testMap;
     }
 
     /**

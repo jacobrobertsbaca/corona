@@ -15,5 +15,5 @@
     <string name="settings_general_physicalactivity_active">Active</string>
     <string name="settings_general_physicalactivity_moderate">Moderately Active</string>
     <string name="settings_general_physicalactivity_inactive">Inactive</string>
-    <string name="settings_testdata_title">Enter Test Data</string>
+    <string name="settings_testdata_title">Test Data</string>
 </resources>

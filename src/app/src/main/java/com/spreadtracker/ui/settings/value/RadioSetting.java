@@ -9,7 +9,6 @@ import com.spreadtracker.R;
 import com.spreadtracker.ui.settings.IconSetting;
 
 public class RadioSetting extends IconSetting {
-    private RadioSettings mParent;
     private String mName;
     private boolean mActive;
 
@@ -17,7 +16,6 @@ public class RadioSetting extends IconSetting {
         mName = name;
     }
 
-    public void setParent(RadioSettings parent) {mParent = parent;}
     public String getName() {return mName;}
 
     public boolean isActive() {return mActive;}
@@ -39,7 +37,8 @@ public class RadioSetting extends IconSetting {
             public void onClick(View v) {
                 if (!mActive) {
                     setActive(true);
-                    mParent.onChildChanged(RadioSetting.this);
+                    if (getParent() instanceof ValueSetting)
+                        ((ValueSetting) getParent()).setValue(getName());
                 }
             }
         });

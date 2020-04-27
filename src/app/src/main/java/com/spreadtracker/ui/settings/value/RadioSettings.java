@@ -1,6 +1,5 @@
 package com.spreadtracker.ui.settings.value;
 
-import android.os.storage.StorageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,23 +7,26 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
-import com.spreadtracker.ui.settings.SettingsNode;
-import com.spreadtracker.ui.settings.SettingsStore;
+public class RadioSettings extends ValueSetting<String> {
 
-public class RadioSettings extends SettingsNode {
-
-    private String mCurrentlySelected;
-
-    private String mStorageKey;
     private RadioSetting[] mRadioSettings;
 
-    public RadioSettings (@NonNull String storageKey, RadioSetting... settings) {
-        super(settings);
-        mStorageKey = storageKey;
+    public RadioSettings (@NonNull String key, RadioSetting... settings) {
+        super(0, key, null); // No checkmark will be selected by default
+        setupChildren(settings);
+    }
+
+    public RadioSettings(@NonNull ValueSerializer<String> serializer, RadioSetting... settings) {
+        super(0, serializer);
+        setupChildren(settings);
+    }
+
+    private void setupChildren (RadioSetting... settings) {
         mRadioSettings = settings;
-        for (RadioSetting setting : settings) {
-            setting.setParent(this);
-        }
+
+        // Add children to this parent setting node
+        for (RadioSetting setting : settings)
+            addChild(setting);
     }
 
     @NonNull
@@ -39,45 +41,18 @@ public class RadioSettings extends SettingsNode {
         for (RadioSetting setting : mRadioSettings) {
             View v = setting.inflateLayout(inflater);
             layout.addView(v);
-            setting.setActive(false);
         }
 
         return layout;
     }
 
-    public void onChildChanged (RadioSetting setting) {
-        for (RadioSetting s : mRadioSettings) {
-            if (s != setting)
-                s.setActive(false);
-        }
-        mCurrentlySelected = setting.getName();
-        notifyDirty(mCurrentlySelected != null &&
-                !mCurrentlySelected.equals(SettingsStore.getInstance(getContext()).readString(mStorageKey, null)));
-    }
-
     @Override
-    public boolean canSave() {
-        return true; // We can always save a radio settings group
-    }
+    public void setValue(String value) {
+        super.setValue(value);
 
-    @Override
-    public void saveState() {
-        for (RadioSetting setting : mRadioSettings) {
-            if (setting.isActive()) {
-                SettingsStore.getInstance(getContext()).writeValue(mStorageKey, setting.getName());
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void restoreState() {
-        String activeName = SettingsStore.getInstance(getContext()).readString(mStorageKey, null);
-        if (activeName == null || activeName.isEmpty()) return;
-        for (RadioSetting setting : mRadioSettings) {
-            if (setting.getName().equals(activeName)) {
-                setting.setActive(true);
-            } else setting.setActive(false);
-        }
+        // Find the setting whose name is value, and set it to be active
+        // For all other settings, set inactive
+        for (RadioSetting setting : mRadioSettings)
+            setting.setActive(value != null && value.equals(setting.getName()));
     }
 }
