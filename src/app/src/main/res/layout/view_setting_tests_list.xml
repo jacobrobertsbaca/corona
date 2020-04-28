@@ -9,7 +9,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/view_settings_tests_list_noElementsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="You haven't added any tests"
+            android:gravity="center_horizontal"
+            android:textSize="16sp"/>
+
         <ImageView
+            android:id="@+id/view_setting_tests_list_topDivider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/settings_divider"/>

@@ -1,7 +1,9 @@
 package com.spreadtracker;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.ContextWrapper;
 
 import java.lang.ref.WeakReference;
 
@@ -25,5 +27,14 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = new WeakReference<>(this);
+    }
+
+    // Taken from:
+    // https://stackoverflow.com/a/45364096/10149816
+    public static Activity getActivity(Context context) {
+        if (context == null) return null;
+        if (context instanceof Activity) return (Activity) context;
+        if (context instanceof ContextWrapper) return getActivity(((ContextWrapper)context).getBaseContext());
+        return null;
     }
 }

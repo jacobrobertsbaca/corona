@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.spreadtracker.R;
 import com.spreadtracker.contactstracing.Test;
 import com.spreadtracker.ui.activity.main.MainActivity;
@@ -35,12 +36,21 @@ public class TestDataAdapter extends RecyclerView.Adapter<TestDataAdapter.ViewHo
     private TestData mTestData;
     private MainActivity mActivity;
 
-    public TestDataAdapter(@NonNull MainActivity activity) {
+    private ImageView mDividerView; // Pretty sure this is a hack. Not sure why divider isn't drawn on top of the uppermost RecyclerView element
+    private TextView mNoElementsText;
+
+    public TestDataAdapter(@NonNull MainActivity activity, @NonNull ImageView dividerView, @NonNull TextView noElementsText) {
         mCtx = activity;
         mTestData = SettingsStore.getInstance(mCtx).getTests();
         mActivity = activity;
-        mTestData.addChangeListener(this);
+        mDividerView = dividerView;
+        mNoElementsText = noElementsText;
+        mTestData.addChangeListener(this, true);
     }
+
+    public TestData getTestData () { return mTestData; }
+
+    public Context getContext() { return mCtx; }
 
     @NonNull
     @Override
@@ -70,14 +80,30 @@ public class TestDataAdapter extends RecyclerView.Adapter<TestDataAdapter.ViewHo
         });
     }
 
+
+
     @Override
     public int getItemCount() {
         return mTestData.getCount();
     }
 
     @Override
-    public void OnTestDataChanged(TestData data) {
+    public void OnTestDataChanged(TestData data, int change) {
+        if (data.getCount() == 0) {
+            mDividerView.setVisibility(View.GONE);
+            mNoElementsText.setVisibility(View.VISIBLE);
+        } else {
+            mDividerView.setVisibility(View.VISIBLE);
+            mNoElementsText.setVisibility(View.GONE);
+        }
+
         notifyDataSetChanged();
+        if (change == TestData.DELETE) {
+            // When we delete an item, show a snackbar asking the user if they'd like to undo
+            Snackbar snack = Snackbar.make(mActivity.getLayout(), R.string.settings_testdata_undo_text, Snackbar.LENGTH_LONG);
+            snack.setAction(R.string.settings_testdata_undo, v -> mTestData.restore());
+            snack.show();
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

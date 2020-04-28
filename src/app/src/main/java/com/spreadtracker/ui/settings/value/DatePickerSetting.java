@@ -19,30 +19,31 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-public class DatePickerSetting extends ValueSetting<String> {
+public class DatePickerSetting extends ValueSetting<Long> {
 
+    private final Calendar mCalendar = Calendar.getInstance();
+    private final DateFormat mFormat = SimpleDateFormat.getDateInstance();
     private @StringRes int mErrorText;
-    private final DateSaver mDateSaver = new DateSaver();
 
-    public DatePickerSetting(@StringRes int titleRes, @StringRes int errorTextRes, @NonNull String key, String defaultValue) {
+    public DatePickerSetting(@StringRes int titleRes, @StringRes int errorTextRes, @NonNull String key, Long defaultValue) {
         super(titleRes, key, defaultValue);
         mErrorText = errorTextRes;
     }
 
     public DatePickerSetting(@StringRes int titleRes, @StringRes int errorTextRes, @NonNull String key) {
-        this (titleRes, errorTextRes, key, null);
+        this (titleRes, errorTextRes, key, new Date().getTime());
     }
 
     public DatePickerSetting(@StringRes int titleRes, @NonNull String key) {
         this(titleRes, 0, key);
     }
 
-    public DatePickerSetting (@StringRes int titleRes, @StringRes int errorTextRes, @NonNull ValueSerializer<String> serializer) {
+    public DatePickerSetting (@StringRes int titleRes, @StringRes int errorTextRes, @NonNull ValueSerializer<Long> serializer) {
         super(titleRes, serializer);
         mErrorText = errorTextRes;
     }
 
-    public DatePickerSetting (@StringRes int titleRes, @NonNull ValueSerializer<String> serializer) {
+    public DatePickerSetting (@StringRes int titleRes, @NonNull ValueSerializer<Long> serializer) {
         this(titleRes, 0, serializer);
     }
 
@@ -52,24 +53,20 @@ public class DatePickerSetting extends ValueSetting<String> {
         View root = super.inflateLayout(inflater);
         iconView.setVisibility(View.GONE);
 
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                mDateSaver.getCalendar().set(Calendar.YEAR, year);
-                mDateSaver.getCalendar().set(Calendar.MONTH, monthOfYear);
-                mDateSaver.getCalendar().set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                setValue(mDateSaver.readValue());
-            }
+        final DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            mCalendar.set(Calendar.YEAR, year);
+            mCalendar.set(Calendar.MONTH, monthOfYear);
+            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            setValue(mCalendar.getTime().getTime());
         };
 
         getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(getContext(), date,
-                        mDateSaver.getCalendar().get(Calendar.YEAR),
-                        mDateSaver.getCalendar().get(Calendar.MONTH),
-                        mDateSaver.getCalendar().get(Calendar.DAY_OF_MONTH)).show();
+                        mCalendar.get(Calendar.YEAR),
+                        mCalendar.get(Calendar.MONTH),
+                        mCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -80,7 +77,7 @@ public class DatePickerSetting extends ValueSetting<String> {
     public boolean canSave() {
         // Disallow dates after the current date
         // Could be made customizable to the caller, as the usage requires it to be
-        if (mDateSaver.getCalendar().getTime().after(new Date())) {
+        if (new Date(getValue()).after(new Date())) {
             if (mErrorText != 0) ToastError.error(getContext(), mErrorText, Toast.LENGTH_LONG);
             return false;
         }
@@ -90,12 +87,12 @@ public class DatePickerSetting extends ValueSetting<String> {
     @Override
     public void restoreState() {
         super.restoreState();
-        mDateSaver.writeValue(readValue());
+        mCalendar.setTime(new Date(getValue()));
     }
 
     @Override
-    public void setValue(String value) {
+    public void setValue(Long value) {
         super.setValue(value);
-        textView.setText(value);
+        textView.setText(mFormat.format(new Date(value)));
     }
 }

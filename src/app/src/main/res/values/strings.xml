@@ -19,4 +19,8 @@
     <string name="settings_testdata_edit">Edit Test</string>
     <string name="settings_testdata_create">Add Test</string>
     <string name="settings_testdata_date">Test Date</string>
+    <string name="settings_testdata_facilityname">Facility Name</string>
+    <string name="settings_testdata_facilityname_error">Please enter a valid name</string>
+    <string name="settings_testdata_undo_text">Undo deleted test data</string>
+    <string name="settings_testdata_undo">Undo</string>
 </resources>

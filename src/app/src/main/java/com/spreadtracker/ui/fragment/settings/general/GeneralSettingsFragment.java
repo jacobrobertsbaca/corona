@@ -11,7 +11,7 @@ import com.spreadtracker.ui.settings.value.DatePickerSetting;
 public class GeneralSettingsFragment extends SettingsFragment {
 
     public final static String SETTINGS_GENERAL_ROOT = "settings.general.";
-    public final static String SETTINGS_GENERAL_BIRTHDAY = SETTINGS_GENERAL_ROOT + "birthday";
+    public final static String SETTINGS_GENERAL_BIRTHDAY = SETTINGS_GENERAL_ROOT + "birthdayDate";
 
     @Override
     protected int getTitle() {

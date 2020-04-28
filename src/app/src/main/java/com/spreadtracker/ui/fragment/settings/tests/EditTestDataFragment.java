@@ -11,6 +11,7 @@ import com.spreadtracker.ui.settings.io.SettingsStore;
 import com.spreadtracker.ui.settings.io.TestData;
 import com.spreadtracker.ui.settings.io.TestDataSerializers;
 import com.spreadtracker.ui.settings.value.DatePickerSetting;
+import com.spreadtracker.ui.settings.value.TextSetting;
 
 public class EditTestDataFragment extends SettingsFragment {
 
@@ -62,11 +63,12 @@ public class EditTestDataFragment extends SettingsFragment {
         };
 
         // Get serializers/validators from helper class
-        TestDataSerializers tds = new TestDataSerializers(test, mEdit);
+        TestDataSerializers tds = new TestDataSerializers(test, mEdit, getContext());
 
         NavigationSettingsPage settingsPage = new NavigationSettingsPage(this, container, onSave,
-                new DatePickerSetting(R.string.settings_testdata_date, R.string.settings_error_date, tds.testDate()))
-                .build();
+                new TextSetting(R.string.settings_testdata_facilityname, tds.testFacility()).setValidator(tds.testFacilityValidator()),
+                new DatePickerSetting(R.string.settings_testdata_date, R.string.settings_error_date, tds.testDate())
+        ).build();
 
 
     }

@@ -19,13 +19,19 @@ import java.util.Set;
  * A proxy class that allows easy retrieval and modification of the list of tests stored in the user's preferences.
  */
 public class TestData {
+
+    public static final int CREATE = 1;
+    public static final int MODIFY = 2;
+    public static final int DELETE = 3;
+
     public interface OnTestDataChangedListener {
-        void OnTestDataChanged(TestData data);
+        void OnTestDataChanged(TestData data, int change);
     }
 
     private SettingsStore mStore;
     private ArrayList<Test> mTests; // Set of test data objects representing the test data stored in the user's preferences
     private Set<OnTestDataChangedListener> mChangeListeners = new HashSet<>(); // Subscribers that are notified of changes to this class
+    private Test mDeleted; // The last deleted test
 
     public TestData (SettingsStore store) {
         mStore = store;
@@ -56,19 +62,19 @@ public class TestData {
         });
     }
 
-    private void saveTests() {
+    private void saveTests(int changeNotification) {
         Set<String> testSet = new HashSet<>();
         for (Test test : mTests) {
             testSet.add(test.toString());
         }
         mStore.writeValue(Test.PREF_TESTS_SET, testSet);
         sortTests();
-        notifyDataChanged();
+        notifyDataChanged(changeNotification);
     }
 
-    private void notifyDataChanged () {
+    private void notifyDataChanged (int change) {
         for (OnTestDataChangedListener listener : mChangeListeners)
-            listener.OnTestDataChanged(this);
+            listener.OnTestDataChanged(this, change);
     }
 
     /**
@@ -82,7 +88,7 @@ public class TestData {
      * Saves the list of tests. Call after performing any modifications to individual test objects.
      */
     public void save () {
-        saveTests();
+        saveTests(MODIFY);
     }
 
     /**
@@ -92,7 +98,7 @@ public class TestData {
         Objects.requireNonNull(test);
         mTests.add(test);
         sortTests();
-        saveTests();
+        saveTests(CREATE);
     }
 
     /**
@@ -113,12 +119,29 @@ public class TestData {
      * Deletes a test by its index. Indices are valid from 0...{@link TestData#getCount()}-1
      */
     public void delete (int index) {
+        mDeleted = mTests.get(index);
         mTests.remove(index);
-        saveTests();
+        saveTests(DELETE);
+    }
+
+    /**
+     * Restores the last deleted test. This method is idempotent.
+     */
+    public void restore () {
+        if (mDeleted == null) return;
+        mTests.add(mDeleted);
+        mDeleted = null;
+        sortTests();
+        saveTests(CREATE);
+    }
+
+    public void addChangeListener (OnTestDataChangedListener listener, boolean receiveOnSubscription) {
+        mChangeListeners.add(listener);
+        if (receiveOnSubscription) listener.OnTestDataChanged(this, MODIFY);
     }
 
     public void addChangeListener (OnTestDataChangedListener listener) {
-        mChangeListeners.add(listener);
+        addChangeListener(listener, false);
     }
 
     public boolean removeChangeListener (OnTestDataChangedListener listener) {
