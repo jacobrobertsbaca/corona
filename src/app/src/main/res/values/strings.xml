@@ -16,6 +16,10 @@
     <string name="settings_general_physicalactivity_active">Active</string>
     <string name="settings_general_physicalactivity_moderate">Moderately Active</string>
     <string name="settings_general_physicalactivity_inactive">Inactive</string>
+    <string name="settings_general_gender_title">Sex</string>
+    <string name="settings_general_gender_male">Male</string>
+    <string name="settings_general_gender_female">Female</string>
+    <string name="settings_general_gender_ambiguous">Prefer Not to Say</string>
     <string name="settings_testdata_title">Test Data</string>
     <string name="settings_testdata_edit">Edit Test</string>
     <string name="settings_testdata_create">Add Test</string>
