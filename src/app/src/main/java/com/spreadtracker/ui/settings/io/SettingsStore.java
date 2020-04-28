@@ -1,11 +1,20 @@
-package com.spreadtracker.ui.settings;
+package com.spreadtracker.ui.settings.io;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
-import java.util.HashMap;
+import com.spreadtracker.App;
+import com.spreadtracker.contactstracing.Test;
+import com.spreadtracker.util.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,13 +31,21 @@ public class SettingsStore {
         return _instance;
     }
 
-    private Context mCtx;
-    private SharedPreferences mPreferences;
+    public static SettingsStore getInstance() {
+        return getInstance(App.getContext());
+    }
+
+    private Context mCtx; // A context to be used wherever necessary
+    private SharedPreferences mPreferences; // Shared preferences instance to be used when reading/writing keys
+    private TestData mTestData; // Proxy class for getting test information
 
     private SettingsStore (@NonNull Context ctx) {
         mCtx = ctx;
         mPreferences = mCtx.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
+        mTestData = new TestData(this);
     }
+
+    public TestData getTests () { return mTestData; }
 
     /**
      * Writes the given key-value pair to the preferences map.
@@ -63,9 +80,10 @@ public class SettingsStore {
     public String readString (String key, String defaultValue) { return mPreferences.getString(key, defaultValue); }
     public Set<String> readStringSet (String key, Set<String> defaultValue) { return mPreferences.getStringSet(key, defaultValue); }
 
+    @SuppressWarnings("unchecked")
     public <T> T readValue (String key, T defaultValue) {
         Map<String, ?> pMap = mPreferences.getAll();
-        if (pMap.containsKey(key)) return (T) pMap.get(key);
+        if (pMap.containsKey(key)) return (T) pMap.get(key); // Will throw an exception if you ask for an invalid data type
         else return defaultValue;
     }
 }

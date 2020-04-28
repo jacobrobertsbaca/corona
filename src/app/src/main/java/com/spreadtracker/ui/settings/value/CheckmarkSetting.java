@@ -4,19 +4,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import com.spreadtracker.R;
 
 public class CheckmarkSetting extends ValueSetting<Boolean> {
-
-    private boolean mCurrent;
-
-    public CheckmarkSetting(@NonNull String storageKey, int titleRes, Boolean defaultValue) {
-        super(storageKey, titleRes, defaultValue);
+    public CheckmarkSetting(@StringRes int titleRes, @NonNull String key, boolean defaultValue) {
+        super(titleRes, key, defaultValue);
     }
 
-    public CheckmarkSetting(@NonNull String storageKey, int titleRes) {
-        super(storageKey, titleRes, false);
+    public CheckmarkSetting(@StringRes int titleRes, @NonNull String key) {
+        this(titleRes, key, false);
+    }
+
+    public CheckmarkSetting(@StringRes int titleRes, ValueSerializer<Boolean> serializer) {
+        super(titleRes, serializer);
     }
 
     @NonNull
@@ -39,30 +41,12 @@ public class CheckmarkSetting extends ValueSetting<Boolean> {
     }
 
     protected void onSettingClicked () {
-        setState(!mCurrent);
-        notifyDirty(mCurrent != readValue());
+        setValue(!getValue());
     }
 
     @Override
-    public boolean canSave() {
-        // Should always be able to save a boolean setting
-        // No concept of "invalid input" here
-        return true;
-    }
-
-    @Override
-    public void saveState() {
-        writeValue(mCurrent);
-        notifyDirty(false);
-    }
-
-    @Override
-    public void restoreState() {
-        setState(readValue());
-    }
-
-    private void setState (boolean enabled) {
-        iconView.setVisibility(enabled ? View.VISIBLE : View.GONE);
-        mCurrent = enabled;
+    public void setValue(Boolean value) {
+        super.setValue(value);
+        iconView.setVisibility(value ? View.VISIBLE : View.GONE);
     }
 }

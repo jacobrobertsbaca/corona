@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -27,6 +28,7 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private NavController mNavigation;
+    private CoordinatorLayout mLayout;
 
     /**
      * The {@link GoogleMap} object presenting this fragment's map
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeMap(savedInstanceState);
+        mLayout = findViewById(R.id.activity_main_layout);
     }
 
     public NavController getNav() {
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mNavigation = navFragment.getNavController();
         return mNavigation;
     }
+
+    public CoordinatorLayout getLayout() { return mLayout; }
 
     /**
      * Initializes the Google Maps API and the map view in this fragment,

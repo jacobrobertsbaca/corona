@@ -11,6 +11,10 @@ import com.spreadtracker.ui.settings.value.RadioSettings;
 public class General_PhysicalActivitySettingsFragment extends SettingsFragment {
     public final static String SETTINGS_GENERAL_PHYSICALACTIVTY = GeneralSettingsFragment.SETTINGS_GENERAL_ROOT + "physicalactivity";
 
+    public static final String ACTIVITY_ACTIVE = "active";
+    public static final String ACTIVITY_MODERATE = "moderate";
+    public static final String ACTIVITY_INACTIVE = "inactive";
+
     @Override
     protected int getTitle() {
         return R.string.settings_general_physicalactivity_title;
@@ -20,9 +24,9 @@ public class General_PhysicalActivitySettingsFragment extends SettingsFragment {
     protected void createSettingsHierarchy(ViewGroup container) {
         NavigationSettingsPage navSettings = new NavigationSettingsPage(this, container,
                 new RadioSettings(SETTINGS_GENERAL_PHYSICALACTIVTY,
-                        new RadioSetting(getString(R.string.settings_general_physicalactivity_active)),
-                        new RadioSetting(getString(R.string.settings_general_physicalactivity_moderate)),
-                        new RadioSetting(getString(R.string.settings_general_physicalactivity_inactive))))
+                        new RadioSetting(ACTIVITY_ACTIVE, getString(R.string.settings_general_physicalactivity_active)),
+                        new RadioSetting(ACTIVITY_MODERATE, getString(R.string.settings_general_physicalactivity_moderate)),
+                        new RadioSetting(ACTIVITY_INACTIVE, getString(R.string.settings_general_physicalactivity_inactive))))
                 .build();
     }
 }

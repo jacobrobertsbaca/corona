@@ -106,7 +106,7 @@ public abstract class SettingsNode implements ISavable {
             child.restoreState();
     }
 
-    public boolean isDirty () {return mIsDirty;}
+    public final boolean isDirty () {return mIsDirty;}
 
     @Override
     public void notifyDirty(boolean dirty) {

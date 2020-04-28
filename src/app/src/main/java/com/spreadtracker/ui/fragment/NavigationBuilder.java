@@ -17,6 +17,9 @@ public class NavigationBuilder {
 
     private String mTitle;
     private int mTitleVisibility = View.VISIBLE;
+    private @ColorInt int mBackgroundColor;
+
+    /* Buttons */
     private int mLeftButtonVisibility = View.VISIBLE;
     private @DrawableRes int mLeftButtonDrawable = R.drawable.ic_close;
     private View.OnClickListener mLeftButtonCallback = new View.OnClickListener() {
@@ -28,7 +31,12 @@ public class NavigationBuilder {
     private int mRightButtonVisibility = View.GONE;
     private View.OnClickListener mRightButtonCallback = null;
     private @DrawableRes int mRightButtonDrawable;
-    private @ColorInt int mBackgroundColor;
+
+    /* Text buttons */
+    private int leftTextVisibility = View.GONE;
+    private String leftText;
+    private int rightTextVisibility = View.GONE;
+    private String rightText;
 
     public NavigationBuilder(@NonNull NavigationFragment fragment, @NonNull Context ctx) {
         mFragment = fragment;
@@ -91,6 +99,36 @@ public class NavigationBuilder {
         return this;
     }
 
+    public NavigationBuilder setLeftTextVisibility(int leftTextVisibility) {
+        this.leftTextVisibility = leftTextVisibility;
+        return this;
+    }
+
+    public NavigationBuilder setLeftText(String leftText) {
+        this.leftText = leftText;
+        return this;
+    }
+
+    public NavigationBuilder setLeftText (@StringRes int resId) {
+        this.leftText = mContext.getString(resId);
+        return this;
+    }
+
+    public NavigationBuilder setRightTextVisibility(int rightTextVisibility) {
+        this.rightTextVisibility = rightTextVisibility;
+        return this;
+    }
+
+    public NavigationBuilder setRightText(String rightText) {
+        this.rightText = rightText;
+        return this;
+    }
+
+    public NavigationBuilder setRightText(@StringRes int resId) {
+        this.rightText = mContext.getString(resId);
+        return this;
+    }
+
     public String getTitle () { return mTitle; }
     public int getTitleVisibility () { return mTitleVisibility; }
     public int getLeftButtonVisibility () { return mLeftButtonVisibility; }
@@ -100,4 +138,9 @@ public class NavigationBuilder {
     public @DrawableRes int getRightButtonDrawable () { return mRightButtonDrawable; }
     public View.OnClickListener getRightButtonCallback () { return mRightButtonCallback; }
     public @ColorInt int getBackgroundColor () { return mBackgroundColor; }
+    public String getRightText() { return rightText; }
+    public int getRightTextVisibility() { return rightTextVisibility; }
+    public String getLeftText() { return leftText; }
+    public int getLeftTextVisibility() { return leftTextVisibility; }
+
 }

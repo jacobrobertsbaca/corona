@@ -9,16 +9,17 @@ import com.spreadtracker.R;
 import com.spreadtracker.ui.settings.IconSetting;
 
 public class RadioSetting extends IconSetting {
-    private RadioSettings mParent;
     private String mName;
+    private String mDisplayName;
     private boolean mActive;
 
-    public RadioSetting (String name) {
+    public RadioSetting (String name, String displayName) {
         mName = name;
+        mDisplayName = displayName;
     }
 
-    public void setParent(RadioSettings parent) {mParent = parent;}
     public String getName() {return mName;}
+    public String getDisplayName () {return mDisplayName;}
 
     public boolean isActive() {return mActive;}
     public void setActive(boolean active) {
@@ -28,18 +29,20 @@ public class RadioSetting extends IconSetting {
 
     @NonNull
     @Override
+    @SuppressWarnings("unchecked")
     public View inflateLayout(@NonNull LayoutInflater inflater) {
         View root = super.inflateLayout(inflater);
 
         iconView.setImageResource(R.drawable.ic_checkmark);
-        titleView.setText(mName);
+        titleView.setText(mDisplayName);
 
         getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!mActive) {
                     setActive(true);
-                    mParent.onChildChanged(RadioSetting.this);
+                    if (getParent() instanceof ValueSetting)
+                        ((ValueSetting) getParent()).setValue(getName());
                 }
             }
         });

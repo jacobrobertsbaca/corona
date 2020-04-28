@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
+import com.spreadtracker.ui.settings.io.DateSaver;
 import com.spreadtracker.ui.util.ToastError;
 
 import java.text.DateFormat;
@@ -16,21 +17,34 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
-public class DatePickerSetting extends ValueSetting<String> {
+public class DatePickerSetting extends ValueSetting<Long> {
 
     private final Calendar mCalendar = Calendar.getInstance();
-    private final DateFormat mDateFormat = SimpleDateFormat.getDateInstance();
-
+    private final DateFormat mFormat = SimpleDateFormat.getDateInstance();
     private @StringRes int mErrorText;
 
-    public DatePickerSetting(@NonNull String storageKey, int titleRes) {
-        super(storageKey, titleRes, null);
+    public DatePickerSetting(@StringRes int titleRes, @StringRes int errorTextRes, @NonNull String key, Long defaultValue) {
+        super(titleRes, key, defaultValue);
+        mErrorText = errorTextRes;
     }
 
-    public DatePickerSetting(@NonNull String storageKey, int titleRes, @StringRes int errorTextRes) {
-        this(storageKey, titleRes);
+    public DatePickerSetting(@StringRes int titleRes, @StringRes int errorTextRes, @NonNull String key) {
+        this (titleRes, errorTextRes, key, new Date().getTime());
+    }
+
+    public DatePickerSetting(@StringRes int titleRes, @NonNull String key) {
+        this(titleRes, 0, key);
+    }
+
+    public DatePickerSetting (@StringRes int titleRes, @StringRes int errorTextRes, @NonNull ValueSerializer<Long> serializer) {
+        super(titleRes, serializer);
         mErrorText = errorTextRes;
+    }
+
+    public DatePickerSetting (@StringRes int titleRes, @NonNull ValueSerializer<Long> serializer) {
+        this(titleRes, 0, serializer);
     }
 
     @NonNull
@@ -39,25 +53,19 @@ public class DatePickerSetting extends ValueSetting<String> {
         View root = super.inflateLayout(inflater);
         iconView.setVisibility(View.GONE);
 
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                mCalendar.set(Calendar.YEAR, year);
-                mCalendar.set(Calendar.MONTH, monthOfYear);
-                mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                notifyDirty(!getStringFromDate(mCalendar).equals(readValue()));
-                setState();
-            }
+        final DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            mCalendar.set(Calendar.YEAR, year);
+            mCalendar.set(Calendar.MONTH, monthOfYear);
+            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            setValue(mCalendar.getTime().getTime());
         };
 
         getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getContext(), date, mCalendar
-                        .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
+                new DatePickerDialog(getContext(), date,
+                        mCalendar.get(Calendar.YEAR),
+                        mCalendar.get(Calendar.MONTH),
                         mCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
@@ -68,47 +76,23 @@ public class DatePickerSetting extends ValueSetting<String> {
     @Override
     public boolean canSave() {
         // Disallow dates after the current date
-        if (mCalendar.getTime().after(new Date())) {
+        // Could be made customizable to the caller, as the usage requires it to be
+        if (new Date(getValue()).after(new Date())) {
             if (mErrorText != 0) ToastError.error(getContext(), mErrorText, Toast.LENGTH_LONG);
             return false;
         }
-        return true;
-    }
-
-    @Override
-    public void saveState() {
-        writeValue(getStringFromDate(mCalendar));
+        return super.canSave();
     }
 
     @Override
     public void restoreState() {
-        setState(readValue());
+        super.restoreState();
+        mCalendar.setTime(new Date(getValue()));
     }
 
-    private void setState (String date) {
-        setDateFromString(mCalendar, date);
-        setState();
-    }
-
-    private void setState () {
-        textView.setText(getStringFromDate(mCalendar));
-    }
-
-    private void setDateFromString (Calendar cal, String date) {
-        if (date == null || date.isEmpty())
-        {
-            cal.setTime(new Date());
-            return;
-        }
-
-        try {
-            cal.setTime(mDateFormat.parse(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String getStringFromDate (Calendar cal) {
-        return mDateFormat.format(cal.getTime());
+    @Override
+    public void setValue(Long value) {
+        super.setValue(value);
+        textView.setText(mFormat.format(new Date(value)));
     }
 }
