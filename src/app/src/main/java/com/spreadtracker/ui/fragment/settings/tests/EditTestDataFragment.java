@@ -21,6 +21,9 @@ public class EditTestDataFragment extends SettingsFragment {
     public static final String KEY_EDITING = "editting";
     public static final String KEY_TESTNUMBER = "testnumber";
 
+    public static final String RESULT_POSITIVE = "positive";
+    public static final String RESULT_NEGATIVE = "negative";
+
     private boolean mEdit = false;
     private int mPos = -1;
 
@@ -74,8 +77,8 @@ public class EditTestDataFragment extends SettingsFragment {
                 new DatePickerSetting(R.string.settings_testdata_date, R.string.settings_error_date, tds.testDate()),
                 new LabelSettings(R.string.settings_testdata_result_title,
                         new RadioSettings(tds.testResult(),
-                                new RadioSetting(tds.POSITIVE),
-                                new RadioSetting(tds.NEGATIVE)))
+                                new RadioSetting(RESULT_POSITIVE, getString(R.string.settings_testdata_result_positive)),
+                                new RadioSetting(RESULT_NEGATIVE, getString(R.string.settings_testdata_result_negative))))
         ).build();
 
 

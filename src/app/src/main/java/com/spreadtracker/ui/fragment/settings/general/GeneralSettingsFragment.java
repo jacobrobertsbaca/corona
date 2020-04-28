@@ -17,6 +17,10 @@ public class GeneralSettingsFragment extends SettingsFragment {
     public final static String SETTINGS_GENERAL_BIRTHDAY = SETTINGS_GENERAL_ROOT + "birthdayDate";
     public final static String SETTINGS_GENERAL_GENDER = SETTINGS_GENERAL_ROOT + "gender";
 
+    public final static String GENDER_AMBIGUOUS = "ambiguous";
+    public final static String GENDER_MALE = "male";
+    public final static String GENDER_FEMALE = "female";
+
     @Override
     protected int getTitle() {
         return R.string.settings_general_title;
@@ -29,9 +33,9 @@ public class GeneralSettingsFragment extends SettingsFragment {
                 new NavigationSetting(R.string.settings_general_physicalactivity_title, R.id.action_generalSettingsFragment_to_general_PhysicalActivitySettingsFragment),
                 new LabelSettings(R.string.settings_general_gender_title,
                         new RadioSettings(SETTINGS_GENERAL_GENDER,
-                                new RadioSetting(getString(R.string.settings_general_gender_male)),
-                                new RadioSetting(getString(R.string.settings_general_gender_female)),
-                                new RadioSetting(getString(R.string.settings_general_gender_ambiguous))))
+                                new RadioSetting(GENDER_MALE, getString(R.string.settings_general_gender_male)),
+                                new RadioSetting(GENDER_FEMALE, getString(R.string.settings_general_gender_female)),
+                                new RadioSetting(GENDER_AMBIGUOUS, getString(R.string.settings_general_gender_ambiguous))))
         ).build();
     }
 }

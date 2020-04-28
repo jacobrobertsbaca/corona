@@ -1,6 +1,14 @@
 package com.spreadtracker.susceptibility;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+
+import com.spreadtracker.R;
 import com.spreadtracker.contactstracing.Test;
+import com.spreadtracker.ui.fragment.settings.general.GeneralSettingsFragment;
+import com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_DiseasesSettingsFragment;
+import com.spreadtracker.ui.settings.io.SettingsStore;
 
 /**
  * A susceptibility report for the Covid-19 virus.
@@ -12,6 +20,13 @@ import com.spreadtracker.contactstracing.Test;
     //      It also appears that men are twice as likely to die as women, independent of their underlying conditions.
     //
 public class CovidReport implements ISusceptibilityProvider {
+    private Context mCtx;
+    private SettingsStore mSettings;
+
+    public CovidReport(@NonNull Context context) {
+        mCtx = context;
+        mSettings = SettingsStore.getInstance(mCtx);
+    }
 
     @Override
     public Report generateSusceptibilityReport() {

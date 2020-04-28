@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.spreadtracker.R;
 import com.spreadtracker.contactstracing.Test;
+import com.spreadtracker.ui.fragment.settings.tests.EditTestDataFragment;
 import com.spreadtracker.ui.settings.value.ValueSetting;
 import com.spreadtracker.ui.util.ToastError;
 
@@ -18,9 +19,6 @@ public class TestDataSerializers {
 
     private static final DateFormat CALENDAR_FORMAT = SimpleDateFormat.getDateInstance();
 
-    public final String POSITIVE;
-    public final String NEGATIVE;
-
     private Test mTest;
     private boolean mEdit;
     private Context mCtx;
@@ -29,9 +27,6 @@ public class TestDataSerializers {
         mTest = test;
         mEdit = editting;
         mCtx = context;
-
-        POSITIVE = context.getString(R.string.settings_testdata_result_positive);
-        NEGATIVE = context.getString(R.string.settings_testdata_result_negative);
     }
 
     public ValueSetting.ValueSerializer<Long> testDate () {
@@ -78,7 +73,7 @@ public class TestDataSerializers {
         return new ValueSetting.ValueSerializer<String>() {
             @Override
             public String readValue() {
-                return mTest.isPositive() ?  POSITIVE : NEGATIVE;
+                return mTest.isPositive() ? EditTestDataFragment.RESULT_POSITIVE : EditTestDataFragment.RESULT_NEGATIVE;
             }
 
             @Override
@@ -88,8 +83,8 @@ public class TestDataSerializers {
                     return;
                 }
 
-                if (value.equals(POSITIVE)) mTest.setResult(true);
-                else if (value.equals(NEGATIVE)) mTest.setResult(false);
+                if (value.equals(EditTestDataFragment.RESULT_POSITIVE)) mTest.setResult(true);
+                else if (value.equals(EditTestDataFragment.RESULT_NEGATIVE)) mTest.setResult(false);
                 else mTest.setResult(false);
             }
         };
