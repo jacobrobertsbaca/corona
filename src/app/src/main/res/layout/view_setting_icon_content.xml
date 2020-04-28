@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:_android="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    _android:background="@color/overlayHealthy">
 
     <TextView
         android:id="@+id/view_setting_icon_title"
@@ -16,13 +19,24 @@
         android:textSize="18sp"
         android:text="Title"/>
 
-
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/view_setting_icon_textfield"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|start"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/segoeui_light"
+            android:textSize="18sp"
+            android:backgroundTint="@color/white"
+            android:text="Text"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/view_setting_icon_text"

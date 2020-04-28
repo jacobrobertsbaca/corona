@@ -3,20 +3,19 @@
     xmlns:_android="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
-    _android:background="@color/overlayHealthy">
+    android:layout_height="wrap_content">
 
-    <View android:id="@+id/view_settings_divider_top"
+    <ImageView android:id="@+id/view_settings_divider_top"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/white" />
+        android:src="@drawable/settings_divider" />
 
     <include layout="@layout/view_setting_icon_content"/>
 
-    <View android:id="@+id/view_settings_divider_bottom"
+    <ImageView android:id="@+id/view_settings_divider_bottom"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/white" />
+        android:src="@drawable/settings_divider"/>
 
 
 </LinearLayout>

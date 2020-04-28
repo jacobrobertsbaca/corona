@@ -19,15 +19,20 @@ import java.util.Set;
  * A proxy class that allows easy retrieval and modification of the list of tests stored in the user's preferences.
  */
 public class TestData {
+    public interface OnTestDataChangedListener {
+        void OnTestDataChanged(TestData data);
+    }
+
     private SettingsStore mStore;
     private ArrayList<Test> mTests; // Set of test data objects representing the test data stored in the user's preferences
+    private Set<OnTestDataChangedListener> mChangeListeners = new HashSet<>(); // Subscribers that are notified of changes to this class
 
     public TestData (SettingsStore store) {
         mStore = store;
-        mTests = readTests();
+        readTests();
     }
 
-    private ArrayList<Test> readTests() {
+    private void readTests() {
         ArrayList<Test> tests = new ArrayList<>();
         Set<String> testStrings = mStore.readStringSet(Test.PREF_TESTS_SET, new HashSet<String>());
         for (String s : testStrings) {
@@ -36,8 +41,9 @@ public class TestData {
             if (test == null) continue; // If deserialization failed, skip
             tests.add(test);
         }
+        mTests = tests;
         sortTests();
-        return tests;
+        mTests = tests; // Redundant call, eh.
     }
 
     // Sort test list in reverse-chronological order
@@ -56,6 +62,13 @@ public class TestData {
             testSet.add(test.toString());
         }
         mStore.writeValue(Test.PREF_TESTS_SET, testSet);
+        sortTests();
+        notifyDataChanged();
+    }
+
+    private void notifyDataChanged () {
+        for (OnTestDataChangedListener listener : mChangeListeners)
+            listener.OnTestDataChanged(this);
     }
 
     /**
@@ -102,5 +115,13 @@ public class TestData {
     public void delete (int index) {
         mTests.remove(index);
         saveTests();
+    }
+
+    public void addChangeListener (OnTestDataChangedListener listener) {
+        mChangeListeners.add(listener);
+    }
+
+    public boolean removeChangeListener (OnTestDataChangedListener listener) {
+        return mChangeListeners.remove(listener);
     }
 }

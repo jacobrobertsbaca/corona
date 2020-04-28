@@ -21,7 +21,7 @@ public class GeneralSettingsFragment extends SettingsFragment {
     @Override
     protected void createSettingsHierarchy(ViewGroup container) {
         NavigationSettingsPage navSettings = new NavigationSettingsPage(this, container,
-                new DatePickerSetting(R.string.settings_general_birthday, R.string.settings_general_birthday_error, SETTINGS_GENERAL_BIRTHDAY),
+                new DatePickerSetting(R.string.settings_general_birthday, R.string.settings_error_date, SETTINGS_GENERAL_BIRTHDAY),
                 new NavigationSetting(R.string.settings_general_physicalactivity_title, R.id.action_generalSettingsFragment_to_general_PhysicalActivitySettingsFragment)
         ).build();
     }

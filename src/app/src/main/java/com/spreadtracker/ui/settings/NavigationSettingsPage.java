@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 
 import com.spreadtracker.R;
@@ -14,30 +15,37 @@ import com.spreadtracker.ui.fragment.NavigationFragment;
 public class NavigationSettingsPage extends SettingsPage {
 
     private NavigationFragment mFragment;
+    private Runnable mOnSave;
 
     public NavigationSettingsPage(@NonNull NavigationFragment fragment,
                                   @NonNull ViewGroup parentView,
+                                  @Nullable Runnable onSave,
                                   SettingsNode... children) {
         super(parentView, children);
         mFragment = fragment;
+        mOnSave = onSave;
 
         // Set up the navigation how we would like it to be
         NavigationBuilder newNav = mFragment.getNavigation();
         newNav.setRightButtonVisibility(View.GONE);
         newNav.setRightButtonDrawable(R.drawable.ic_checkmark);
-        newNav.setRightButtonCallback(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Save children element's state
-                if (canSave()) {
-                    saveState();
-                    NavigationBuilder nav = mFragment.getNavigation();
-                    nav.setRightButtonVisibility(View.GONE);
-                    mFragment.updateNavigation(nav);
-                }
+        newNav.setRightButtonCallback(v -> {
+            // Save children element's state
+            if (canSave()) {
+                saveState();
+                NavigationBuilder nav = mFragment.getNavigation();
+                nav.setRightButtonVisibility(View.GONE);
+                mFragment.updateNavigation(nav);
+                if (mOnSave != null) mOnSave.run();
             }
         });
         mFragment.updateNavigation(newNav);
+    }
+
+    public NavigationSettingsPage(@NonNull NavigationFragment fragment,
+                                  @NonNull ViewGroup parentView,
+                                  SettingsNode... children) {
+        this(fragment, parentView, null, children);
     }
 
     @Override

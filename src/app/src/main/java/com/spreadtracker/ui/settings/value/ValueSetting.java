@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.spreadtracker.ui.settings.IconSetting;
@@ -16,13 +17,18 @@ import java.util.Objects;
 public abstract class ValueSetting<T> extends IconSetting {
 
     public interface ValueSerializer<T> {
-        T readValue ();
-        void writeValue (T value);
+        T readValue ();                 // Reads a value from a location it was previously stored to
+        void writeValue (T value);      // Writes a value to a location to a location
+    }
+
+    public interface ValueValidator<T> {
+        boolean validate (T value);     // Validates a given value. True if valid, false if invalid.
     }
 
     private T mValue;
     private @StringRes int mTitleResId;
     private ValueSerializer<T> mSerializer;
+    private ValueValidator<T> mValidator;
 
     public ValueSetting (@StringRes int titleRes, @NonNull String key, T defaultValue) {
         mTitleResId = titleRes;
@@ -30,7 +36,13 @@ public abstract class ValueSetting<T> extends IconSetting {
     }
 
     public ValueSetting (@StringRes int titleRes, @NonNull ValueSerializer<T> serializer) {
+        mTitleResId = titleRes;
         mSerializer = serializer;
+    }
+
+    public ValueSetting<T> setValidator (ValueValidator<T> validator) {
+        mValidator = validator;
+        return this;
     }
 
     protected void writeValue (T value) {
@@ -68,5 +80,12 @@ public abstract class ValueSetting<T> extends IconSetting {
     public void saveState() {
         writeValue(getValue());
         notifyDirty(false); // Once we have saved our state, we are by definition no longer dirty
+    }
+
+    @Override
+    public boolean canSave() {
+        boolean canSave = super.canSave();
+        if (canSave && mValidator != null) return mValidator.validate(getValue());
+        return canSave;
     }
 }

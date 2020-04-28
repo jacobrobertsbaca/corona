@@ -86,6 +86,18 @@
         android:label="General_PhysicalActivitySettingsFragment" />
     <fragment
         android:id="@+id/testDataFragment"
-        android:name="com.spreadtracker.ui.fragment.settings.TestDataFragment"
-        android:label="TestDataFragment" />
+        android:name="com.spreadtracker.ui.fragment.settings.tests.TestDataFragment"
+        android:label="TestDataFragment" >
+        <action
+            android:id="@+id/action_testDataFragment_to_editTestDataFragment"
+            app:destination="@id/editTestDataFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTestDataFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.tests.EditTestDataFragment"
+        android:label="EditTestDataFragment" />
 </navigation>

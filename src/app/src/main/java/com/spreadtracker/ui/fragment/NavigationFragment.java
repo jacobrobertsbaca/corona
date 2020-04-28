@@ -20,7 +20,7 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
         extends ViewModelFragment<TActivity, TViewModel> {
     private NavigationBuilder mNavigationBuilder;
     private ViewGroup mToolbar;
-    private View mChildRoot;
+    protected View childRoot;
 
     private TextView mTitleView;
     private ImageView mLeftButtonView, mRightButtonView;
@@ -40,7 +40,7 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
         mRightButtonView = mToolbar.findViewById(R.id.navigation_toolbar_button_right);
 
         // Create child content
-        mChildRoot = inflater.inflate(getLayout(), parent);
+        childRoot = inflater.inflate(getLayout(), parent);
         root = parent;
 
         // Set up navigation for the first time

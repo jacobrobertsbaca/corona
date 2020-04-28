@@ -17,16 +17,26 @@ public class Test {
 
     public static final String DISEASE_COVID19 = "covid19"; // Constant for COVID-19 disease name
 
+    // Model Variables
     private long personId;
     private String disease;
     private boolean positive;
     private long date;
+
+    // Display/Storage/Validation variables
+    private String facilityName;
 
     public Test(long personId, String disease, boolean positive, long date) {
         this.personId = personId;
         this.disease = disease;
         this.positive = positive;
         this.date = date;
+    }
+
+    public Test (long personId, String disease, boolean positive, long date,
+                 String facilityName) {
+        this (personId, disease, positive, date);
+        facilityName = facilityName;
     }
 
     // Needed for GSON serialization
@@ -62,6 +72,14 @@ public class Test {
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    public String getFacilityName() {
+        return facilityName;
+    }
+
+    public void setFacilityName(String facilityName) {
+        this.facilityName = facilityName;
     }
 
     /**

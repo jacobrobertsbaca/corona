@@ -2,6 +2,7 @@ package com.spreadtracker.ui.settings;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class IconSetting extends SettingsNode {
 
     protected ImageView iconView;
     protected TextView titleView, textView;
+    protected EditText editText;
 
     @NonNull
     @Override
@@ -33,9 +35,11 @@ public class IconSetting extends SettingsNode {
         iconView = root.findViewById(R.id.view_setting_icon_image);
         titleView = root.findViewById(R.id.view_setting_icon_title);
         textView = root.findViewById(R.id.view_setting_icon_text);
+        editText = root.findViewById(R.id.view_setting_icon_textfield);
 
         titleView.setText("");
         textView.setText("");
+        editText.setVisibility(View.GONE);
 
         return root;
     }
