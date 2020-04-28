@@ -22,7 +22,7 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
     private ViewGroup mToolbar;
     protected View childRoot;
 
-    private TextView mTitleView;
+    private TextView mTitleView, mLeftTextView, mRightTextView;
     private ImageView mLeftButtonView, mRightButtonView;
 
     @Nullable
@@ -38,6 +38,8 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
         mTitleView = mToolbar.findViewById(R.id.navigation_toolbar_title);
         mLeftButtonView = mToolbar.findViewById(R.id.navigation_toolbar_button_left);
         mRightButtonView = mToolbar.findViewById(R.id.navigation_toolbar_button_right);
+        mLeftTextView = mToolbar.findViewById(R.id.navigation_toolbar_text_left);
+        mRightTextView = mToolbar.findViewById(R.id.navigation_toolbar_text_right);
 
         // Create child content
         childRoot = inflater.inflate(getLayout(), parent);
@@ -69,6 +71,11 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
 
         mRightButtonView.setVisibility(builder.getRightButtonVisibility());
         mLeftButtonView.setVisibility(builder.getLeftButtonVisibility());
+
+        mRightTextView.setVisibility(builder.getRightTextVisibility());
+        mRightTextView.setOnClickListener(builder.getRightButtonCallback());
+        mLeftTextView.setVisibility(builder.getLeftTextVisibility());
+        mLeftTextView.setOnClickListener(builder.getLeftButtonCallback());
     }
 
     @NonNull

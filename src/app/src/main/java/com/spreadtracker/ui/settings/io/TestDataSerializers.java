@@ -11,7 +11,6 @@ import com.spreadtracker.ui.settings.value.ValueSetting;
 import com.spreadtracker.ui.util.ToastError;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,14 +18,20 @@ public class TestDataSerializers {
 
     private static final DateFormat CALENDAR_FORMAT = SimpleDateFormat.getDateInstance();
 
+    public final String POSITIVE;
+    public final String NEGATIVE;
+
     private Test mTest;
     private boolean mEdit;
     private Context mCtx;
 
-    public TestDataSerializers (@NonNull Test test, boolean editting, Context context) {
+    public TestDataSerializers (@NonNull Test test, boolean editting, @NonNull Context context) {
         mTest = test;
         mEdit = editting;
         mCtx = context;
+
+        POSITIVE = context.getString(R.string.settings_testdata_result_positive);
+        NEGATIVE = context.getString(R.string.settings_testdata_result_negative);
     }
 
     public ValueSetting.ValueSerializer<Long> testDate () {
@@ -65,6 +70,35 @@ public class TestDataSerializers {
         return value -> {
             boolean valid = value != null && !value.isEmpty() && value.length() >= 3;
             if (!valid) ToastError.error(mCtx, R.string.settings_testdata_facilityname_error, Toast.LENGTH_LONG);
+            return valid;
+        };
+    }
+
+    public ValueSetting.ValueSerializer<String> testResult() {
+        return new ValueSetting.ValueSerializer<String>() {
+            @Override
+            public String readValue() {
+                return mTest.isPositive() ?  POSITIVE : NEGATIVE;
+            }
+
+            @Override
+            public void writeValue(String value) {
+                if (value == null || value.isEmpty()) {
+                    mTest.setResult(false);
+                    return;
+                }
+
+                if (value.equals(POSITIVE)) mTest.setResult(true);
+                else if (value.equals(NEGATIVE)) mTest.setResult(false);
+                else mTest.setResult(false);
+            }
+        };
+    }
+
+    public ValueSetting.ValueValidator<String> testResultValidator () {
+        return value -> {
+            boolean valid = value == null || value.isEmpty();
+            if (!valid) ToastError.error(mCtx, R.string.settings_testdata_result_error, Toast.LENGTH_LONG);
             return valid;
         };
     }

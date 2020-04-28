@@ -6,11 +6,14 @@ import android.view.ViewGroup;
 import com.spreadtracker.R;
 import com.spreadtracker.contactstracing.Test;
 import com.spreadtracker.ui.fragment.settings.SettingsFragment;
+import com.spreadtracker.ui.settings.LabelSettings;
 import com.spreadtracker.ui.settings.NavigationSettingsPage;
 import com.spreadtracker.ui.settings.io.SettingsStore;
 import com.spreadtracker.ui.settings.io.TestData;
 import com.spreadtracker.ui.settings.io.TestDataSerializers;
 import com.spreadtracker.ui.settings.value.DatePickerSetting;
+import com.spreadtracker.ui.settings.value.RadioSetting;
+import com.spreadtracker.ui.settings.value.RadioSettings;
 import com.spreadtracker.ui.settings.value.TextSetting;
 
 public class EditTestDataFragment extends SettingsFragment {
@@ -45,6 +48,7 @@ public class EditTestDataFragment extends SettingsFragment {
         Test test;
         if (mEdit) test = testData.get(mPos);
         else test = new Test();
+        test.setDisease(Test.DISEASE_COVID19);
 
         // Runnable that determines what should happen
         // when the user clicks the save button.
@@ -67,7 +71,11 @@ public class EditTestDataFragment extends SettingsFragment {
 
         NavigationSettingsPage settingsPage = new NavigationSettingsPage(this, container, onSave,
                 new TextSetting(R.string.settings_testdata_facilityname, tds.testFacility()).setValidator(tds.testFacilityValidator()),
-                new DatePickerSetting(R.string.settings_testdata_date, R.string.settings_error_date, tds.testDate())
+                new DatePickerSetting(R.string.settings_testdata_date, R.string.settings_error_date, tds.testDate()),
+                new LabelSettings(R.string.settings_testdata_result_title,
+                        new RadioSettings(tds.testResult(),
+                                new RadioSetting(tds.POSITIVE),
+                                new RadioSetting(tds.NEGATIVE)))
         ).build();
 
 

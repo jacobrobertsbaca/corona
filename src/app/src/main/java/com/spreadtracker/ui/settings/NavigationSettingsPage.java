@@ -27,14 +27,14 @@ public class NavigationSettingsPage extends SettingsPage {
 
         // Set up the navigation how we would like it to be
         NavigationBuilder newNav = mFragment.getNavigation();
-        newNav.setRightButtonVisibility(View.GONE);
-        newNav.setRightButtonDrawable(R.drawable.ic_checkmark);
+        newNav.setRightTextVisibility(View.GONE);
+        newNav.setRightText(R.string.toolbar_done);
         newNav.setRightButtonCallback(v -> {
             // Save children element's state
             if (canSave()) {
                 saveState();
                 NavigationBuilder nav = mFragment.getNavigation();
-                nav.setRightButtonVisibility(View.GONE);
+                nav.setRightTextVisibility(View.GONE);
                 mFragment.updateNavigation(nav);
                 if (mOnSave != null) mOnSave.run();
             }
@@ -52,7 +52,7 @@ public class NavigationSettingsPage extends SettingsPage {
     public void notifyChildrenDirty(boolean dirty) {
         // When a child sets a dirty state, we will show or hide the save button
         NavigationBuilder newNav = mFragment.getNavigation();
-        newNav.setRightButtonVisibility(dirty ? View.VISIBLE : View.GONE); // I use isDirty() here because super.notifyDirty() will check if children are dirty
+        newNav.setRightTextVisibility(dirty ? View.VISIBLE : View.GONE);
         mFragment.updateNavigation(newNav);
     }
 
