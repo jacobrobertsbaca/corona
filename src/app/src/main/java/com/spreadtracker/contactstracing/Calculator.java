@@ -11,10 +11,17 @@ public class Calculator {
         this.database = database;
     }
 
-    public double getInfectedPercentage(Person person, Date date) {
+    public double getInfectedPercentage(long personId, Date date) {
 //        calculates the chance that a person is infected by propagating back through events
         double percentage = 5.0;
+        List<long[]> paths = getPaths(personId, date);
+        List<Node> nodes = new ArrayList<Node>();
+//        all the nodes that will be created by grouping
 
+        for (long initialId : Node.getUniqueChildIds(paths)){
+            Node initialNode = new Node(null, initialId);
+            initialNode.buildGroupTree(paths, nodes);
+        }
 
         return(percentage);
     }
@@ -24,13 +31,13 @@ public class Calculator {
         List<long[]> paths = new ArrayList<long[]>();
 
         long[] emptyParentIdChain = {};
-        buildTree(personId, date.getTime(), emptyParentIdChain, paths);
+        buildConnectionList(personId, date.getTime(), emptyParentIdChain, paths);
 //        buildTree will recursively add eventIds to parent chains and add the parent chains to paths when it hits an infection.
 
         return(paths);
     }
 
-    private void buildTree(long rootPersonId, long date, long[] parentIdChain, List<long[]>resultPaths){
+    private void buildConnectionList(long rootPersonId, long date, long[] parentIdChain, List<long[]>resultPaths){
 //        parentIdChain is an array of eventIds that led to this connection.
 //        resultPaths is the master list of paths, which is directly altered in the method when a leaf node is found.
 
@@ -56,7 +63,7 @@ public class Calculator {
                 resultPaths.add(connectionIdChain);
             } else {
 //                if this is not a leaf node, recurse to the connection
-                buildTree(connection.personId, connection.eventDate, connectionIdChain, resultPaths);
+                buildConnectionList(connection.personId, connection.eventDate, connectionIdChain, resultPaths);
             }
         }
     }
