@@ -44,8 +44,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
     public int getInfectedPercentageColor () {
         if (mColorInterpolator == null) mColorInterpolator = new ArgbEvaluator();
         if (!mColorsBeenSet) {
-            mHealthyColor = ContextCompat.getColor(getApplication(), R.color.overlayHealthy);
-            mUnhealthyColor = ContextCompat.getColor(getApplication(), R.color.overlayUnhealthy);
+            mHealthyColor = ContextCompat.getColor(getApplication(), R.color.diseaseHealthy);
+            mUnhealthyColor = ContextCompat.getColor(getApplication(), R.color.diseaseUnhealthy);
             mColorsBeenSet = true;
         }
         return (int)mColorInterpolator.evaluate((float)(double)getInfectedPercentage().getValue(),

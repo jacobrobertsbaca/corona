@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/overlayHealthy">
+    android:background="@color/diseaseHealthy">
 
     <TextView
         android:id="@+id/fragment_overlay_textPercentage"

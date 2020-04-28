@@ -2,13 +2,14 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#FF02F170</color>
+    <color name="colorAccentFaded">#B002F170</color>
 
     <color name="grayDark">#303030</color>
     <color name="white">#ffffff</color>
 
-    <color name="overlayHealthy">#B002F170</color>
-    <color name="overlayUnhealthy">#BCFA2053</color>
+    <color name="diseaseHealthy">#B002F170</color>
+    <color name="diseaseUnhealthy">#BCFA2053</color>
 
     <color name="errorRed">#D86262</color>
 </resources>

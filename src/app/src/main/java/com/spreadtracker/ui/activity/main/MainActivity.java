@@ -1,9 +1,11 @@
 package com.spreadtracker.ui.activity.main;
 
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +22,18 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.TileOverlay;
+import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.maps.android.heatmaps.Gradient;
+import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.google.maps.android.heatmaps.WeightedLatLng;
 import com.spreadtracker.App;
 import com.spreadtracker.R;
+import com.spreadtracker.ui.util.ToastError;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -93,17 +104,64 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         zoomToCurrentLocation();
+        buildHeatmap();
+    }
+
+    private void buildHeatmap () {
+        // Temporary heat map visualization
+        getDataSet(data -> {
+            int[] colors = {
+                    Color.argb(0, 0, 255, 0),
+                    Color.argb(255, 255, 0, 0)
+            };
+
+            float[] startPoints = {0.0f, 1.0f};
+
+            HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
+                    .weightedData(data)
+                    .gradient(new Gradient(colors, startPoints))
+                    .radius(30)
+                    .build();
+            TileOverlay overlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+        });
     }
 
     private void zoomToCurrentLocation () {
         if (mLocationClient == null) mLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        mLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
-                }
+        mLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
+            if (location != null) {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
             }
+        });
+    }
+
+    private void getDataSet (OnSuccessListener<List<WeightedLatLng>> onSuccess) {
+        // This should get data from the model and process it to a format that makes it look when loaded onto the map
+        // For now I'll just generate some random data within a "circle" around the user's location
+        mLocationClient.getLastLocation().addOnSuccessListener(location -> {
+            if (location != null) {
+                final double locationRadius = 0.1; // This is temporary...
+                final int iterations = 1000;
+
+                double minLat = location.getLatitude() - locationRadius;
+                double maxLat = location.getLatitude() + locationRadius;
+                double minLon = location.getLongitude() - locationRadius;
+                double maxLon = location.getLongitude() + locationRadius;
+
+                List<WeightedLatLng> points = new ArrayList<>();
+                while (points.size() < iterations) {
+                    double lat = minLat + Math.random() * (maxLat - minLat);
+                    double lon = minLon + Math.random() * (maxLon - minLon);
+                    double distance = Math.sqrt(Math.pow(lat - location.getLatitude(), 2)
+                            + Math.pow(lon-location.getLongitude(), 2));
+                    if (distance > locationRadius) continue;
+                    double weight = Math.random();
+                    LatLng latLng = new LatLng(lat, lon);
+                    points.add(new WeightedLatLng(latLng, weight));
+                }
+
+                if (onSuccess != null) onSuccess.onSuccess(points);
+            } else ToastError.error(this, "Could not get current location!", Toast.LENGTH_LONG);
         });
     }
 

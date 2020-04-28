@@ -41,7 +41,7 @@ public class NavigationBuilder {
     public NavigationBuilder(@NonNull NavigationFragment fragment, @NonNull Context ctx) {
         mFragment = fragment;
         mContext = ctx;
-        mBackgroundColor = ContextCompat.getColor(mContext, R.color.overlayHealthy);
+        mBackgroundColor = ContextCompat.getColor(mContext, R.color.colorAccentFaded);
     }
 
     public NavigationBuilder setTitle (@StringRes int stringRes) {

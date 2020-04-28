@@ -9,6 +9,8 @@ public class Person {
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
+    private double locationLat;
+    private double locationLong;
 
     public void bindForInsert(SQLiteStatement statement) {
         statement.bindString(1, getFirstName());
@@ -47,4 +49,12 @@ public class Person {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+    public double getLat () {return locationLat;}
+
+    public void setLat (double latitude) {locationLat = latitude;}
+
+    public double getLocationLong() { return locationLong; }
+
+    public void setLocationLong(double longitude) { locationLong = longitude; }
 }
