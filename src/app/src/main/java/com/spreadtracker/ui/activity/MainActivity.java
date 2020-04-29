@@ -178,7 +178,7 @@ public class MainActivity extends NavigationActivity implements OnMapReadyCallba
                     double distance = Math.sqrt(Math.pow(lat - location.getLatitude(), 2)
                             + Math.pow(lon-location.getLongitude(), 2));
                     if (distance > locationRadius) continue;
-                    double weight = Math.random();
+                    double weight = Math.pow(Math.random(), 15) / 5;
                     LatLng latLng = new LatLng(lat, lon);
                     points.add(new WeightedLatLng(latLng, weight));
                 }

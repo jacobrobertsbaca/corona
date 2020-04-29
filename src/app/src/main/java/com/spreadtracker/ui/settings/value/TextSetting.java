@@ -72,4 +72,9 @@ public class TextSetting extends ValueSetting<String> {
         editText.setText(value);
         editText.addTextChangedListener(mWatcher);
     }
+
+    @Override
+    public boolean hasValue() {
+        return getValue() != null && !getValue().isEmpty();
+    }
 }

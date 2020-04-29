@@ -45,7 +45,7 @@ public abstract class NavigationFragment<TActivity extends FragmentActivity, TVi
         childRoot = inflater.inflate(getLayout(), parent);
         root = parent;
 
-        // Set up navigation for the first time
+        // Set up navigation_main for the first time
         updateNavigation(buildNavigation(inflater.getContext()));
 
         inOnCreateView(container, savedInstanceState);
