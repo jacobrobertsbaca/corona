@@ -30,12 +30,7 @@ public class CheckmarkSetting extends ValueSetting<Boolean> {
 
         // Set an on click listener for this view
         // so that when we click the boolean setting, we change state
-        getRootView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSettingClicked();
-            }
-        });
+        getRootView().setOnClickListener(v -> onSettingClicked());
 
         return root;
     }

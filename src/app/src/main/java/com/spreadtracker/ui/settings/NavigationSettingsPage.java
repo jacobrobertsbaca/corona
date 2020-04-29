@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 
 import com.spreadtracker.R;
-import com.spreadtracker.ui.activity.main.MainActivity;
+import com.spreadtracker.ui.activity.MainActivity;
 import com.spreadtracker.ui.fragment.NavigationBuilder;
 import com.spreadtracker.ui.fragment.NavigationFragment;
 
@@ -25,7 +25,7 @@ public class NavigationSettingsPage extends SettingsPage {
         mFragment = fragment;
         mOnSave = onSave;
 
-        // Set up the navigation how we would like it to be
+        // Set up the navigation_main how we would like it to be
         NavigationBuilder newNav = mFragment.getNavigation();
         newNav.setRightTextVisibility(View.GONE);
         newNav.setRightText(R.string.toolbar_done);

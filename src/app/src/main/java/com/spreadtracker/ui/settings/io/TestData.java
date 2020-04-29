@@ -103,6 +103,7 @@ public class TestData {
 
     /**
      * Returns the most recent test stored on the user's phone.
+     * Equivalent to calling {@link TestData#get(int)} with an index of 0 if an element at 0 exists.
      */
     public Test getLatest () {
         return mTests.size() > 0 ? mTests.get(0) : null;
@@ -116,7 +117,9 @@ public class TestData {
     }
 
     /**
-     * Deletes a test by its index. Indices are valid from 0...{@link TestData#getCount()}-1
+     * Deletes a test by its index. Indices are valid from 0...{@link TestData#getCount()}-1,
+     * and the test data is guaranteed to be ordered in reverse chronological order, such that
+     * {@link Test#getDate()} for the n+1 element is less than {@link Test#getDate()} for the nth element.
      */
     public void delete (int index) {
         mDeleted = mTests.get(index);
@@ -135,6 +138,12 @@ public class TestData {
         saveTests(CREATE);
     }
 
+    /**
+     * Adds an object that will listen for changes in the test data. Notifications will be sent when
+     * a new test is created, the tests are modified, or a test is deleted, and {@link TestData#CREATE},
+     * {@link TestData#MODIFY} or {@link TestData#DELETE} will be sent accordingly. Optionally set
+     * receiveOnSubscription to true to receive a modification update upon subscription.
+     */
     public void addChangeListener (OnTestDataChangedListener listener, boolean receiveOnSubscription) {
         mChangeListeners.add(listener);
         if (receiveOnSubscription) listener.OnTestDataChanged(this, MODIFY);
@@ -144,6 +153,9 @@ public class TestData {
         addChangeListener(listener, false);
     }
 
+    /**
+     * Removes a {@link OnTestDataChangedListener} if it was previously added.
+     */
     public boolean removeChangeListener (OnTestDataChangedListener listener) {
         return mChangeListeners.remove(listener);
     }

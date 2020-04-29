@@ -2,23 +2,17 @@ package com.spreadtracker.ui.fragment.info;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.spreadtracker.R;
-import com.spreadtracker.ui.activity.main.MainActivity;
-import com.spreadtracker.ui.fragment.BaseFragment;
+import com.spreadtracker.ui.activity.MainActivity;
 import com.spreadtracker.ui.fragment.NavigationBuilder;
-import com.spreadtracker.ui.fragment.NavigationFragment;
 import com.spreadtracker.ui.fragment.ViewModelLessNavigationFragment;
 import com.spreadtracker.ui.fragment.home.HomeFragmentViewModel;
 

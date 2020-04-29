@@ -1,5 +1,7 @@
 package com.spreadtracker.ui.settings;
 
+import com.spreadtracker.ui.util.ILayoutFactory;
+
 /**
  * Represents an object whose state can be saved and restored
  * with an inflatable layout to represent the object.

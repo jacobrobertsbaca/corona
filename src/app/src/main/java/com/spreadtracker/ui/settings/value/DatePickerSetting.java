@@ -31,7 +31,7 @@ public class DatePickerSetting extends ValueSetting<Long> {
     }
 
     public DatePickerSetting(@StringRes int titleRes, @StringRes int errorTextRes, @NonNull String key) {
-        this (titleRes, errorTextRes, key, new Date().getTime());
+        this (titleRes, errorTextRes, key, 0L);
     }
 
     public DatePickerSetting(@StringRes int titleRes, @NonNull String key) {
@@ -93,6 +93,13 @@ public class DatePickerSetting extends ValueSetting<Long> {
     @Override
     public void setValue(Long value) {
         super.setValue(value);
-        textView.setText(mFormat.format(new Date(value)));
+        if (value != 0)
+            textView.setText(mFormat.format(new Date(value)));
+        textView.setText(null);
+    }
+
+    @Override
+    public boolean hasValue() {
+        return getValue() != 0;
     }
 }

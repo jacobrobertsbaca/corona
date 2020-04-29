@@ -55,4 +55,9 @@ public class RadioSettings extends ValueSetting<String> {
         for (RadioSetting setting : mRadioSettings)
             setting.setActive(value != null && value.equals(setting.getName()));
     }
+
+    @Override
+    public boolean hasValue() {
+        return getValue() != null && !getValue().isEmpty();
+    }
 }

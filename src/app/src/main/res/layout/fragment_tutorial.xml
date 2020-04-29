@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:_android="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragment_tutorial_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/fragment_tutorial_tablayout"
+        app:tabBackground="@drawable/tutorial_dot"
+        app:tabIndicator="@null"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="6dp"
+        app:tabGravity="center"
+        app:tabMaxWidth="12dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="4dp"
+            android:layout_width="4dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="4dp"
+            android:layout_width="4dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="4dp"
+            android:layout_width="4dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="4dp"
+            android:layout_width="4dp" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+</LinearLayout>

@@ -1,6 +1,5 @@
 package com.spreadtracker.ui.settings;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spreadtracker.R;
-import com.spreadtracker.ui.activity.main.MainActivity;
+import com.spreadtracker.ui.activity.MainActivity;
 import com.spreadtracker.ui.adapter.TestDataAdapter;
 import com.spreadtracker.ui.util.TestDataDeletionCallback;
 

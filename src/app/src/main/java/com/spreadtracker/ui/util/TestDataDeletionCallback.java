@@ -29,7 +29,7 @@ public class TestDataDeletionCallback extends ItemTouchHelper.SimpleCallback {
 
         mIcon = ContextCompat.getDrawable(mAdapter.getContext(),
                 R.drawable.ic_delete);
-        mBackground = new ColorDrawable(ContextCompat.getColor(mAdapter.getContext(),R.color.overlayUnhealthy));
+        mBackground = new ColorDrawable(ContextCompat.getColor(mAdapter.getContext(),R.color.errorRed));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class TestDataDeletionCallback extends ItemTouchHelper.SimpleCallback {
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         View itemView = viewHolder.itemView;
-        int backgroundCornerOffset = 20;
+        int backgroundCornerOffset = 0;
 
         int iconMargin = (itemView.getHeight() - mIcon.getIntrinsicHeight()) / 2;
         int iconTop = itemView.getTop() + (itemView.getHeight() - mIcon.getIntrinsicHeight()) / 2;

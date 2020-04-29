@@ -11,16 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.spreadtracker.App;
 import com.spreadtracker.R;
-import com.spreadtracker.ui.activity.main.MainActivity;
+import com.spreadtracker.ui.activity.MainActivity;
 import com.spreadtracker.ui.adapter.OverlayPagerAdapter;
 import com.spreadtracker.ui.fragment.ViewModelFragment;
 import com.spreadtracker.ui.fragment.info.InfoFragment;

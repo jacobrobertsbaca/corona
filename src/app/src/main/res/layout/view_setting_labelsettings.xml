@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    _android:background="@color/overlayHealthy">
+    _android:background="@color/colorAccentFaded">
 
     <TextView
         android:id="@+id/view_setting_labelsettings_title"

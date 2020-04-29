@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.main.MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/activity_main_mapView"
@@ -19,6 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation"/>
+        app:navGraph="@navigation/navigation_main"/>
+
+    <fragment
+        android:id="@+id/activity_main_tutorialFragment"
+        android:name="com.spreadtracker.ui.fragment.tutorial.TutorialFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

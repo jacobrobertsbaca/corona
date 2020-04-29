@@ -4,13 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.spreadtracker.R;
-import com.spreadtracker.ui.activity.main.MainActivity;
+import com.spreadtracker.ui.activity.MainActivity;
 import com.spreadtracker.ui.fragment.NavigationBuilder;
 import com.spreadtracker.ui.fragment.NavigationFragment;
 import com.spreadtracker.ui.fragment.profile.ProfileFragmentViewModel;
