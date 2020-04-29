@@ -9,8 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.spreadtracker.R;
-import com.spreadtracker.contactstracing.Calculator;
-import com.spreadtracker.ui.activity.main.MainActivity;
+import com.spreadtracker.ui.activity.MainActivity;
 import com.spreadtracker.ui.fragment.ViewModelFragment;
 
 

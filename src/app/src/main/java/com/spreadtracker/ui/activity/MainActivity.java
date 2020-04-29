@@ -1,4 +1,4 @@
-package com.spreadtracker.ui.activity.main;
+package com.spreadtracker.ui.activity;
 
 import android.graphics.Color;
 import android.location.Location;
@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -30,14 +32,15 @@ import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 import com.spreadtracker.App;
 import com.spreadtracker.R;
+import com.spreadtracker.ui.activity.NavigationActivity;
+import com.spreadtracker.ui.fragment.tutorial.TutorialFragment;
 import com.spreadtracker.ui.util.ToastError;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends NavigationActivity implements OnMapReadyCallback {
 
-    private NavController mNavigation;
     private CoordinatorLayout mLayout;
 
     /**
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private MapView mMapView;
 
+    public CoordinatorLayout getLayout() { return mLayout; }
+
     private FusedLocationProviderClient mLocationClient;
 
     @Override
@@ -57,16 +62,34 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         initializeMap(savedInstanceState);
         mLayout = findViewById(R.id.activity_main_layout);
+
+        showTutorial();
     }
 
-    public NavController getNav() {
-        if (mNavigation != null) return mNavigation;
-        NavHostFragment navFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main_navHostFragment);
-        mNavigation = navFragment.getNavController();
-        return mNavigation;
+    @Override
+    @NonNull
+    protected NavHostFragment getNavHost() {
+        return (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main_navHostFragment);
     }
 
-    public CoordinatorLayout getLayout() { return mLayout; }
+    /**
+     * Shows the tutorial page, if it should be shown right now
+     */
+    private void showTutorial () {
+        FragmentManager manager = getSupportFragmentManager();
+        TutorialFragment fragment = (TutorialFragment) manager.findFragmentById(R.id.activity_main_tutorialFragment);
+        View fragmentView = fragment.getView();
+
+        boolean showTutorial = true;
+
+        if (!showTutorial) {
+            fragmentView.setVisibility(View.GONE);
+            manager
+                    .beginTransaction()
+                    .remove(fragment)
+                    .commit();
+        }
+    }
 
     /**
      * Initializes the Google Maps API and the map view in this fragment,

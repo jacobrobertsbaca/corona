@@ -14,14 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.spreadtracker.R;
 import com.spreadtracker.contactstracing.Test;
-import com.spreadtracker.ui.activity.main.MainActivity;
+import com.spreadtracker.ui.activity.MainActivity;
 import com.spreadtracker.ui.fragment.settings.tests.EditTestDataFragment;
 import com.spreadtracker.ui.settings.io.SettingsStore;
 import com.spreadtracker.ui.settings.io.TestData;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**

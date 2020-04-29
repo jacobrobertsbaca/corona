@@ -1,4 +1,4 @@
-package com.spreadtracker.ui.settings;
+package com.spreadtracker.ui.util;
 
 import android.view.LayoutInflater;
 import android.view.View;

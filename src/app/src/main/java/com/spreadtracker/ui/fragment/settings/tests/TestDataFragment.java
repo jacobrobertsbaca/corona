@@ -10,10 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.spreadtracker.R;
-import com.spreadtracker.ui.activity.main.MainActivity;
+import com.spreadtracker.ui.activity.MainActivity;
 import com.spreadtracker.ui.fragment.NavigationBuilder;
 import com.spreadtracker.ui.fragment.NavigationFragment;
-import com.spreadtracker.ui.fragment.ViewModelFragment;
 import com.spreadtracker.ui.fragment.profile.ProfileFragmentViewModel;
 import com.spreadtracker.ui.settings.SettingsPage;
 import com.spreadtracker.ui.settings.TestDataListSetting;
