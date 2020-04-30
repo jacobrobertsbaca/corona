@@ -47,6 +47,11 @@ public class TutorialPagerAdapter extends PagerAdapter {
         return pageView;
     }
 
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        container.removeView((View) object);
+    }
+
     public TutorialPagerAdapter addPage (@NonNull TutorialPage page) {
         mPages.add(page);
         page.setContext(mCtx);

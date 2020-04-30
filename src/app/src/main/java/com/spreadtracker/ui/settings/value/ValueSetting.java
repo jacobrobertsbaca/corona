@@ -129,4 +129,6 @@ public abstract class ValueSetting<T> extends IconSetting {
      * and false if it does not.</p>
      */
     public boolean hasValue () { return getValue() != null; }
+
+    public String getTitle () {return getContext().getString(mTitleResId);}
 }

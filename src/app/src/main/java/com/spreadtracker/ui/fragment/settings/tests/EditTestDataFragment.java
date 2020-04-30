@@ -63,9 +63,6 @@ public class EditTestDataFragment extends SettingsFragment {
             public void run() {
                 if (mEdit) testData.save();
                 else testData.create(test);
-
-                // Go back
-                activity.getNav().popBackStack();
             }
         };
 

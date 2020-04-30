@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#FF02F170</color>
-    <color name="colorAccentFaded">#B002F170</color>
+    <color name="colorAccent">#FF10F7B6</color>
+    <color name="colorAccentFaded">#B010F7B6</color>
 
     <color name="grayDark">#303030</color>
     <color name="white">#ffffff</color>

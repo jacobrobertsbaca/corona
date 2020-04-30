@@ -12,6 +12,6 @@
         android:textSize="35sp"
         android:fontFamily="@font/segoeui_light"
         android:textColor="@color/white"
-        android:text="Welcome to SpreadTracker!"/>
+        android:text="How it works"/>
 
 </LinearLayout>

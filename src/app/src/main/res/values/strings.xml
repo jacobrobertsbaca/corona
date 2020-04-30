@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SpreadTracker</string>
     <string name="toolbar_done">done</string>
+    <string name="toolbar_next">next</string>
+    <string name="toolbar_back">back</string>
     <string name="title_activity_maps">Map</string>
     <string name="overlay_percentage">%1$d%%</string>
     <string name="profile_title">Profile</string>
@@ -20,6 +22,12 @@
     <string name="settings_general_gender_male">Male</string>
     <string name="settings_general_gender_female">Female</string>
     <string name="settings_general_gender_ambiguous">Prefer Not to Say</string>
+    <string name="settings_general_height_title">Height</string>
+    <string name="settings_general_height_dialog_title">Enter your height</string>
+    <string name="settings_general_height_formatter">%1$d\'%2$d"</string>
+    <string name="settings_general_weight_title">Weight</string>
+    <string name="settings_general_weight_dialog_title">Enter your weight</string>
+    <string name="settings_general_weight_formatter">%1$d lbs</string>
     <string name="settings_testdata_title">Test Data</string>
     <string name="settings_testdata_edit">Edit Test</string>
     <string name="settings_testdata_create">Add Test</string>
