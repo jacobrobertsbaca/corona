@@ -62,10 +62,10 @@ public class Database {
 
     public List<Connection> getConnectionsBeforeDate(long personId, long date){
 //        returns Connections for every person that a person interacted with before the given date.
-//        Connections contain eventId, eventDate, personId
+//        Connections contain eventId, eventDate, eventWeight, personId
 //        returns in order of descending date
         List<Connection> connections = new ArrayList<Connection>();
-        String selectStatement = "SELECT e.date, p.personId From event e, personEvent p, personEvent s where " +
+        String selectStatement = "SELECT e.rowid, e.date, e.weight, p.personId From event e, personEvent p, personEvent s where " +
                 "p.eventROWID = s.eventROWID " +
                 "and p.eventROWID = e.ROWID " +
                 "and s.personROWID = ? " +
@@ -73,7 +73,7 @@ public class Database {
                 "order by date Desc";
         try (Cursor cursor = database.rawQuery(selectStatement, new String[]{Long.toString(personId), Long.toString(date)})) {
             while (cursor.moveToNext()) {
-                Connection connection = new Connection(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2));
+                Connection connection = new Connection(cursor.getLong(0), cursor.getLong(1), cursor.getDouble(2), cursor.getLong(3));
                 connections.add(connection);
             }
         }
@@ -121,14 +121,16 @@ public class Database {
         }
     }
 
-    public static class Connection{
+    public class Connection{
         public long eventId;
         public long eventDate;
+        public double eventWeight;
         public long personId;
 
-        public Connection(long eventId, long eventDate, long personId){
+        public Connection(long eventId, long eventDate, double eventWeight, long personId){
             this.eventId = eventId;
             this.eventDate = eventDate;
+            this.eventWeight = eventWeight;
             this.personId = personId;
         }
     }
