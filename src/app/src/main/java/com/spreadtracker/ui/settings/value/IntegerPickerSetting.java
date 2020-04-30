@@ -77,10 +77,6 @@ public class IntegerPickerSetting extends ValueSetting<Integer> {
             for (int i = 0; i < mValuesInches.length; i++) mValuesInches[i] = valuesInches.get(i);
         }
 
-        public IntegerPickerDialog(@NonNull Context context, @StringRes int titleRes, int currentValue) {
-            this(context, context.getString(titleRes), currentValue);
-        }
-
         public void setOnValueSelectedListener (OnValueSelectedListener listener) {mListener = listener;}
 
         @Override
@@ -104,7 +100,10 @@ public class IntegerPickerSetting extends ValueSetting<Integer> {
             // This will select the first value if no matching value was found
             mPickerView.setValue(1);
             for (int i = mValuesInches.length - 1; i >= 0; i--)
-                if (mCurrentValue >= mValuesInches[i]) mPickerView.setValue(i + 1);
+                if (mCurrentValue >= mValuesInches[i]) {
+                    mPickerView.setValue(i + 1);
+                    break;
+                }
 
             findViewById(R.id.dialog_picker_done).setOnClickListener(v -> {
                 // User is done setting height.

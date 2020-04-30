@@ -23,6 +23,7 @@ public class GeneralSettingsFragment extends SettingsFragment {
     public final static String GENDER_FEMALE = "female";
 
     public final static String SETTINGS_GENERAL_HEIGHT = SETTINGS_GENERAL_ROOT + "height";
+    public final static String SETTINGS_GENERAL_WEIGHT = SETTINGS_GENERAL_ROOT + "weight";
 
     @Override
     protected int getTitle() {
@@ -42,10 +43,10 @@ public class GeneralSettingsFragment extends SettingsFragment {
                 getString(R.string.settings_general_height_dialog_title));
 
         IntegerPickerSetting weightPicker = new IntegerPickerSetting(R.string.settings_general_weight_title,
-                SETTINGS_GENERAL_HEIGHT,
+                SETTINGS_GENERAL_WEIGHT,
                 50, 500, 5,
                 value -> getString(R.string.settings_general_weight_formatter, value),
-                getString(R.string.settings_general_height_dialog_title));
+                getString(R.string.settings_general_weight_dialog_title));
 
         NavigationSettingsPage navSettings = new NavigationSettingsPage(this, container,
                 new DatePickerSetting(R.string.settings_general_birthday, R.string.settings_error_date, SETTINGS_GENERAL_BIRTHDAY),

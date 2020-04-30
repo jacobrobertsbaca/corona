@@ -95,7 +95,7 @@ public class DatePickerSetting extends ValueSetting<Long> {
         super.setValue(value);
         if (value != 0)
             textView.setText(mFormat.format(new Date(value)));
-        textView.setText(null);
+        else textView.setText(null);
     }
 
     @Override
