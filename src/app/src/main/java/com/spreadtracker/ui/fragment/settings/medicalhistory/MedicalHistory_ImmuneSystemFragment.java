@@ -1,12 +1,20 @@
 package com.spreadtracker.ui.fragment.settings.medicalhistory;
 
+import android.content.Context;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import com.spreadtracker.R;
+import com.spreadtracker.susceptibility.ISusceptibilityProvider;
 import com.spreadtracker.ui.fragment.settings.SettingsFragment;
 import com.spreadtracker.ui.settings.NavigationSettingsPage;
+import com.spreadtracker.ui.settings.io.SettingsStore;
 import com.spreadtracker.ui.settings.value.CheckmarkSetting;
 import com.spreadtracker.ui.settings.value.SelfishCheckmarkSetting;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 public class MedicalHistory_ImmuneSystemFragment extends SettingsFragment {
     private static String ROOT = MedicalHistorySettingsFragment.SETTINGS_MEDICALHISTORY_ROOT + "immunesystem.";
@@ -30,5 +38,24 @@ public class MedicalHistory_ImmuneSystemFragment extends SettingsFragment {
                 new CheckmarkSetting(R.string.settings_medicalhistory_immunesystem_corticosteroids, IMMUNE_CORTICOSTEROIDS),
                 new SelfishCheckmarkSetting(R.string.settings_medicalhistory_unlisted, IMMUNE_UNLISTED))
                 .build();
+    }
+
+    public static int getSeverity (@NonNull Context context,
+                                   @NonNull SettingsStore store,
+                                   @NonNull ArrayList<String> ailments,
+                                   @NonNull Set<String> advice) {
+        String[] diseaseKeys = {
+            IMMUNE_CANCERTREATMENT,
+            IMMUNE_TRANSPLANTATION,
+            IMMUNE_HIV,
+            IMMUNE_CORTICOSTEROIDS,
+            IMMUNE_UNLISTED = ROOT,
+        };
+
+        if (store.readAnyBool(diseaseKeys)) {
+            ailments.add(context.getString(R.string.settings_medicalhistory_immunesystem_title));
+            return ISusceptibilityProvider.MODERATE;
+        }
+        return ISusceptibilityProvider.MILD;
     }
 }

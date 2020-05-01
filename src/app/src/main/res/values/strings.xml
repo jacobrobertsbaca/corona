@@ -71,4 +71,6 @@
     <string name="settings_general_residence_house">House</string>
     <string name="settings_general_residence_apartment">Apartment</string>
     <string name="settings_general_residence_assistedliving">Assisted Living</string>
+    <string name="settings_general_bmi">BMI</string>
+    <string name="settings_general_age">age</string>
 </resources>

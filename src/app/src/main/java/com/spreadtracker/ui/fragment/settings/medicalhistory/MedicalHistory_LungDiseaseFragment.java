@@ -1,12 +1,20 @@
 package com.spreadtracker.ui.fragment.settings.medicalhistory;
 
+import android.content.Context;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import com.spreadtracker.R;
+import com.spreadtracker.susceptibility.ISusceptibilityProvider;
 import com.spreadtracker.ui.fragment.settings.SettingsFragment;
 import com.spreadtracker.ui.settings.NavigationSettingsPage;
+import com.spreadtracker.ui.settings.io.SettingsStore;
 import com.spreadtracker.ui.settings.value.CheckmarkSetting;
 import com.spreadtracker.ui.settings.value.SelfishCheckmarkSetting;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 public class MedicalHistory_LungDiseaseFragment extends SettingsFragment {
 
@@ -33,5 +41,25 @@ public class MedicalHistory_LungDiseaseFragment extends SettingsFragment {
                 new CheckmarkSetting(R.string.settings_medicalhistory_lungdisease_cysticfibrosis, LUNG_CYSTICFIBROSIS),
                 new SelfishCheckmarkSetting(R.string.settings_medicalhistory_unlisted, LUNG_UNLISTED))
                 .build();
+    }
+
+    public static int getSeverity (@NonNull Context context,
+                                   @NonNull SettingsStore store,
+                                   @NonNull ArrayList<String> ailments,
+                                   @NonNull Set<String> advice) {
+        String[] diseasesKeys = {
+            LUNG_COPD,
+            LUNG_EMPHYSEMA,
+            LUNG_CHRONICBRONCHITIS,
+            LUNG_IDIOPATHICPULMONARYFIBROOSIS,
+            LUNG_CYSTICFIBROSIS,
+            LUNG_UNLISTED
+        };
+
+        if (store.readAnyBool(diseasesKeys)) {
+            ailments.add(context.getString(R.string.settings_medicalhistory_lungdisease_title));
+            return ISusceptibilityProvider.MODERATE;
+        }
+        return ISusceptibilityProvider.MILD;
     }
 }

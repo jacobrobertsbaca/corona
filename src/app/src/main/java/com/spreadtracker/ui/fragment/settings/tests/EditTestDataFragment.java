@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import com.spreadtracker.R;
 import com.spreadtracker.contactstracing.Test;
 import com.spreadtracker.ui.fragment.settings.SettingsFragment;
-import com.spreadtracker.ui.settings.LabelSettings;
+import com.spreadtracker.ui.settings.navigation.LabelSettings;
 import com.spreadtracker.ui.settings.NavigationSettingsPage;
 import com.spreadtracker.ui.settings.io.SettingsStore;
 import com.spreadtracker.ui.settings.io.TestData;

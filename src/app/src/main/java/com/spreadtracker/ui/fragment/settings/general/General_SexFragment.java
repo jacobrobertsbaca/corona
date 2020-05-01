@@ -1,12 +1,20 @@
 package com.spreadtracker.ui.fragment.settings.general;
 
+import android.content.Context;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import com.spreadtracker.R;
+import com.spreadtracker.susceptibility.ISusceptibilityProvider;
 import com.spreadtracker.ui.fragment.settings.SettingsFragment;
 import com.spreadtracker.ui.settings.NavigationSettingsPage;
+import com.spreadtracker.ui.settings.io.SettingsStore;
 import com.spreadtracker.ui.settings.value.RadioSetting;
 import com.spreadtracker.ui.settings.value.RadioSettings;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 public class General_SexFragment extends SettingsFragment {
 
@@ -28,5 +36,17 @@ public class General_SexFragment extends SettingsFragment {
                         new RadioSetting(GENDER_FEMALE, getString(R.string.settings_general_gender_female)),
                         new RadioSetting(GENDER_AMBIGUOUS, getString(R.string.settings_general_gender_ambiguous))))
                 .build();
+    }
+
+    public static int getSeverity (@NonNull Context context,
+                                   @NonNull SettingsStore store,
+                                   @NonNull ArrayList<String> ailments,
+                                   @NonNull Set<String> advice) {
+        switch (store.readString(SETTINGS_GENERAL_GENDER, null)) {
+            case GENDER_MALE:
+                ailments.add(context.getString(R.string.settings_general_gender_title));
+                return ISusceptibilityProvider.MODERATE;
+            default: return ISusceptibilityProvider.MILD;
+        }
     }
 }

@@ -82,6 +82,15 @@ public class SettingsStore {
     public String readString (String key, String defaultValue) { return mPreferences.getString(key, defaultValue); }
     public Set<String> readStringSet (String key, Set<String> defaultValue) { return mPreferences.getStringSet(key, defaultValue); }
 
+    public boolean readAnyBool (String[] keys) {
+        for (String key : keys) {
+            if (readBool(key, false)) return true;
+        }
+        return false;
+    }
+
+    public boolean containsKey (String key) { return mPreferences.contains(key); }
+
     @SuppressWarnings("unchecked")
     public <T> T readValue (String key, T defaultValue) {
         Map<String, ?> pMap = mPreferences.getAll();
