@@ -12,7 +12,7 @@ public class Calculator {
         this.database = database;
     }
 
-    public double getInfectedPercentage(long personId, Date date) {
+    public double getInfectedPercentage(long personId, long date) {
 //        calculates the chance that a person is infected by propagating back through events
         List<Database.Connection[]> paths = getPaths(personId, date);
         List<Node> initialNodes = new ArrayList<Node>();
@@ -37,12 +37,12 @@ public class Calculator {
         return(percentage);
     }
 
-    private List<Database.Connection[]> getPaths(long personId, Date date){
+    private List<Database.Connection[]> getPaths(long personId, long date){
 //        returns a list containing arrays of Connections for each path backwards.
         List<Database.Connection[]> paths = new ArrayList<Database.Connection[]>();
 
         Database.Connection[] emptyParentConnectionChain = {};
-        buildConnectionList(personId, date.getTime(), emptyParentConnectionChain, paths);
+        buildConnectionList(personId, date, emptyParentConnectionChain, paths);
 //        buildTree will recursively add Connections to parent chains and add the parent chains to paths when it hits an infection.
 
         return(paths);

@@ -21,9 +21,10 @@ public class Event {
     }
 
     public void bindForInsert(SQLiteStatement statement){
-        statement.bindDouble(1, getDate().getTime());
-        statement.bindDouble(2, getLatitude());
-        statement.bindDouble(3, getLongitude());
+        statement.bindLong(1, getDate().getTime());
+        statement.bindDouble(2, getWeight());
+        statement.bindDouble(3, getLatitude());
+        statement.bindDouble(4, getLongitude());
     }
 
     public double getWeight() {

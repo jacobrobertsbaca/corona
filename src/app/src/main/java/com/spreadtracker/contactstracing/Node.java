@@ -26,7 +26,9 @@ public class Node {
 //                the path without my Connection at the beginning
                 System.arraycopy(path, 1, pathPopped, 0, pathPopped.length);
 
-                myPaths.add(pathPopped);
+                if (pathPopped.length > 0) {
+                    myPaths.add(pathPopped);
+                }
             }
         }
 

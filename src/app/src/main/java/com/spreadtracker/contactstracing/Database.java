@@ -32,7 +32,7 @@ public class Database {
     }
 
     public void createEvent(Event event) {
-        try (SQLiteStatement statement = database.compileStatement("insert into event (date, latitude, longitude) values(?, ?, ?)")) {
+        try (SQLiteStatement statement = database.compileStatement("insert into event (date, weight, latitude, longitude) values(?, ?, ?, ?)")) {
             event.bindForInsert(statement);
             statement.execute();
         }
@@ -60,15 +60,37 @@ public class Database {
         }
     }
 
+    public List<String> getPersonNames(){
+        List<String> names = new ArrayList<String>();
+        String selectStatement = "SELECT p.firstName From person p order by ROWID asc";
+        try (Cursor cursor = database.rawQuery(selectStatement, null)){
+            while (cursor.moveToNext()) {
+                names.add(cursor.getString(0));
+            }
+        }
+        return(names);
+    }
+
+    public List<Long> getEventDates(){
+        List<Long> dates = new ArrayList<Long>();
+        String selectStatement = "SELECT e.date From event e order by ROWID asc";
+        try (Cursor cursor = database.rawQuery(selectStatement, null)){
+            while (cursor.moveToNext()) {
+                dates.add(cursor.getLong(0));
+            }
+        }
+        return(dates);
+    }
+
     public List<Connection> getConnectionsBeforeDate(long personId, long date){
 //        returns Connections for every person that a person interacted with before the given date.
 //        Connections contain eventId, eventDate, eventWeight, personId
 //        returns in order of descending date
         List<Connection> connections = new ArrayList<Connection>();
         String selectStatement = "SELECT e.rowid, e.date, e.weight, p.personId From event e, personEvent p, personEvent s where " +
-                "p.eventROWID = s.eventROWID " +
-                "and p.eventROWID = e.ROWID " +
-                "and s.personROWID = ? " +
+                "p.eventID = s.eventID " +
+                "and p.eventID = e.ROWID " +
+                "and s.personID = ? " +
                 "and e.date < ? " +
                 "order by date Desc";
         try (Cursor cursor = database.rawQuery(selectStatement, new String[]{Long.toString(personId), Long.toString(date)})) {
@@ -104,7 +126,7 @@ public class Database {
 
     public static void createClasses(SQLiteDatabase db) {
         String[] ddlStatements = new String[] {
-                "CREATE TABLE event (id NUMBER PRIMARY KEY, date NUMBER, latitude NUMBER, longitude NUMBER)",
+                "CREATE TABLE event (id NUMBER PRIMARY KEY, date NUMBER, weight NUMBER, latitude NUMBER, longitude NUMBER)",
                 "CREATE TABLE person (id NUMBER PRIMARY KEY, firstName TEXT, lastName TEXT, dateOfBirth NUMBER)",
                 "CREATE TABLE personEvent (personId NUMBER, eventId NUMBER)",
                 "CREATE TABLE personTest (personId NUMBER, disease TEXT, result NUMBER, date NUMBER)",
@@ -116,9 +138,9 @@ public class Database {
                 "CREATE INDEX person_lastName on person (lastName, firstName)"
         };
 
-        for (String ddl : ddlStatements) {
-            db.execSQL(ddl);
-        }
+//        for (String ddl : ddlStatements) {
+//            db.execSQL(ddl);
+//        }
     }
 
     public class Connection{

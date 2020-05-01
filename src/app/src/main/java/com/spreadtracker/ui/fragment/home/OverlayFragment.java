@@ -45,7 +45,10 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
             }
         });
 
-       // viewModel.getInfectedPercentage().setValue(0.0);
+        long now = 51L * 3600 * 1000 * 24 * 365;
+        double percentage = MainActivity.getCalculator().getInfectedPercentage(1, now);
+//        viewModel.getInfectedPercentage().setValue(0.5);
+        viewModel.getInfectedPercentage().setValue(percentage);
     }
 
     /*
