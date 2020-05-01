@@ -69,17 +69,55 @@
         android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistorySettingsFragment"
         android:label="MedicalHistorySettingsFragment" >
         <action
-            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_DiseasesSettingsFragment"
-            app:destination="@id/medicalHistory_DiseasesSettingsFragment"
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_HeartDiseaseFragment"
+            app:destination="@id/medicalHistory_HeartDiseaseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_AsthmaFragment"
+            app:destination="@id/medicalHistory_AsthmaFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_DiabetesFragment"
+            app:destination="@id/medicalHistory_DiabetesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_KidneyDisease"
+            app:destination="@id/medicalHistory_KidneyDisease"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_LungDiseaseFragment"
+            app:destination="@id/medicalHistory_LungDiseaseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_ImmuneSystemFragment"
+            app:destination="@id/medicalHistory_ImmuneSystemFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_medicalHistorySettingsFragment_to_medicalHistory_LiverDiseaseFragment"
+            app:destination="@id/medicalHistory_LiverDiseaseFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-    <fragment
-        android:id="@+id/medicalHistory_DiseasesSettingsFragment"
-        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_DiseasesSettingsFragment"
-        android:label="MedicalHistory_DiseasesSettingsFragment" />
     <fragment
         android:id="@+id/general_PhysicalActivitySettingsFragment"
         android:name="com.spreadtracker.ui.fragment.settings.general.General_PhysicalActivitySettingsFragment"
@@ -100,4 +138,32 @@
         android:id="@+id/editTestDataFragment"
         android:name="com.spreadtracker.ui.fragment.settings.tests.EditTestDataFragment"
         android:label="EditTestDataFragment" />
+    <fragment
+        android:id="@+id/medicalHistory_HeartDiseaseFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_HeartDiseaseFragment"
+        android:label="MedicalHistory_HeartDiseaseFragment" />
+    <fragment
+        android:id="@+id/medicalHistory_AsthmaFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_AsthmaFragment"
+        android:label="MedicalHistory_AsthmaFragment" />
+    <fragment
+        android:id="@+id/medicalHistory_DiabetesFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_DiabetesFragment"
+        android:label="MedicalHistory_DiabetesFragment" />
+    <fragment
+        android:id="@+id/medicalHistory_KidneyDisease"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_KidneyDisease"
+        android:label="MedicalHistory_KidneyDisease" />
+    <fragment
+        android:id="@+id/medicalHistory_LungDiseaseFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_LungDiseaseFragment"
+        android:label="MedicalHistory_LungDiseaseFragment" />
+    <fragment
+        android:id="@+id/medicalHistory_ImmuneSystemFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_ImmuneSystemFragment"
+        android:label="MedicalHistory_ImmuneSystemFragment" />
+    <fragment
+        android:id="@+id/medicalHistory_LiverDiseaseFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_LiverDiseaseFragment"
+        android:label="MedicalHistory_LiverDiseaseFragment" />
 </navigation>

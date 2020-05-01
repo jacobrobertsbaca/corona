@@ -56,7 +56,9 @@ public class SettingsStore {
     public void writeValue (String key, Object o) {
         SharedPreferences.Editor editor = mPreferences.edit();
 
-        if (o instanceof Boolean)
+        if (o == null)
+            editor.remove(key);
+        else if (o instanceof Boolean)
             editor.putBoolean(key, (Boolean) o);
         else if (o instanceof Float)
             editor.putFloat(key, (Float) o);

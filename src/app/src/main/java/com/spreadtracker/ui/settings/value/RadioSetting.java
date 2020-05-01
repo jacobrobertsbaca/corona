@@ -4,7 +4,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
+import com.spreadtracker.App;
 import com.spreadtracker.R;
 import com.spreadtracker.ui.settings.IconSetting;
 
@@ -18,6 +20,10 @@ public class RadioSetting extends IconSetting {
         mDisplayName = displayName;
     }
 
+    public RadioSetting (String name, @StringRes int displayNameRes) {
+        this(name, App.getInstance().getString(displayNameRes));
+    }
+
     public String getName() {return mName;}
     public String getDisplayName () {return mDisplayName;}
 
@@ -26,6 +32,8 @@ public class RadioSetting extends IconSetting {
         mActive = active;
         iconView.setVisibility(active ? View.VISIBLE : View.GONE);
     }
+
+
 
     @NonNull
     @Override
@@ -39,10 +47,14 @@ public class RadioSetting extends IconSetting {
         getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mActive) {
-                    setActive(true);
-                    if (getParent() instanceof ValueSetting)
-                        ((ValueSetting) getParent()).setValue(getName());
+                if (getParent() instanceof RadioSettings) {
+                    RadioSettings parent = (RadioSettings) getParent();
+                    if (!mActive) {
+                        parent.setValue(getName());
+                    }
+                    else if (parent.isDisableable()) {
+                        parent.setValue(null);
+                    }
                 }
             }
         });

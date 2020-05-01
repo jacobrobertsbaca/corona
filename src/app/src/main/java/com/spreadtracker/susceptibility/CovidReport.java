@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import com.spreadtracker.R;
 import com.spreadtracker.contactstracing.Test;
 import com.spreadtracker.ui.fragment.settings.general.GeneralSettingsFragment;
-import com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_DiseasesSettingsFragment;
 import com.spreadtracker.ui.settings.io.SettingsStore;
 
 /**
