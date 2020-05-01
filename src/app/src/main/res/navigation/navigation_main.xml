@@ -63,6 +63,20 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_generalSettingsFragment_to_general_SexFragment"
+            app:destination="@id/general_SexFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_generalSettingsFragment_to_general_ResidenceFragment"
+            app:destination="@id/general_ResidenceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/medicalHistorySettingsFragment"
@@ -166,4 +180,12 @@
         android:id="@+id/medicalHistory_LiverDiseaseFragment"
         android:name="com.spreadtracker.ui.fragment.settings.medicalhistory.MedicalHistory_LiverDiseaseFragment"
         android:label="MedicalHistory_LiverDiseaseFragment" />
+    <fragment
+        android:id="@+id/general_SexFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.general.General_SexFragment"
+        android:label="General_SexFragment" />
+    <fragment
+        android:id="@+id/general_ResidenceFragment"
+        android:name="com.spreadtracker.ui.fragment.settings.general.General_ResidenceFragment"
+        android:label="General_ResidenceFragment" />
 </navigation>

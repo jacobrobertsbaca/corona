@@ -67,4 +67,8 @@
     <string name="settings_medicalhistory_immunesystem_corticosteroids">Corticosteroids</string>
     <string name="settings_medicalhistory_liverdisease_title">Liver Disease</string>
     <string name="settings_medicalhistory_liverdisease_cirrhosis">Cirrhosis</string>
+    <string name="settings_general_residence_title">Residence</string>
+    <string name="settings_general_residence_house">House</string>
+    <string name="settings_general_residence_apartment">Apartment</string>
+    <string name="settings_general_residence_assistedliving">Assisted Living</string>
 </resources>
