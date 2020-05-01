@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class MedicalHistory_ImmuneSystemFragment extends SettingsFragment {
-    private static String ROOT = MedicalHistorySettingsFragment.SETTINGS_MEDICALHISTORY_ROOT + "immunesystem.";
-    public static String IMMUNE_CANCERTREATMENT = ROOT + "cancertreatment";
-    public static String IMMUNE_TRANSPLANTATION = ROOT + "transplantation";
-    public static String IMMUNE_HIV = ROOT + "hiv";
-    public static String IMMUNE_CORTICOSTEROIDS = ROOT + "corticosteroids";
-    public static String IMMUNE_UNLISTED = ROOT + "unlisted";
+    private static final String ROOT = MedicalHistorySettingsFragment.SETTINGS_MEDICALHISTORY_ROOT + "immunesystem.";
+    public static final String IMMUNE_CANCERTREATMENT = ROOT + "cancertreatment";
+    public static final String IMMUNE_TRANSPLANTATION = ROOT + "transplantation";
+    public static final String IMMUNE_HIV = ROOT + "hiv";
+    public static final String IMMUNE_CORTICOSTEROIDS = ROOT + "corticosteroids";
+    public static final String IMMUNE_UNLISTED = ROOT + "unlisted";
 
     @Override
     protected int getTitle() {
@@ -49,9 +49,13 @@ public class MedicalHistory_ImmuneSystemFragment extends SettingsFragment {
             IMMUNE_TRANSPLANTATION,
             IMMUNE_HIV,
             IMMUNE_CORTICOSTEROIDS,
-            IMMUNE_UNLISTED = ROOT,
+            IMMUNE_UNLISTED,
         };
 
+        if (store.readBool(IMMUNE_HIV, false)) {
+            ailments.add(context.getString(R.string.settings_medicalhistory_immunesystem_hiv));
+            return ISusceptibilityProvider.LIFETHREATENING;
+        }
         if (store.readAnyBool(diseaseKeys)) {
             ailments.add(context.getString(R.string.settings_medicalhistory_immunesystem_title));
             return ISusceptibilityProvider.MODERATE;

@@ -73,4 +73,12 @@
     <string name="settings_general_residence_assistedliving">Assisted Living</string>
     <string name="settings_general_bmi">BMI</string>
     <string name="settings_general_age">age</string>
+    <string name="overlay_susceptibility_minimal">The information you provided suggests that you are not very susceptible to COVID-19. However, you should continue to follow all CDC recommendations.</string>
+    <string name="overlay_susceptibility_notable">Due to your %1$s, you are %2$s susceptible to the coronavirus. </string>
+    <string name="overlay_susceptibility_dangerous">Due to your %1$s, COVID-19 poses a life-threatening risk to you. </string>
+    <string name="overlay_susceptibility_adverb_mild">mildly</string>
+    <string name="overlay_susceptibility_adverb_moderate">moderately</string>
+    <string name="overlay_susceptibility_adverb_severe">severely</string>
+    <string name="overlay_advice_common">Please stay inside, practice social distancing, and remember to wash your hands regularly.</string>
+    <string name="overlay_ailments_conjunctor">and</string>
 </resources>

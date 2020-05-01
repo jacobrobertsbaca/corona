@@ -42,7 +42,7 @@ public class General_SexFragment extends SettingsFragment {
                                    @NonNull SettingsStore store,
                                    @NonNull ArrayList<String> ailments,
                                    @NonNull Set<String> advice) {
-        switch (store.readString(SETTINGS_GENERAL_GENDER, null)) {
+        switch (store.readString(SETTINGS_GENERAL_GENDER, "")) {
             case GENDER_MALE:
                 ailments.add(context.getString(R.string.settings_general_gender_title));
                 return ISusceptibilityProvider.MODERATE;

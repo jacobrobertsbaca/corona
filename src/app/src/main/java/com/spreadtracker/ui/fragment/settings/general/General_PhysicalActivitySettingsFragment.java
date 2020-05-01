@@ -42,7 +42,7 @@ public class General_PhysicalActivitySettingsFragment extends SettingsFragment {
                                   @NonNull SettingsStore store,
                                   @NonNull ArrayList<String> ailments,
                                   @NonNull Set<String> advice) {
-        switch (store.readString(SETTINGS_GENERAL_PHYSICALACTIVTY, null)) {
+        switch (store.readString(SETTINGS_GENERAL_PHYSICALACTIVTY, "")) {
             case ACTIVITY_INACTIVE:
                 ailments.add(context.getString(R.string.settings_general_physicalactivity_title));
                 return ISusceptibilityProvider.MODERATE;

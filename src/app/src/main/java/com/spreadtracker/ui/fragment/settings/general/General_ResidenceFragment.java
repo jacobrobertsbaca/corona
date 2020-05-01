@@ -42,7 +42,7 @@ public class General_ResidenceFragment extends SettingsFragment {
                                    @NonNull SettingsStore store,
                                    @NonNull ArrayList<String> ailments,
                                    @NonNull Set<String> advice)  {
-        switch (store.readString(SETTINGS_GENERAL_RESIDENCE, null)) {
+        switch (store.readString(SETTINGS_GENERAL_RESIDENCE, "")) {
             case RESIDENCE_APARTMENT:
             case RESIDENCE_ASSISTEDLIVING:
                 ailments.add(context.getString(R.string.settings_general_residence_title));

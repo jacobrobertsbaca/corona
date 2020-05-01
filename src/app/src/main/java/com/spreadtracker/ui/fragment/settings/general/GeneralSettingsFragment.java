@@ -110,7 +110,7 @@ public class GeneralSettingsFragment extends SettingsFragment {
             bmiSeverity = ISusceptibilityProvider.SEVERE;
             ailments.add(context.getString(R.string.settings_general_bmi));
         }
-        else bmiSeverity = ISusceptibilityProvider.MODERATE;
+        else bmiSeverity = ISusceptibilityProvider.MILD;
 
         return ageSeverity | bmiSeverity;
     }

@@ -10,8 +10,8 @@ public interface ISusceptibilityProvider {
 
     int MILD = 0;
     int MODERATE = 1;
-    int SEVERE = 1 >> 1;
-    int LIFETHREATENING = 1 >> 2;
+    int SEVERE = 1 << 1;
+    int LIFETHREATENING = 1 << 2;
 
     class Report {
 

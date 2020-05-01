@@ -24,7 +24,6 @@ public class MedicalHistory_AsthmaFragment extends SettingsFragment {
     public final static String ASTHMA_MODERATE = "moderate";
     public final static String ASTHMA_SEVERE = "severe";
 
-
     @Override
     protected int getTitle() {
         return R.string.settings_medicalhistory_asthma_title;
@@ -44,7 +43,7 @@ public class MedicalHistory_AsthmaFragment extends SettingsFragment {
                                    @NonNull SettingsStore store,
                                    @NonNull ArrayList<String> ailments,
                                    @NonNull Set<String> advice) {
-        switch (store.readString(ASTHMA, null)) {
+        switch (store.readString(ASTHMA, "")) {
             case ASTHMA_MILD:
             case ASTHMA_MODERATE:
                 ailments.add(context.getString(R.string.settings_medicalhistory_asthma_title));
