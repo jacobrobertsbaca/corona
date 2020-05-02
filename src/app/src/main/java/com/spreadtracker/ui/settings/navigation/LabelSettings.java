@@ -1,4 +1,4 @@
-package com.spreadtracker.ui.settings;
+package com.spreadtracker.ui.settings.navigation;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.spreadtracker.App;
 import com.spreadtracker.R;
+import com.spreadtracker.ui.settings.SettingsNode;
 
 public class LabelSettings extends SettingsNode {
 

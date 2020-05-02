@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:minWidth="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/drawable_dialog"
+    android:backgroundTint="@color/colorAccent"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/dialog_picker_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your height"
+        android:gravity="start"
+        android:textSize="24sp" />
+
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/dialog_picker_numberpicker"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:np_textColor="@color/colorPrimary"
+        app:np_selectedTextColor="@color/colorPrimary"
+        app:np_dividerColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/dialog_picker_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:text="@string/toolbar_done"
+        android:textAllCaps="true"
+        android:layout_gravity="end"/>
+
+</LinearLayout>

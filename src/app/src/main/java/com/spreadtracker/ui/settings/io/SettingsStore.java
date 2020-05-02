@@ -56,7 +56,9 @@ public class SettingsStore {
     public void writeValue (String key, Object o) {
         SharedPreferences.Editor editor = mPreferences.edit();
 
-        if (o instanceof Boolean)
+        if (o == null)
+            editor.remove(key);
+        else if (o instanceof Boolean)
             editor.putBoolean(key, (Boolean) o);
         else if (o instanceof Float)
             editor.putFloat(key, (Float) o);
@@ -79,6 +81,15 @@ public class SettingsStore {
     public long readLong (String key, long defaultValue) { return mPreferences.getLong(key, defaultValue); }
     public String readString (String key, String defaultValue) { return mPreferences.getString(key, defaultValue); }
     public Set<String> readStringSet (String key, Set<String> defaultValue) { return mPreferences.getStringSet(key, defaultValue); }
+
+    public boolean readAnyBool (String[] keys) {
+        for (String key : keys) {
+            if (readBool(key, false)) return true;
+        }
+        return false;
+    }
+
+    public boolean containsKey (String key) { return mPreferences.contains(key); }
 
     @SuppressWarnings("unchecked")
     public <T> T readValue (String key, T defaultValue) {

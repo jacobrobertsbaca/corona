@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.spreadtracker.R;
+import com.spreadtracker.ui.settings.SettingsNode;
+
+import java.util.ArrayList;
 
 public class CheckmarkSetting extends ValueSetting<Boolean> {
     public CheckmarkSetting(@StringRes int titleRes, @NonNull String key, boolean defaultValue) {
@@ -37,6 +40,15 @@ public class CheckmarkSetting extends ValueSetting<Boolean> {
 
     protected void onSettingClicked () {
         setValue(!getValue());
+
+        // Disable all selfish checkmark settings
+        if (getValue()) {
+            ArrayList<SettingsNode> siblings = getParent().getChildren();
+            for (SettingsNode sibling : siblings) {
+                if (sibling != this && sibling instanceof SelfishCheckmarkSetting)
+                    ((SelfishCheckmarkSetting) sibling).setValue(false);
+            }
+        }
     }
 
     @Override

@@ -30,6 +30,7 @@ public class TutorialFragment extends BaseFragment<MainActivity> {
         // The last page should be an empty page that fades away into MainActivity's real layout when swiping to it
         adapter
                 .addPage(new TutorialPage(R.layout.view_tutorial_a))
+                .addPage(new TutorialPage(R.layout.view_tutorial_b))
                 .addPage(new TutorialPage(0));
 
         // Setup tabs

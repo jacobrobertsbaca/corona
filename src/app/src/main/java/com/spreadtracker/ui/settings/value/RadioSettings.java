@@ -10,16 +10,29 @@ import androidx.annotation.NonNull;
 public class RadioSettings extends ValueSetting<String> {
 
     private RadioSetting[] mRadioSettings;
+    private boolean mDisableable = false;
+
+    public RadioSettings (@NonNull String key, boolean disableable, RadioSetting... settings) {
+        super(0, key, null); // No checkmark will be selected by default
+        mDisableable = disableable;
+        setupChildren(settings);
+    }
 
     public RadioSettings (@NonNull String key, RadioSetting... settings) {
-        super(0, key, null); // No checkmark will be selected by default
+        this(key, false, settings);
+    }
+
+    public RadioSettings(@NonNull ValueSerializer<String> serializer, boolean disableable, RadioSetting... settings) {
+        super(0, serializer);
+        mDisableable = disableable;
         setupChildren(settings);
     }
 
     public RadioSettings(@NonNull ValueSerializer<String> serializer, RadioSetting... settings) {
-        super(0, serializer);
-        setupChildren(settings);
+        this(serializer, false, settings);
     }
+
+    public boolean isDisableable () {return mDisableable;}
 
     private void setupChildren (RadioSetting... settings) {
         mRadioSettings = settings;

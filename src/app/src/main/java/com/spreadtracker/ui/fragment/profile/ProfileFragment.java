@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 
 import com.spreadtracker.R;
 import com.spreadtracker.ui.fragment.settings.SettingsFragment;
-import com.spreadtracker.ui.settings.NavigationSetting;
+import com.spreadtracker.ui.settings.navigation.NavigationSetting;
 import com.spreadtracker.ui.settings.NavigationSettingsPage;
 
 public class ProfileFragment extends SettingsFragment {

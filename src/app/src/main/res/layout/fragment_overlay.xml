@@ -35,5 +35,17 @@
         app:layout_constraintTop_toBottomOf="@id/fragment_overlay_textPercentage"
         android:text="You are at moderate risk of getting the coronavirus."/>
 
+    <TextView
+        android:id="@+id/fragment_overlay_textAdviceAndInfo"
+        app:layout_constraintTop_toBottomOf="@id/fragment_overlay_textPercentageSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:gravity="start"
+        android:textColor="@color/white"
+        android:text="hello there are y"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

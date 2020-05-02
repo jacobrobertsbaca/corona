@@ -48,7 +48,12 @@ public class HomeFragmentViewModel extends AndroidViewModel {
             mUnhealthyColor = ContextCompat.getColor(getApplication(), R.color.diseaseUnhealthy);
             mColorsBeenSet = true;
         }
-        return (int)mColorInterpolator.evaluate((float)(double)getInfectedPercentage().getValue(),
+
+        float value;
+        if (getInfectedPercentage().getValue() == null) value = 1.0f;
+        else value = (float)(double)getInfectedPercentage().getValue();
+
+        return (int)mColorInterpolator.evaluate(value,
                 mHealthyColor, mUnhealthyColor);
     }
 }

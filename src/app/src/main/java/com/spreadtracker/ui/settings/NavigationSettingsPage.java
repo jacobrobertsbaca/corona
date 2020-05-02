@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 
 import com.spreadtracker.R;
 import com.spreadtracker.ui.activity.MainActivity;
+import com.spreadtracker.ui.activity.NavigationActivity;
 import com.spreadtracker.ui.fragment.NavigationBuilder;
 import com.spreadtracker.ui.fragment.NavigationFragment;
 
@@ -36,6 +37,11 @@ public class NavigationSettingsPage extends SettingsPage {
                 NavigationBuilder nav = mFragment.getNavigation();
                 nav.setRightTextVisibility(View.GONE);
                 mFragment.updateNavigation(nav);
+
+                // Pop back stack through nav if we are able to
+                if (mFragment.getActivity() instanceof NavigationActivity)
+                    ((NavigationActivity)mFragment.getActivity()).getNav().popBackStack();
+
                 if (mOnSave != null) mOnSave.run();
             }
         });

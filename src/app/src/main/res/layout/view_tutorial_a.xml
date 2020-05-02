@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:_android="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:layout_width="match_parent"
+    _android:background="@color/colorAccent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="35sp"
-        android:fontFamily="@font/segoeui_light"
-        android:textColor="@color/white"
-        android:text="Welcome to SpreadTracker!"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:fontFamily="@font/segoeui_light"
+            android:textColor="@color/white"
+            android:text="Welcome to CovidTracker!"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:text="Hello and welcome to CovidTracker, an app that tracks COVID-19 and calculates the percentage that you have contracted the virus by looking at the interactions you’ve had with the people around you. All potential risk factors and information presented in our app have been researched thoroughly and come from sources such as the CDC and the Mayo Clinic. Additionally, the app uses susceptibility factors such as your medical history, age, and BMI to notify you of the risks involved in contracting COVID-19, and reminds you to continue to practice social distancing. "/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

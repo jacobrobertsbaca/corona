@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.fragment.app.FragmentActivity;
 
 import com.spreadtracker.R;
 import com.spreadtracker.ui.activity.MainActivity;
@@ -14,7 +15,7 @@ import com.spreadtracker.ui.fragment.NavigationBuilder;
 import com.spreadtracker.ui.fragment.NavigationFragment;
 import com.spreadtracker.ui.fragment.profile.ProfileFragmentViewModel;
 
-public abstract class SettingsFragment extends NavigationFragment<MainActivity, ProfileFragmentViewModel> {
+public abstract class SettingsFragment<TActivity extends FragmentActivity> extends NavigationFragment<TActivity, ProfileFragmentViewModel> {
     protected abstract @StringRes int getTitle ();
 
     @NonNull
