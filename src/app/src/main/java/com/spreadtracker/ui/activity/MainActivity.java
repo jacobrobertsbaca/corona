@@ -79,13 +79,10 @@ public class MainActivity extends NavigationActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_main);
         initializeMap(savedInstanceState);
         mLayout = findViewById(R.id.activity_main_layout);
-<<<<<<< HEAD
 
         createDatabase();
 
         showTutorial();
-=======
->>>>>>> 34bb74be4a6e04c372d66c98b43b6201b6bcd95c
     }
 
     @Override
@@ -214,11 +211,11 @@ public class MainActivity extends NavigationActivity implements OnMapReadyCallba
         File databaseFile = new File(App.getInstance().getApplicationContext().getFilesDir(), "tracker.sqlite");
         database = new Database(databaseFile);
         calculator = new Calculator(database);
-        List<String> names = database.getPersonNames();
-        List<Long> dates = database.getEventDates();
-
-        long now = 51L * 3600 * 1000 * 24 * 365;
-        boolean eventBeforeToday = (dates.get(0) < now);
+//        List<String> names = database.getPersonNames();
+//        List<Long> dates = database.getEventDates();
+//
+//        long now = 51L * 3600 * 1000 * 24 * 365;
+//        boolean eventBeforeToday = (dates.get(0) < now);
     }
 
     /*

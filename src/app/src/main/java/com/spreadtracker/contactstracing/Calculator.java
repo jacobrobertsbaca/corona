@@ -14,6 +14,15 @@ public class Calculator {
 
     public double getInfectedPercentage(long personId, long date) {
 //        calculates the chance that a person is infected by propagating back through events
+
+        List<Test> myTests = this.database.getTestsBeforeDate(personId, date);
+        if (myTests.size() > 0){
+            if (myTests.get(0).isPositive()){
+//                if we actually tested positive in the past, return 100% chance to be infected.
+                return(1.0);
+            }
+        }
+
         List<Database.Connection[]> paths = getPaths(personId, date);
         List<Node> initialNodes = new ArrayList<Node>();
 //        the leaf nodes that will be created by grouping

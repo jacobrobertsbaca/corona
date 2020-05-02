@@ -6,14 +6,16 @@ import java.util.Date;
 
 public class Event {
 
+    private long id;
+
     private double latitude;
     private double longitude;
-    private Date date;
-
+    private long date;
 //    between 0 and 1, correlates to closeness of interaction and duration
-    private double weight;
 
-    public Event(double latitude, double longitude, Date date, Double weight){
+    private double weight;
+    public Event(long id, double latitude, double longitude, long date, Double weight){
+        setId(id);
         setLatitude(latitude);
         setLongitude(longitude);
         setDate(date);
@@ -21,10 +23,19 @@ public class Event {
     }
 
     public void bindForInsert(SQLiteStatement statement){
-        statement.bindLong(1, getDate().getTime());
-        statement.bindDouble(2, getWeight());
-        statement.bindDouble(3, getLatitude());
-        statement.bindDouble(4, getLongitude());
+        statement.bindLong(1, getId());
+        statement.bindLong(2, getDate());
+        statement.bindDouble(3, getWeight());
+        statement.bindDouble(4, getLatitude());
+        statement.bindDouble(5, getLongitude());
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public double getWeight() {
@@ -51,11 +62,11 @@ public class Event {
         this.longitude = longitude;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 }
