@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class Database {
     private final SQLiteDatabase database;
@@ -20,7 +21,7 @@ public class Database {
             statement.execute();
         } catch (SQLiteException e) {
             // ok, so person doesn't exist
-            Database.createClasses(database);
+            createClasses();
         }
     }
 
@@ -124,7 +125,7 @@ public class Database {
         return(tests);
     }
 
-    public static void createClasses(SQLiteDatabase db) {
+    public void createClasses() {
         String[] ddlStatements = new String[] {
                 "CREATE TABLE event (id NUMBER PRIMARY KEY, date NUMBER, weight NUMBER, latitude NUMBER, longitude NUMBER)",
                 "CREATE TABLE person (id NUMBER PRIMARY KEY, firstName TEXT, lastName TEXT, dateOfBirth NUMBER)",
@@ -138,9 +139,53 @@ public class Database {
                 "CREATE INDEX person_lastName on person (lastName, firstName)"
         };
 
-//        for (String ddl : ddlStatements) {
-//            db.execSQL(ddl);
-//        }
+        try {
+            for (String ddl : ddlStatements) {
+                database.execSQL(ddl);
+            }
+        } catch (SQLiteException e) {
+            // do nothing - this means the tables are there already
+        }
+
+        long count = countPersonEvents();
+        if (!(countPersonEvents() > 0)) {
+            addRandomPersonEvents(100, 100);
+        }
+        count = countPersonEvents();
+    }
+
+    private void addRandomPersonEvents(long totalPeople, long totalEvents){
+        int i = 1;
+        while (i <= totalEvents){
+            long[] participants = getRandomEventParticipants(totalPeople);
+            createPersonEvent(participants[0], i);
+            createPersonEvent(participants[1], i);
+
+            i++;
+        }
+    }
+
+    private long countPersonEvents(){
+        String selectStatement = "SELECT count(*) from personEvent  where personid is not null";
+        long count = 0;
+        try (Cursor cursor = database.rawQuery(selectStatement, null)){
+            while (cursor.moveToNext()) {
+                count = cursor.getLong(0);
+            }
+        }
+        return(count);
+    }
+
+    private static long[] getRandomEventParticipants(long totalPeople){
+//        gets two random and unique numbers between 1 and the totalPeople
+        Random rand = new Random();
+        long p1 = rand.nextInt((int) totalPeople) + 1;
+        long p2 = rand.nextInt((int) totalPeople - 1) + 1;
+        if (p2 >= p1){
+            p2 += 1;
+        }
+        long[] participants = new long[]{p1, p2};
+        return(participants);
     }
 
     public class Connection{
