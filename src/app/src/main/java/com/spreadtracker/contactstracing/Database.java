@@ -19,8 +19,8 @@ public class Database {
 
     private static final Random RANDOM = new Random();
 
-    private static final long TOTAL_INFECTED = 20;
-    private static final long TOTAL_EVENTS = 200;
+    private static final long TOTAL_INFECTED = 5;
+    private static final long TOTAL_EVENTS = 300;
     private static final long TOTAL_PEOPLE = 100;
 
     private static final long ONE_YEAR = 3600L * 1000 * 24 * 365;
