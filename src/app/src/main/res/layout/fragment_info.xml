@@ -26,6 +26,74 @@
             android:fontFamily="@font/segoeui_light"
             android:text="@string/app_name"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/segoeui_light"
+            android:text="@string/info_prototype_title"/>
+
+        <TextView
+            android:id="@+id/fragment_info_prototypetext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/info_prototype"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="Currently Observing"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_profile"/>
+
+        <TextView
+            android:id="@+id/fragment_info_randomuser_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="John Doe"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/fragment_info_randomuser_percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="75% chance of having been infected"/>
+
+        <Button
+            android:id="@+id/fragment_info_newuserbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/drawable_dialog"
+            android:backgroundTint="@color/white"
+            android:shadowDy="0"
+            android:shadowDx="0"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Get new user"/>
+
+
         <include layout ="@layout/view_tutorial_b_contents"/>
 
         <include layout="@layout/view_tutorial_c_contents"/>

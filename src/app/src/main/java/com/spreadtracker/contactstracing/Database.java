@@ -74,10 +74,20 @@ public class Database {
         }
     }
 
-    public long getRandomPersonId(){
-        Random rand = new Random();
-        long id = rand.nextInt((int) countTable("person")) + 1;
-        return(id);
+    public long countEvents () {
+        return countTable("event");
+    }
+
+    public long countPersons () {
+        return countTable("person");
+    }
+
+    public long countInfected () {
+        long count = 0;
+        try (Cursor cursor = database.rawQuery("SELECT COUNT(*) FROM personTest WHERE result == 1", null)) {
+            while (cursor.moveToNext()) count++;
+        }
+        return count;
     }
 
     public Person getRandomPerson () {
