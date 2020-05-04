@@ -102,7 +102,7 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
             adviceString.append(getString(R.string.overlay_susceptibility_notable, ailmentsString, getString(R.string.overlay_susceptibility_adverb_mild)));
         else adviceString.append(getString(R.string.overlay_susceptibility_minimal));
 
-        adviceString.append("\n");
+        adviceString.append(" ");
         for (String str : report.getAdvice()) {
             adviceString.append(str);
             adviceString.append(" ");

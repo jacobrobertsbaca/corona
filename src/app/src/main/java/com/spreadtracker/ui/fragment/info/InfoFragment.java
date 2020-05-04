@@ -37,18 +37,6 @@ public class InfoFragment extends ViewModelLessNavigationFragment<MainActivity> 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // Check arguments passed to this fragment to see if we should use the infected color
-        // when creating this fragment. If so, get the infected percentage color and set the background accordingly
-        Bundle args = getArguments();
-        if (args != null) {
-            if (args.containsKey(ARGS_USE_INFECTED_COLOR)) {
-                if (args.getBoolean(ARGS_USE_INFECTED_COLOR)) {
-                    HomeFragmentViewModel vm = new ViewModelProvider(activity).get(HomeFragmentViewModel.class);
-                    root.setBackgroundColor(vm.getInfectedPercentageColor());
-                }
-            }
-        }
     }
 
     @Override

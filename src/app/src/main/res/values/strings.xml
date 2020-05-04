@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SpreadTracker</string>
+    <string name="app_name">COVIDTracker</string>
     <string name="toolbar_done">done</string>
     <string name="toolbar_next">next</string>
     <string name="toolbar_back">back</string>

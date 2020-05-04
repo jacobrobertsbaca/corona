@@ -10,29 +10,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorAccent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="35sp"
-            android:fontFamily="@font/segoeui_light"
-            android:textColor="@color/white"
-            android:text="@string/tutorial_c_title"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/map"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:text="@string/tutorial_c_blurb"/>
+        <include layout="@layout/view_tutorial_c_contents"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

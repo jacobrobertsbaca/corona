@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:_android="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    _android:background="@color/overlayHealthy">
+    _android:background="@color/colorAccentFaded">
 
     <LinearLayout
         android:id="@+id/fragment_info_contentHolder"
@@ -16,9 +16,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_marginBottom="16dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,16 +24,12 @@
             android:textSize="50sp"
             android:textColor="@color/white"
             android:fontFamily="@font/segoeui_light"
-            android:text="Corona"/>
+            android:text="@string/app_name"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/segoeui"
-            android:text="This app uses a combination of many different factors in order to approximate the likelihood that you have contracted COVID-19, including age, physical activity, population density, and the people that are around you. It's freaking cool."/>
+        <include layout ="@layout/view_tutorial_b_contents"/>
+
+        <include layout="@layout/view_tutorial_c_contents"/>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
