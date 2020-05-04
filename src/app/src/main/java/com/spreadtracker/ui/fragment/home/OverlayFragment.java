@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 
 import com.spreadtracker.App;
 import com.spreadtracker.R;
+import com.spreadtracker.contactstracing.Database;
 import com.spreadtracker.susceptibility.CovidReport;
 import com.spreadtracker.susceptibility.ISusceptibilityProvider;
 import com.spreadtracker.ui.activity.MainActivity;
@@ -48,9 +49,9 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
         });
 
         long now = 51L * 3600 * 1000 * 24 * 365;
-        double percentage = MainActivity.getCalculator().getInfectedPercentage(99, now);
-//        viewModel.getInfectedPercentage().setValue(0.5);
+        double percentage = MainActivity.getCalculator().getInfectedPercentage(MainActivity.getDatabase().getRandomPersonId(), now);
         viewModel.getInfectedPercentage().setValue(percentage);
+//        Set the percentage on screen to that of a random person in our 100-person sample.
 
         mAdviceAndInfo = root.findViewById(R.id.fragment_overlay_textAdviceAndInfo);
 

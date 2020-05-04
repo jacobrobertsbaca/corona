@@ -209,11 +209,11 @@ public class MainActivity extends NavigationActivity implements OnMapReadyCallba
         File databaseFile = new File(App.getInstance().getApplicationContext().getFilesDir(), "tracker.sqlite");
         database = new Database(databaseFile);
         calculator = new Calculator(database);
-        List<String> names = database.getPersonNames();
-        List<Long> dates = database.getEventDates();
-
-        long now = 51L * 3600 * 1000 * 24 * 365;
-        boolean eventBeforeToday = (dates.get(0) < now);
+//        List<String> names = database.getPersonNames();
+//        List<Long> dates = database.getEventDates();
+//
+//        long now = 51L * 3600 * 1000 * 24 * 365;
+//        boolean eventBeforeToday = (dates.get(0) < now);
     }
 
     /*

@@ -11,8 +11,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+
+
+
 public class Database {
     private final SQLiteDatabase database;
+
+    private static final long TOTAL_INFECTED = 20;
+    private static final long TOTAL_EVENTS = 200;
+    private static final long TOTAL_PEOPLE = 100;
+
+    private static final long ONE_YEAR = 3600L * 1000 * 24 * 365;
+    private static final long LAST_YEAR = 50L * ONE_YEAR;
 
     public Database(File filename) {
         database = SQLiteDatabase.openOrCreateDatabase(filename, null);
@@ -33,7 +43,7 @@ public class Database {
     }
 
     public void createEvent(Event event) {
-        try (SQLiteStatement statement = database.compileStatement("insert into event (date, weight, latitude, longitude) values(?, ?, ?, ?)")) {
+        try (SQLiteStatement statement = database.compileStatement("insert into event (id, date, weight, latitude, longitude) values(?, ?, ?, ?, ?)")) {
             event.bindForInsert(statement);
             statement.execute();
         }
@@ -58,7 +68,14 @@ public class Database {
                 statement.bindLong(3, 0);
             }
             statement.bindLong(4, test.getDate());
+            statement.execute();
         }
+    }
+
+    public long getRandomPersonId(){
+        Random rand = new Random();
+        long id = rand.nextInt((int) countTable("person")) + 1;
+        return(id);
     }
 
     public List<String> getPersonNames(){
@@ -147,11 +164,33 @@ public class Database {
             // do nothing - this means the tables are there already
         }
 
-        long count = countPersonEvents();
-        if (!(countPersonEvents() > 0)) {
-            addRandomPersonEvents(100, 100);
+        if (!(countTable("event") == TOTAL_EVENTS)){
+            clearTable("event");
+            addRandomEvents(TOTAL_EVENTS);
         }
-        count = countPersonEvents();
+
+        if (!(countTable("personEvent") == TOTAL_EVENTS*2)) {
+            clearTable("personEvent");
+            addRandomPersonEvents(TOTAL_PEOPLE, TOTAL_EVENTS);
+        }
+
+        if (!(countTable("personTest") == TOTAL_INFECTED)) {
+            clearTable("personTest");
+            addPositivePersonTests(TOTAL_PEOPLE, TOTAL_INFECTED);
+            long count = countTable("personTest");
+        }
+    }
+
+    private void addRandomEvents(long totalEvents){
+
+        int i = 1;
+        while (i <= totalEvents){
+            double weight = Math.random();
+            long date = LAST_YEAR + (long) (Math.random() * (double) ONE_YEAR);
+            createEvent(new Event(i, 0, 0, date, weight));
+
+            i++;
+        }
     }
 
     private void addRandomPersonEvents(long totalPeople, long totalEvents){
@@ -165,15 +204,35 @@ public class Database {
         }
     }
 
-    private long countPersonEvents(){
-        String selectStatement = "SELECT count(*) from personEvent  where personid is not null";
+    private void addPositivePersonTests(long totalPeople, long numberOfTests){
+        int i = 1;
+
+        while (i <= numberOfTests){
+            Test test = new Test(i, Test.DISEASE_COVID19, true, LAST_YEAR);
+            createPersonTest(test);
+
+            i++;
+        }
+    }
+
+    private long countTable(String table){
+        StringBuilder s = new StringBuilder("SELECT count(*) from ")
+                .append(table);
+
         long count = 0;
-        try (Cursor cursor = database.rawQuery(selectStatement, null)){
+        try (Cursor cursor = database.rawQuery(s.toString(), null)){
             while (cursor.moveToNext()) {
                 count = cursor.getLong(0);
             }
         }
         return(count);
+    }
+
+    private void clearTable(String table){
+        StringBuilder s = new StringBuilder("DELETE from ")
+                .append(table);
+
+        database.execSQL(s.toString());
     }
 
     private static long[] getRandomEventParticipants(long totalPeople){
