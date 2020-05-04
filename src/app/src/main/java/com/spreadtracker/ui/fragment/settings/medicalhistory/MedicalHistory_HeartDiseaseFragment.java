@@ -57,6 +57,8 @@ public class MedicalHistory_HeartDiseaseFragment extends SettingsFragment {
         };
         if (store.readAnyBool(diseaseKeys)) {
             ailments.add(context.getString(R.string.settings_medicalhistory_heart_title));
+            advice.add(context.getString(R.string.overlay_advice_medication));
+
             return ISusceptibilityProvider.MODERATE;
         }
         return ISusceptibilityProvider.MILD;

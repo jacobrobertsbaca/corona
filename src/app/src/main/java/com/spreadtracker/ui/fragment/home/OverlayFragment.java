@@ -61,7 +61,7 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
     }
 
     private String getAdviceString (ISusceptibilityProvider.Report report) {
-        String adviceString = "";
+        StringBuilder adviceString = new StringBuilder();
         StringBuilder ailmentsString = new StringBuilder();
 
         String[] ailments = report.getUserAilments();
@@ -84,16 +84,22 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
         }
 
         if ((report.getSusceptibility() & ISusceptibilityProvider.LIFETHREATENING) > 0)
-            adviceString += getString(R.string.overlay_susceptibility_dangerous, ailmentsString);
+            adviceString.append(getString(R.string.overlay_susceptibility_dangerous, ailmentsString));
         else if ((report.getSusceptibility() & ISusceptibilityProvider.SEVERE) > 0)
-            adviceString += getString(R.string.overlay_susceptibility_notable, ailmentsString, getString(R.string.overlay_susceptibility_adverb_severe));
+            adviceString.append(getString(R.string.overlay_susceptibility_notable, ailmentsString, getString(R.string.overlay_susceptibility_adverb_severe)));
         else if ((report.getSusceptibility() & ISusceptibilityProvider.MODERATE) > 0)
-        adviceString += getString(R.string.overlay_susceptibility_notable, ailmentsString, getString(R.string.overlay_susceptibility_adverb_moderate));
+        adviceString.append(getString(R.string.overlay_susceptibility_notable, ailmentsString, getString(R.string.overlay_susceptibility_adverb_moderate)));
         else if ((report.getSusceptibility() & ISusceptibilityProvider.MILD) > 0 && ailments.length > 0)
-            adviceString += getString(R.string.overlay_susceptibility_notable, ailmentsString, getString(R.string.overlay_susceptibility_adverb_mild));
-        else adviceString += getString(R.string.overlay_susceptibility_minimal);
+            adviceString.append(getString(R.string.overlay_susceptibility_notable, ailmentsString, getString(R.string.overlay_susceptibility_adverb_mild)));
+        else adviceString.append(getString(R.string.overlay_susceptibility_minimal));
 
-        return adviceString;
+        adviceString.append("\n\n");
+        for (String str : report.getAdvice()) {
+            adviceString.append(str);
+            adviceString.append(" ");
+        }
+
+        return adviceString.toString();
     }
 
     private String formatAilment(String ailment) {

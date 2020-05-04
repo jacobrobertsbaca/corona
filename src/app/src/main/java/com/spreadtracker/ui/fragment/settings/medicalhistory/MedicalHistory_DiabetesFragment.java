@@ -46,6 +46,8 @@ public class MedicalHistory_DiabetesFragment extends SettingsFragment {
                                    @NonNull Set<String> advice) {
         if (store.containsKey(DIABETES)) {
             ailments.add(context.getString(R.string.settings_medicalhistory_diabetes_title));
+            advice.add(context.getString(R.string.overlay_advice_medication));
+            advice.add(context.getString(R.string.overlay_advice_diabetes));
             return ISusceptibilityProvider.MODERATE;
         }
         return ISusceptibilityProvider.MILD;

@@ -58,6 +58,7 @@ public class MedicalHistory_LungDiseaseFragment extends SettingsFragment {
 
         if (store.readAnyBool(diseasesKeys)) {
             ailments.add(context.getString(R.string.settings_medicalhistory_lungdisease_title));
+            advice.add(context.getString(R.string.overlay_advice_medication));
             return ISusceptibilityProvider.MODERATE;
         }
         return ISusceptibilityProvider.MILD;

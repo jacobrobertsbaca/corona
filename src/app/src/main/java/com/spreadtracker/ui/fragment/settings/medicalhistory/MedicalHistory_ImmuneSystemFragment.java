@@ -54,10 +54,12 @@ public class MedicalHistory_ImmuneSystemFragment extends SettingsFragment {
 
         if (store.readBool(IMMUNE_HIV, false)) {
             ailments.add(context.getString(R.string.settings_medicalhistory_immunesystem_hiv));
+            advice.add(context.getString(R.string.overlay_advice_medication));
             return ISusceptibilityProvider.LIFETHREATENING;
         }
         if (store.readAnyBool(diseaseKeys)) {
             ailments.add(context.getString(R.string.settings_medicalhistory_immunesystem_title));
+            advice.add(context.getString(R.string.overlay_advice_medication));
             return ISusceptibilityProvider.MODERATE;
         }
         return ISusceptibilityProvider.MILD;

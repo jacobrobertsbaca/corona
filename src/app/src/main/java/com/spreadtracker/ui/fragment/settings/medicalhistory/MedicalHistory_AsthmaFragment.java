@@ -47,9 +47,13 @@ public class MedicalHistory_AsthmaFragment extends SettingsFragment {
             case ASTHMA_MILD:
             case ASTHMA_MODERATE:
                 ailments.add(context.getString(R.string.settings_medicalhistory_asthma_title));
+                advice.add(context.getString(R.string.overlay_advice_medication));
+                advice.add(context.getString(R.string.overlay_advice_asthma));
                 return ISusceptibilityProvider.MODERATE;
             case ASTHMA_SEVERE:
                 ailments.add(context.getString(R.string.settings_medicalhistory_asthma_title));
+                advice.add(context.getString(R.string.overlay_advice_medication));
+                advice.add(context.getString(R.string.overlay_advice_asthma));
                 return ISusceptibilityProvider.SEVERE;
             default: return ISusceptibilityProvider.MILD;
         }

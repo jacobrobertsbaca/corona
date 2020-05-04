@@ -79,6 +79,16 @@
     <string name="overlay_susceptibility_adverb_mild">mildly</string>
     <string name="overlay_susceptibility_adverb_moderate">moderately</string>
     <string name="overlay_susceptibility_adverb_severe">severely</string>
-    <string name="overlay_advice_common">Please stay inside, practice social distancing, and remember to wash your hands regularly.</string>
     <string name="overlay_ailments_conjunctor">and</string>
+    <string name="overlay_advice_common">Please stay inside, practice social distancing, and remember to wash your hands regularly to prevent yourself from acquiring COVID-19.</string>
+    <string name="overlay_advice_medication">Keep taking your medication as prescribed by your healthcare provider.</string>
+    <string name="overlay_advice_asthma">Continue to follow your Asthma Action Plan.</string>
+    <string name="overlay_advice_diabetes">Keep taking prescribed diabetes pills and insulin and test your blood sugar every four hours. Make sure you have at least a two-week supply of your medication.</string>
+    <string name="overlay_advice_kidneydisease">Do not miss your dialysis treatments and store enough food to follow your Emergency Diet Plan if maintaining your normal treatment schedule is not possible.</string>
+    <string name="overlay_chance_90">You are very likely to have the coronavirus. We strongly suggest you get tested for COVID-19 and distance yourself as much as possible from others.</string>
+    <string name="overlay_chance_60">You are likely to have the coronavirus. We suggest you get tested for COVID-19. </string>
+    <string name="overlay_chance_40">You are at moderate risk of having the coronavirus. We suggest you stay at home and distance yourself as much as possible from others.</string>
+    <string name="overlay_chance_20">You are not likely to have the coronavirus. We still suggest that you avoid contacting others if possible.</string>
+    <string name="overlay_chance_0">You most likely do not have the coronavirus. However, we still suggest that you practice good social distancing protocols.</string>
+
 </resources>

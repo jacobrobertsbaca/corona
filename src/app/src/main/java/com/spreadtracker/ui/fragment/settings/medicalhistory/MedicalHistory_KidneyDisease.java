@@ -43,6 +43,7 @@ public class MedicalHistory_KidneyDisease extends SettingsFragment {
                                    @NonNull Set<String> advice) {
         if (store.containsKey(KIDNEYDISEASE)) {
             ailments.add(context.getString(R.string.settings_medicalhistory_kidneydisease_title));
+            advice.add(context.getString(R.string.overlay_advice_kidneydisease));
             return ISusceptibilityProvider.MODERATE;
 
         } else return ISusceptibilityProvider.MILD;

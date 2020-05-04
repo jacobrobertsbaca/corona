@@ -79,13 +79,8 @@ public class MainActivity extends NavigationActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_main);
         initializeMap(savedInstanceState);
         mLayout = findViewById(R.id.activity_main_layout);
-<<<<<<< HEAD
-
         createDatabase();
-
         showTutorial();
-=======
->>>>>>> 34bb74be4a6e04c372d66c98b43b6201b6bcd95c
     }
 
     @Override
