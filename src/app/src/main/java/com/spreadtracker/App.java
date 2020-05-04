@@ -5,6 +5,11 @@ import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
 
+import com.spreadtracker.contactstracing.Calculator;
+import com.spreadtracker.contactstracing.Database;
+import com.spreadtracker.contactstracing.Person;
+
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 /**
@@ -23,10 +28,35 @@ public class App extends Application {
         return instance.get();
     }
 
+    private static Database database;
+    private static Calculator calculator;
+    private static Person randomPerson;
+    public static Database getDatabase() { return database; }
+    public static Calculator getCalculator() {
+        return calculator;
+    }
+    public static Person getRandomPerson() {return randomPerson;}
+
+    /**
+     * Gets the infected percentage of the randomly selected user.
+     */
+    public static double getPercentage () {
+        final long now = 51L * 3600 * 1000 * 24 * 365;
+        return App.getCalculator().getInfectedPercentage(App.getRandomPerson().getId(), now);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = new WeakReference<>(this);
+        createDatabase();
+    }
+
+    private void createDatabase() {
+        File databaseFile = new File(getFilesDir(), "tracker.sqlite");
+        database = new Database(databaseFile);
+        calculator = new Calculator(database);
+        randomPerson = database.getRandomPerson();
     }
 
     // Taken from:

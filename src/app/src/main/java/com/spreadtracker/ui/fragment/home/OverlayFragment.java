@@ -48,17 +48,25 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
             root.setBackgroundColor(viewModel.getInfectedPercentageColor());
         });
 
-        long now = 51L * 3600 * 1000 * 24 * 365;
-        double percentage = MainActivity.getCalculator().getInfectedPercentage(MainActivity.getDatabase().getRandomPersonId(), now);
+        double percentage = App.getPercentage();
         viewModel.getInfectedPercentage().setValue(percentage);
 //        Set the percentage on screen to that of a random person in our 100-person sample.
 
         mAdviceAndInfo = root.findViewById(R.id.fragment_overlay_textAdviceAndInfo);
 
-        // Generate susceptibility report
+        // Generate susceptibility report and set advice text
         CovidReport covidReport = new CovidReport(App.getContext());
         ISusceptibilityProvider.Report report = covidReport.generateSusceptibilityReport();
         mAdviceAndInfo.setText(getAdviceString(report));
+
+        // Set risk text
+        String subtitle;
+        if (percentage >= .9) subtitle = getString(R.string.overlay_chance_90);
+        else if (percentage >= .6) subtitle = getString(R.string.overlay_chance_60);
+        else if (percentage >= .4) subtitle = getString(R.string.overlay_chance_40);
+        else if (percentage >= .2) subtitle = getString(R.string.overlay_chance_20);
+        else subtitle = getString(R.string.overlay_chance_0);
+        mInfectedSubtitle.setText(subtitle);
     }
 
     private String getAdviceString (ISusceptibilityProvider.Report report) {
@@ -94,7 +102,7 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
             adviceString.append(getString(R.string.overlay_susceptibility_notable, ailmentsString, getString(R.string.overlay_susceptibility_adverb_mild)));
         else adviceString.append(getString(R.string.overlay_susceptibility_minimal));
 
-        adviceString.append("\n\n");
+        adviceString.append("\n");
         for (String str : report.getAdvice()) {
             adviceString.append(str);
             adviceString.append(" ");

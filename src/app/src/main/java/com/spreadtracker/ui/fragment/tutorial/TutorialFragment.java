@@ -31,6 +31,8 @@ public class TutorialFragment extends BaseFragment<MainActivity> {
         adapter
                 .addPage(new TutorialPage(R.layout.view_tutorial_a))
                 .addPage(new TutorialPage(R.layout.view_tutorial_b))
+                .addPage(new TutorialPage(R.layout.view_tutorial_c))
+                .addPage(new RandomUserTutorialPage(R.layout.view_tutorial_d))
                 .addPage(new TutorialPage(0));
 
         // Setup tabs

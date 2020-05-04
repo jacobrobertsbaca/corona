@@ -17,6 +17,8 @@ import java.util.Random;
 public class Database {
     private final SQLiteDatabase database;
 
+    private static final Random RANDOM = new Random();
+
     private static final long TOTAL_INFECTED = 20;
     private static final long TOTAL_EVENTS = 200;
     private static final long TOTAL_PEOPLE = 100;
@@ -76,6 +78,20 @@ public class Database {
         Random rand = new Random();
         long id = rand.nextInt((int) countTable("person")) + 1;
         return(id);
+    }
+
+    public Person getRandomPerson () {
+        Person person = new Person();
+        long id = RANDOM.nextInt((int) countTable("person")) + 1;
+        String selectStatement = "SELECT p.firstName, p.lastName, p.dateOfBirth FROM person p WHERE p.id = ?";
+        try (Cursor cursor = database.rawQuery(selectStatement, new String[] {Long.toString(id)})) {
+            cursor.moveToNext();
+            person.setId(id);
+            person.setFirstName(cursor.getString(0));
+            person.setLastName(cursor.getString(1));
+            person.setDateOfBirth(new Date(cursor.getLong(2)));
+        }
+        return person;
     }
 
     public List<String> getPersonNames(){

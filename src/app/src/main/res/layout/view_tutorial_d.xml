@@ -16,41 +16,42 @@
             android:textSize="35sp"
             android:fontFamily="@font/segoeui_light"
             android:textColor="@color/white"
-            android:text="@string/tutorial_b_title_howitworks"/>
+            android:text="@string/tutorial_d_title"/>
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/network"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_profile"
             />
 
         <TextView
+            android:id="@+id/tutorial_c_randomname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="John Green"
+            android:gravity="center_horizontal"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:text="@string/tutorial_b_blurb_howitworks"/>
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/tutorial_c_randompercentage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="75% chance of having been infected"
+            android:layout_marginBottom="8dp"/>
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="35sp"
-            android:fontFamily="@font/segoeui_light"
-            android:textColor="@color/white"
-            android:text="@string/tutorial_b_title_infected"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:text="@string/tutorial_b_blurb_infected"/>
-
-
+            android:text="@string/tutorial_d_blurb"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

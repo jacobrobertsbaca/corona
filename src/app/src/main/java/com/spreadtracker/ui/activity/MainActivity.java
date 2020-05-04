@@ -61,17 +61,7 @@ public class MainActivity extends NavigationActivity implements OnMapReadyCallba
 
     private FusedLocationProviderClient mLocationClient;
 
-    private static Database database;
 
-    private static Calculator calculator;
-
-    public static Database getDatabase() {
-        return database;
-    }
-
-    public static Calculator getCalculator() {
-        return calculator;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +69,6 @@ public class MainActivity extends NavigationActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_main);
         initializeMap(savedInstanceState);
         mLayout = findViewById(R.id.activity_main_layout);
-        createDatabase();
         showTutorial();
     }
 
@@ -203,17 +192,6 @@ public class MainActivity extends NavigationActivity implements OnMapReadyCallba
                 if (onSuccess != null) onSuccess.onSuccess(points);
             } else ToastError.error(this, "Could not get current location!", Toast.LENGTH_LONG);
         });
-    }
-
-    private void createDatabase() {
-        File databaseFile = new File(App.getInstance().getApplicationContext().getFilesDir(), "tracker.sqlite");
-        database = new Database(databaseFile);
-        calculator = new Calculator(database);
-//        List<String> names = database.getPersonNames();
-//        List<Long> dates = database.getEventDates();
-//
-//        long now = 51L * 3600 * 1000 * 24 * 365;
-//        boolean eventBeforeToday = (dates.get(0) < now);
     }
 
     /*
