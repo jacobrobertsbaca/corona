@@ -10,6 +10,7 @@ import com.spreadtracker.App;
 import com.spreadtracker.contactstracing.Test;
 import com.spreadtracker.util.ArrayUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -35,13 +36,13 @@ public class SettingsStore {
         return getInstance(App.getContext());
     }
 
-    private Context mCtx; // A context to be used wherever necessary
+    private WeakReference<Context> mCtx; // A context to be used wherever necessary
     private SharedPreferences mPreferences; // Shared preferences instance to be used when reading/writing keys
     private TestData mTestData; // Proxy class for getting test information
 
     private SettingsStore (@NonNull Context ctx) {
-        mCtx = ctx;
-        mPreferences = mCtx.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
+        mCtx = new WeakReference<>(ctx);
+        mPreferences = mCtx.get().getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
         mTestData = new TestData(this);
     }
 

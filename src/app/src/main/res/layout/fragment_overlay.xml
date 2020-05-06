@@ -6,44 +6,54 @@
     android:layout_height="match_parent"
     android:background="@color/diseaseHealthy">
 
-    <TextView
-        android:id="@+id/fragment_overlay_textPercentage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/segoeui_light"
-        android:text="50%"
-        android:textColor="@color/white"
-        android:textSize="100sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/fragment_overlay_textPercentageSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:gravity="start"
-        android:fontFamily="@font/segoeui"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_overlay_textPercentage"
-        android:text="You are at moderate risk of getting the coronavirus."/>
-
-    <TextView
-        android:id="@+id/fragment_overlay_textAdviceAndInfo"
-        app:layout_constraintTop_toBottomOf="@id/fragment_overlay_textPercentageSubtitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:gravity="start"
-        android:textColor="@color/white"
-        android:text="Advice text goes here"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"/>
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias=".25">
+
+        <TextView
+            android:id="@+id/fragment_overlay_textPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoeui_light"
+            android:layout_gravity="center_horizontal"
+            android:text="50%"
+            android:textColor="@color/white"
+            android:textSize="100sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/fragment_overlay_textPercentageSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:gravity="start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_overlay_textPercentage"
+            android:text="You are at moderate risk of getting the coronavirus."/>
+
+        <TextView
+            android:id="@+id/fragment_overlay_textAdviceAndInfo"
+            app:layout_constraintTop_toBottomOf="@id/fragment_overlay_textPercentageSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:gravity="start"
+            android:textColor="@color/white"
+            android:text="Advice text goes here"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"/>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

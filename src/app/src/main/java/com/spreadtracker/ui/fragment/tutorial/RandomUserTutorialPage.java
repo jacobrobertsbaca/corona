@@ -26,9 +26,11 @@ public class RandomUserTutorialPage extends TutorialPage {
         personName = root.findViewById(R.id.tutorial_c_randomname);
         personPercentage = root.findViewById(R.id.tutorial_c_randompercentage);
 
-        Person randomPerson = App.getRandomPerson();
-        personName.setText(randomPerson.getFirstName() + " " + randomPerson.getLastName());
-        personPercentage.setText(getContext().getString(R.string.tutorial_d_randompercentage_format, (int) (App.getPercentage() * 100)));
+        App.getInstance().getContactTracer().addOnPersonChangedListener(person -> {
+            personName.setText(person.getFirstName() + " " + person.getLastName());
+            personPercentage.setText(getContext().getString(R.string.tutorial_d_randompercentage_format,
+                    (int) (App.getInstance().getContactTracer().getRandomPersonPercentage() * 100)));
+        }, true);
 
         return root;
     }

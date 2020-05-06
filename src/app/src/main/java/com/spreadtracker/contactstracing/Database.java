@@ -87,11 +87,15 @@ public class Database {
         }
     }
 
-    public long getRandomPersonId(){
-        Random rand = new Random();
-        long id = rand.nextInt((int) countTable("person")) + 1;
-        return(id);
+    public long countEvents () {
+        return TOTAL_EVENTS;
     }
+
+    public long countPersons () {
+        return TOTAL_PEOPLE;
+    }
+
+    public long countInfected () { return TOTAL_INFECTED; }
 
     public Person getRandomPerson () {
         Person person = new Person();

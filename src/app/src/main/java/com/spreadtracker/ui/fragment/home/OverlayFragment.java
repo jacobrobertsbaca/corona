@@ -48,25 +48,26 @@ public class OverlayFragment extends ViewModelFragment<MainActivity, HomeFragmen
             root.setBackgroundColor(viewModel.getInfectedPercentageColor());
         });
 
-        double percentage = App.getPercentage();
-        viewModel.getInfectedPercentage().setValue(percentage);
-//        Set the percentage on screen to that of a random person in our 100-person sample.
+        App.getInstance().getContactTracer().addOnPersonChangedListener(person -> {
+            // Set the percentage on screen to that of a random person in our 100-person sample.
+            double percentage = App.getInstance().getContactTracer().getRandomPersonPercentage();
+            viewModel.getInfectedPercentage().setValue(percentage);
 
+            // Set risk text
+            String subtitle;
+            if (percentage >= .9) subtitle = getString(R.string.overlay_chance_90);
+            else if (percentage >= .6) subtitle = getString(R.string.overlay_chance_60);
+            else if (percentage >= .4) subtitle = getString(R.string.overlay_chance_40);
+            else if (percentage >= .2) subtitle = getString(R.string.overlay_chance_20);
+            else subtitle = getString(R.string.overlay_chance_0);
+            mInfectedSubtitle.setText(subtitle);
+        }, true);
         mAdviceAndInfo = root.findViewById(R.id.fragment_overlay_textAdviceAndInfo);
 
         // Generate susceptibility report and set advice text
         CovidReport covidReport = new CovidReport(App.getContext());
         ISusceptibilityProvider.Report report = covidReport.generateSusceptibilityReport();
         mAdviceAndInfo.setText(getAdviceString(report));
-
-        // Set risk text
-        String subtitle;
-        if (percentage >= .9) subtitle = getString(R.string.overlay_chance_90);
-        else if (percentage >= .6) subtitle = getString(R.string.overlay_chance_60);
-        else if (percentage >= .4) subtitle = getString(R.string.overlay_chance_40);
-        else if (percentage >= .2) subtitle = getString(R.string.overlay_chance_20);
-        else subtitle = getString(R.string.overlay_chance_0);
-        mInfectedSubtitle.setText(subtitle);
     }
 
     private String getAdviceString (ISusceptibilityProvider.Report report) {

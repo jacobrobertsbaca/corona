@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="@font/segoeui_semilight"
         android:text="@string/tutorial_c_blurb"/>
 
 </LinearLayout>
