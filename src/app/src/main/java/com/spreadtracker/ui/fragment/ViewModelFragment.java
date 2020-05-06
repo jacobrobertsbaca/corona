@@ -25,7 +25,12 @@ public abstract class ViewModelFragment<TActivity extends FragmentActivity,
      * Override in a derived class to get the class object representing {@link TViewModel}
      * @return A class object representing the class of {@link TViewModel}
      */
-    // Note to self: fuck java
+    /*
+     * He gazed up at the enormous face. Forty years it had taken him to learn what kind of smile was hidden beneath the dark  moustache.
+     * O  cruel,  needless  misunderstanding!  O stubborn, self-willed exile from the loving breast! Two gin-scented tears trickled down
+     * the sides of his nose. But it was all right, everything was all right, the struggle was finished. He had won the victory over himself.
+     * He loved Java.
+     */
     @Nullable
     protected abstract Class<TViewModel> getViewModelClass ();
 

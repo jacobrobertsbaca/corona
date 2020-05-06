@@ -35,6 +35,9 @@
             android:fontFamily="@font/segoeui_light"
             android:textSize="18sp"
             android:backgroundTint="@color/white"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Text"
             android:visibility="gone"/>
 
