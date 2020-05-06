@@ -14,6 +14,12 @@ import com.spreadtracker.contactstracing.Database;
 import com.spreadtracker.contactstracing.Person;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 
 /**
@@ -38,6 +44,32 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = new WeakReference<>(this);
+
+        // Write the preloaded database to the database path
+        // This data contains the randomly generated names of people in the database
+        File dataDatabaseFile = new File(getFilesDir(), ContactTracer.DATABASE_PATH);
+        try {
+            if (dataDatabaseFile.createNewFile()) {
+                InputStream bakedDatabaseResource = getResources().openRawResource(R.raw.tracker);
+                FileOutputStream output = new FileOutputStream(dataDatabaseFile);
+
+                //transfer bytes from the inputfile to the outputfile
+                byte[] buffer = new byte[1024];
+                int length = bakedDatabaseResource.read(buffer);
+
+                while (length > 0) {
+                    output.write(buffer, 0, length);
+                    length = bakedDatabaseResource.read(buffer);
+                }
+
+                output.flush();
+                output.close();
+                bakedDatabaseResource.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         mTracer = new ContactTracer(this); // Create new ContactTracer object to wrap model calculations
     }
 

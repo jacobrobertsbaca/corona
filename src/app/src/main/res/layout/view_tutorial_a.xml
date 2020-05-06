@@ -24,14 +24,15 @@
             android:src="@mipmap/ic_logo_foreground"
             android:scaleX="1.8"
             android:scaleY="1.8"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginBottom="64dp"
             android:layout_gravity="center"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
+            android:fontFamily="@font/segoeui_semilight"
             android:textSize="20sp"
             android:text="@string/tutorial_a_blurb"/>
 

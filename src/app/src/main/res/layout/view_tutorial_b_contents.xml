@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="@font/segoeui_semilight"
         android:text="@string/tutorial_b_blurb_howitworks"/>
 
     <TextView
@@ -44,6 +45,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="@font/segoeui_semilight"
         android:text="@string/tutorial_b_blurb_infected"/>
 
 </LinearLayout>

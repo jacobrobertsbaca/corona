@@ -53,8 +53,8 @@ public class InfoFragment extends ViewModelLessNavigationFragment<MainActivity> 
 
         tracer.addOnPersonChangedListener(person -> {
             randomUserName.setText(person.getFirstName() + " " + person.getLastName());
-            randomUserPercentage.setText(getString(R.string.tutorial_d_randompercentage_format, (int) (tracer.getRandomPersonPercentage() * 100)));
-            prototypeText.setText(Html.fromHtml(getString(R.string.info_prototype, // using fromHtml to format the text
+            randomUserPercentage.setText(App.getContext().getString(R.string.tutorial_d_randompercentage_format, (int) (tracer.getRandomPersonPercentage() * 100)));
+            prototypeText.setText(Html.fromHtml(App.getContext().getString(R.string.info_prototype, // using fromHtml to format the text
                     database.countPersons(),
                     database.countInfected(),
                     database.countEvents(),

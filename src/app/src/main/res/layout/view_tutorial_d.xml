@@ -30,6 +30,7 @@
             android:id="@+id/tutorial_c_randomname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/segoeui_semilight"
             android:text="John Green"
             android:gravity="center_horizontal"
             android:textColor="@color/white"
@@ -42,6 +43,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/white"
             android:textSize="18sp"
+            android:fontFamily="@font/segoeui_semilight"
             android:text="75% chance of having been infected"
             android:layout_marginBottom="8dp"/>
 
@@ -51,6 +53,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="20sp"
+            android:fontFamily="@font/segoeui_semilight"
             android:text="@string/tutorial_d_blurb"/>
 
     </LinearLayout>

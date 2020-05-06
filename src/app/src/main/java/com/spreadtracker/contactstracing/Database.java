@@ -75,20 +75,14 @@ public class Database {
     }
 
     public long countEvents () {
-        return countTable("event");
+        return TOTAL_EVENTS;
     }
 
     public long countPersons () {
-        return countTable("person");
+        return TOTAL_PEOPLE;
     }
 
-    public long countInfected () {
-        long count = 0;
-        try (Cursor cursor = database.rawQuery("SELECT COUNT(*) FROM personTest WHERE result == 1", null)) {
-            while (cursor.moveToNext()) count++;
-        }
-        return count;
-    }
+    public long countInfected () { return TOTAL_INFECTED; }
 
     public Person getRandomPerson () {
         Person person = new Person();

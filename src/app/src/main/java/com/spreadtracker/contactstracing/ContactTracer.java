@@ -12,6 +12,8 @@ import java.util.Set;
  */
 public class ContactTracer {
 
+    public static final String DATABASE_PATH = "tracker.sqlite";
+
     /**
      * An interface representing a listener that will be notified when the currently selected
      * random user from the database in this class changes.
@@ -20,6 +22,7 @@ public class ContactTracer {
 
     private Set<OnPersonChangedListener> mPersonChangedListeners = new HashSet<>();
 
+    private double mRandomPersonCachedPercentage; // Cached percentage so we don't have to recalculate always
     private Person mRandomPerson;
     private Database mDatabase;
     private Calculator mCalculator;
@@ -43,6 +46,8 @@ public class ContactTracer {
     private void setRandomPerson (Person person) {
         if (person != mRandomPerson) {
             mRandomPerson = person;
+            final long now = 51L * 3600 * 1000 * 24 * 365;
+            mRandomPersonCachedPercentage = mCalculator.getInfectedPercentage(mRandomPerson.getId(), now);
             for (OnPersonChangedListener listener : mPersonChangedListeners)
                 if (listener != null) listener.onPersonChanged(person);
         }
@@ -58,8 +63,7 @@ public class ContactTracer {
      * from the database.
      */
     public double getRandomPersonPercentage () {
-        final long now = 51L * 3600 * 1000 * 24 * 365;
-        return mCalculator.getInfectedPercentage(mRandomPerson.getId(), now);
+        return mRandomPersonCachedPercentage;
     }
 
     /**
@@ -77,7 +81,7 @@ public class ContactTracer {
     public boolean removeOnPersonChangedListener (OnPersonChangedListener listener) {return mPersonChangedListeners.remove(listener); }
 
     private void createDatabase() {
-        File databaseFile = new File(mCtx.getFilesDir(), "tracker.sqlite");
+        File databaseFile = new File(mCtx.getFilesDir(), DATABASE_PATH);
         mDatabase = new Database(databaseFile);
         mCalculator = new Calculator(mDatabase);
         setRandomPerson(mDatabase.getRandomPerson());
