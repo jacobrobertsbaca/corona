@@ -38,7 +38,28 @@ public class App extends Application {
     }
     private ContactTracer mTracer;
 
+
+    private static Database database;
+    private static Calculator calculator;
+    private static Person randomPerson;
+    public static Database getDatabase() { return database; }
+    public static Calculator getCalculator() {
+        return calculator;
+    }
+    public static Person getRandomPerson() {return randomPerson;}
+
+    /**
+     * Gets the infected percentage of the randomly selected user.
+     */
+    public static double getPercentage () {
+        final long now = 51L * 3600 * 1000 * 24 * 365;
+        double avgPercentage = App.getCalculator().getAvgPercentage(now);
+//        for testing^
+        return App.getCalculator().getInfectedPercentage(App.getRandomPerson().getId(), now);
+    }
+
     public ContactTracer getContactTracer () { return mTracer; }
+
 
     @Override
     public void onCreate() {
