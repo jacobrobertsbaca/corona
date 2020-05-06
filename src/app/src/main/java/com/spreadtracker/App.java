@@ -42,6 +42,8 @@ public class App extends Application {
      */
     public static double getPercentage () {
         final long now = 51L * 3600 * 1000 * 24 * 365;
+        double avgPercentage = App.getCalculator().getAvgPercentage(now);
+//        for testing^
         return App.getCalculator().getInfectedPercentage(App.getRandomPerson().getId(), now);
     }
 

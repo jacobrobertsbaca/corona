@@ -46,6 +46,19 @@ public class Calculator {
         return(percentage);
     }
 
+    public double getAvgPercentage(long date){
+        long infected = Database.getTotalInfected();
+        long totalPeople = Database.getTotalPeople();
+        double partialSum = 0;
+        int i = (int) infected + 1;
+        while (i <= totalPeople){
+            double percentage = getInfectedPercentage(i, date);
+            partialSum += percentage;
+            i++;
+        }
+        return(partialSum/(totalPeople-infected));
+    }
+
     private List<Database.Connection[]> getPaths(long personId, long date){
 //        returns a list containing arrays of Connections for each path backwards.
         List<Database.Connection[]> paths = new ArrayList<Database.Connection[]>();
