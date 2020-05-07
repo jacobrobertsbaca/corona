@@ -74,7 +74,7 @@ public class GeneralSettingsFragment extends SettingsFragment {
         if (store.containsKey(SETTINGS_GENERAL_HEIGHT))
             height = store.readInt(SETTINGS_GENERAL_HEIGHT, defaultAmbiguousHeight);
         else {
-            switch (store.readString(General_SexFragment.SETTINGS_GENERAL_GENDER, null)) {
+            switch (store.readString(General_SexFragment.SETTINGS_GENERAL_GENDER, "")) {
                 case General_SexFragment.GENDER_MALE:
                     height = defaultMaleHeight;
                     break;
