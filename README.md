@@ -13,6 +13,6 @@ Using the built-in Bluetooth technology of users’ smartphones, COVIDTracker ge
 
 #### How to run the app
 
-The easiest way to run the app is to download and install Bluestacks. You can [find Bluestacks here](https://www.bluestacks.com/). Once Bluestacks has been downloaded and installed, you can download the APK file below, and double click on it to open the file in Bluestacks. Alternatively, if you have an Android device and a way of transfering and installing the downloaded APK file to that device, you can run the app physically as well. 
+The easiest way to run the app is to download and install Bluestacks. Bluestacks is an Android emulator that allows you to download and run Android apps from your computer. You can [find Bluestacks here](https://www.bluestacks.com/). Once Bluestacks has been downloaded and installed, you can download the APK file below, and double click on it to open the file in Bluestacks. Alternatively, if you have an Android device and a way of transfering and installing the downloaded APK file to that device, you can run the app physically as well. 
 
 ##### [Download the app here](https://github.com/rbjacob101/corona/releases/tag/v1.0.0)
